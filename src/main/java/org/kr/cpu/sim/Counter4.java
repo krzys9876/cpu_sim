@@ -23,8 +23,8 @@ public class Counter4 extends Component {
     }
 
     @Override
-    Component setInput(InputPin pin, boolean value) {
-        assert pin == PIN_CLK;
+    public Component setInput(int pinNo, boolean value) {
+        assert pinNo == PIN_CLK.order;
 
         state[0]
                 .setInput(DFlipFlop.PIN_D, state[0].output[DFlipFlop.PIN_nQ.order])
@@ -38,7 +38,7 @@ public class Counter4 extends Component {
         state[3]
                 .setInput(DFlipFlop.PIN_D, state[3].output[DFlipFlop.PIN_nQ.order])
                 .setInput(DFlipFlop.PIN_CLK, state[2].output[DFlipFlop.PIN_nQ.order]);
-        input[pin.order] = value;
+        input[pinNo] = value;
         updateOutput();
         return this;
     }

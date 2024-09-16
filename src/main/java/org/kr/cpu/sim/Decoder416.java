@@ -28,8 +28,8 @@ public class Decoder416 extends Component {
     }
 
     @Override
-    Component setInput(InputPin pin, boolean value) {
-        input[pin.order] = value;
+    public Component setInput(int pinNo, boolean value) {
+        input[pinNo] = value;
         if(!input[PIN_nEN.order])
             updateOutput();
         return this;

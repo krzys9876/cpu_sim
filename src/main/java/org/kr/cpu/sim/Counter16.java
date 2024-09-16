@@ -28,13 +28,13 @@ public class Counter16 extends Component {
     }
 
     @Override
-    Component setInput(InputPin pin, boolean value) {
-        assert pin == PIN_CLK;
+    public Component setInput(int pinNo, boolean value) {
+        assert pinNo == PIN_CLK.order;
 
-        state[0].setInput(pin, value);
+        state[0].setInput(pinNo, value);
         state[1].setInput(Counter8.PIN_CLK, state[0].output[Counter8.PIN_C.order]);
 
-        input[pin.order] = value;
+        input[pinNo] = value;
         updateOutput();
         return this;
     }

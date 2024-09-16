@@ -1,9 +1,11 @@
 package org.kr.cpu.sim;
 
-abstract class Component {
+public abstract class Component {
     final String id;
     final boolean[] input;
     final boolean[] output;
+
+    public boolean getOutput(int index) { return output[index];}
 
     Component(String id, boolean[] input, boolean[] output) {
         this.id = id;
@@ -23,5 +25,6 @@ abstract class Component {
         return txt.toString();
     }
 
-    abstract Component setInput(InputPin pin, boolean value);
+    public Component setInput(InputPin pin, boolean value) { return setInput(pin.order, value); }
+    public abstract Component setInput(int pinNo, boolean value);
 }
