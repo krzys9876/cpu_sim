@@ -21,14 +21,14 @@ public class Main {
 
         System.out.println("------------------");
 
-        Counter8 counter = new Counter8("CNT1");
+        Counter16 counter = new Counter16("CNT1");
 
         System.out.println(LocalDateTime.now());
         int max = 1000000;
-        int print = 1024;
+        int print = 2;
         for(int i = 0; i < max; i++) {
             boolean clk = i % 2 == 0;
-            counter.setInput(Counter8.PIN_CLK, clk);
+            counter.setInput(Counter16.PIN_CLK, clk);
             if(i<print || i>=(max-print)) {
                 System.out.println(i + " " + counter.fullTxt() + " " + LocalDateTime.now());
             }
