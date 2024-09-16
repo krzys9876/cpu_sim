@@ -15,9 +15,7 @@ public class Counter8 extends Component {
         super(id, new boolean[1], new boolean[9]);
     }
 
-    private Counter4[] state = new Counter4[] {
-            new Counter4("CNT1"), new Counter4("CNT2")
-    };
+    private final Counter4[] state = new Counter4[] { new Counter4("CNT1"), new Counter4("CNT2") };
 
     private void updateOutput() {
         for(int i = 0; i < 4; i++) {

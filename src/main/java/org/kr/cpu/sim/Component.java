@@ -11,23 +11,15 @@ abstract class Component {
         this.output = output;
     }
 
-    public String inputTxt() {
-        return arrTxt(input);
-    }
-
-    public String outputTxt() {
-        return arrTxt(output);
-    }
-
+    public String inputTxt() { return arrTxt(input); }
+    public String outputTxt() { return arrTxt(output);}
     public String fullTxt() {
         return id + " " + inputTxt() + " " + outputTxt();
     }
 
     private String arrTxt(boolean[] arr) {
         StringBuilder txt = new StringBuilder();
-        for(int i = 0; i < arr.length; i++) {
-            txt.append(arr[i] ? "1" : "0");
-        }
+        for (boolean b : arr) txt.append(b ? "1" : "0");
         return txt.toString();
     }
 

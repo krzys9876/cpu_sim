@@ -24,7 +24,7 @@ public class Main {
         Counter16 counter = new Counter16("CNT1");
 
         System.out.println(LocalDateTime.now());
-        int max = 1000000;
+        int max = 100000000;
         int print = 2;
         for(int i = 0; i < max; i++) {
             boolean clk = i % 2 == 0;
@@ -34,7 +34,6 @@ public class Main {
             }
         }
         System.out.println(LocalDateTime.now());
-
 
         System.out.println("END");
     }

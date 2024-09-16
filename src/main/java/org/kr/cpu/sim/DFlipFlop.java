@@ -6,9 +6,7 @@ public class DFlipFlop extends Component {
     static final OutputPin PIN_Q = new OutputPin("Q", 0);
     static final OutputPin PIN_nQ = new OutputPin("nQ", 1);
 
-    DFlipFlop(String id) {
-        super(id, new boolean[2], new boolean[2]);
-    }
+    DFlipFlop(String id) { super(id, new boolean[2], new boolean[2]); }
 
     private boolean state = false;
 
@@ -27,7 +25,5 @@ public class DFlipFlop extends Component {
     }
 
     @Override
-    public String fullTxt() {
-        return super.fullTxt() + " " + (state ? "1" : "0");
-    }
+    public String fullTxt() { return super.fullTxt() + " " + (state ? "1" : "0");}
 }
