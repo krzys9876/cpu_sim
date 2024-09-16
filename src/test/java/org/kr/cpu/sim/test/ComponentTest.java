@@ -25,9 +25,9 @@ public class ComponentTest {
     }
 
     private void testComponent(Component comp, boolean[][][] reference) {
-        for(int i=0; i<reference.length; i++) {
-            for(int j=0; j<reference[i][0].length; j++) comp.setInput(j, reference[i][0][j]);
-            for(int j=0; j<reference[i][1].length; j++) assert(comp.getOutput(j) == reference[i][1][j]);
-        };
+        for (boolean[][] testData : reference) {
+            for (int j = 0; j < testData[0].length; j++) comp.setInput(j, testData[0][j]);
+            for (int j = 0; j < testData[1].length; j++) assert (comp.getOutput(j) == testData[1][j]);
+        }
     }
 }

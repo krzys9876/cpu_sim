@@ -24,7 +24,7 @@ public class Main {
         Decoder416 dec = new Decoder416("DEC1");
         dec.setInput(Decoder416.PIN_nEN, false); // active low
         for(int i=0; i<16; i++) {
-            dec.setInput(Decoder416.PIN_D[0], ((i >> 0) & 1) > 0);
+            dec.setInput(Decoder416.PIN_D[0], (i & 1) > 0);
             dec.setInput(Decoder416.PIN_D[1], ((i >> 1) & 1) > 0);
             dec.setInput(Decoder416.PIN_D[2], ((i >> 2) & 1) > 0);
             dec.setInput(Decoder416.PIN_D[3], ((i >> 3) & 1) > 0);
@@ -32,7 +32,7 @@ public class Main {
         }
         dec.setInput(Decoder416.PIN_nEN, true); // active low
         for(int i=0; i<16; i++) {
-            dec.setInput(Decoder416.PIN_D[0], ((i >> 0) & 1) > 0);
+            dec.setInput(Decoder416.PIN_D[0], (i & 1) > 0);
             dec.setInput(Decoder416.PIN_D[1], ((i >> 1) & 1) > 0);
             dec.setInput(Decoder416.PIN_D[2], ((i >> 2) & 1) > 0);
             dec.setInput(Decoder416.PIN_D[3], ((i >> 3) & 1) > 0);
