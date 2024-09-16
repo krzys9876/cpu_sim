@@ -3,7 +3,7 @@ package org.kr.cpu.sim;
 public class Counter16 extends Component {
     static final InputPin PIN_CLK = new InputPin("CLK", 0);
     static final OutputPin[] PIN_Q = initQ();
-    static final OutputPin PIN_C = new OutputPin("C", 8);
+    static final OutputPin PIN_C = new OutputPin("C", 16);
 
     private static OutputPin[] initQ() {
         OutputPin[] arr = new OutputPin[16];
