@@ -6,9 +6,9 @@ public class DFlipFlop extends Component {
     static final OutputPin PIN_Q = new OutputPin("Q", 0);
     static final OutputPin PIN_nQ = new OutputPin("nQ", 1);
 
-    public DFlipFlop(String id) { super(id, new boolean[2], new boolean[2]); }
+    public DFlipFlop(String id) { super(id, new boolean[2], new boolean[] {true, false}); }
 
-    private boolean state = false;
+    private boolean state = true;
 
     private void updateOutput() {
         output[PIN_Q.order] = state;

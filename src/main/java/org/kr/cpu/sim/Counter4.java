@@ -8,7 +8,7 @@ public class Counter4 extends Component {
 
     static final OutputPin PIN_C = new OutputPin("C", 4);
 
-    Counter4(String id) { super(id, new boolean[1], new boolean[5]); }
+    public Counter4(String id) { super(id, new boolean[1], new boolean[5]); }
 
     private final DFlipFlop[] state = new DFlipFlop[] {
             new DFlipFlop("FF1"), new DFlipFlop("FF2"), new DFlipFlop("FF3"), new DFlipFlop("FF4")
