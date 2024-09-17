@@ -10,69 +10,23 @@ public class ComponentTest {
     @Test
     @DisplayName("Sample sequence for D-FLipFlop")
     void testDFLipFlop() {
-        // case no, input/output , pin
-        boolean[][][] referenceTable = new boolean[][][] {
-                {{false, false},{true, false}},
-                {{false, true},{false, true}},
-                {{false, false},{false, true}},
-                {{true, false},{false, true}},
-                {{true, true},{true, false}},
-                {{true, false},{true, false}},
-                {{false, false},{true, false}},
-                {{false, true},{false, true}}
-        };
         DFlipFlop dff = new DFlipFlop("FF1");
-        testComponent(dff, referenceTable);
+        testComponent(dff, new TestReference("DFlipFlop.txt", 2,2));
     }
 
     @Test
     @DisplayName("Truth table for Counter4")
     void testCounter4() {
-        // case no, input/output , pin
-        boolean[][][] referenceTable = new boolean[][][] {
-                {{false},{true, true, true, true, false}},
-                {{true},{false, false, false, false, true}},
-                {{false},{false, false, false, false, true}},
-                {{true},{true, false, false, false, true}},
-                {{false},{true, false, false, false, true}},
-                {{true},{false, true, false, false, true}},
-                {{false},{false, true, false, false, true}},
-                {{true},{true, true, false, false, true}},
-                {{false},{true, true, false, false, true}},
-                {{true},{false, false, true, false, true}},
-                {{false},{false, false, true, false, true}},
-                {{true},{true, false, true, false, true}},
-                {{false},{true, false, true, false, true}},
-                {{true},{false, true, true, false, true}},
-                {{false},{false, true, true, false, true}},
-                {{true},{true, true, true, false, true}},
-                {{false},{true, true, true, false, true}},
-                {{true},{false, false, false, true, false}},
-                {{false},{false, false, false, true, false}},
-                {{true},{true, false, false, true, false}},
-                {{false},{true, false, false, true, false}},
-                {{true},{false, true, false, true, false}},
-                {{false},{false, true, false, true, false}},
-                {{true},{true, true, false, true, false}},
-                {{false},{true, true, false, true, false}},
-                {{true},{false, false, true, true, false}},
-                {{false},{false, false, true, true, false}},
-                {{true},{true, false, true, true, false}},
-                {{false},{true, false, true, true, false}},
-                {{true},{false, true, true, true, false}},
-                {{false},{false, true, true, true, false}},
-                {{true},{true, true, true, true, false}},
-                {{false},{true, true, true, true, false}},
-                {{true},{false, false, false, false, true}}
-        };
         Counter4 cnt = new Counter4("CNT4");
-        testComponent(cnt, referenceTable);
+        testComponent(cnt, new TestReference("Counter4.txt", 1, 5));
     }
 
-    private void testComponent(Component comp, boolean[][][] reference) {
-        for (boolean[][] testData : reference) {
-            for (int j = 0; j < testData[0].length; j++) comp.setInput(j, testData[0][j]);
-            for (int j = 0; j < testData[1].length; j++) assert (comp.getOutput(j) == testData[1][j]);
+    private void testComponent(Component comp, TestReference reference) {
+        //reference.print();
+        for (int i = 0; i < reference.size(); i++) {
+            TestReferenceRow row = reference.getRow(i);
+            for (int j = 0; j < row.getInputSize(); j++) comp.setInput(j, row.getInput(j));
+            for (int j = 0; j < row.getOutputSize(); j++) assert (comp.getOutput(j) == row.getOutput(j));
         }
     }
 }
