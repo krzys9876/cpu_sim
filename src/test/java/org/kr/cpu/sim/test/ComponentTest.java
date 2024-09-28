@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.kr.cpu.sim.Counter4;
 import org.kr.cpu.sim.DFlipFlop;
 import org.kr.cpu.sim.Component;
+import org.kr.cpu.sim.Decoder416;
 
 public class ComponentTest {
     @Test
@@ -19,6 +20,13 @@ public class ComponentTest {
     void testCounter4() {
         Counter4 cnt = new Counter4("CNT4");
         testComponent(cnt, new TestReference("Counter4.txt", 1, 5));
+    }
+
+    @Test
+    @DisplayName(("Truth table for 4-to-16 decoder (74154)"))
+    void testDecoder4To16() {
+        Decoder416 dec = new Decoder416("DEC");
+        testComponent(dec, new TestReference("Decoder4To16.txt", 6, 16));
     }
 
     private void testComponent(Component comp, TestReference reference) {

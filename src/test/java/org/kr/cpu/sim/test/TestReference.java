@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 public class TestReference {
-    private ArrayList<TestReferenceRow> rows = new ArrayList<>();
+    private final ArrayList<TestReferenceRow> rows = new ArrayList<>();
 
     public void add(TestReferenceRow row) { rows.add(row); }
     public TestReferenceRow getRow(int i) { return rows.get(i); }

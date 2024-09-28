@@ -1,6 +1,8 @@
 package org.kr.cpu.sim;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.Temporal;
 
 public class Main {
     public static void main(String[] args) {
@@ -22,7 +24,8 @@ public class Main {
         System.out.println("------------------");
 
         Decoder416 dec = new Decoder416("DEC1");
-        dec.setInput(Decoder416.PIN_nEN, false); // active low
+        dec.setInput(Decoder416.PIN_nEN1, false); // active low
+        dec.setInput(Decoder416.PIN_nEN2, false); // active low
         for(int i=0; i<16; i++) {
             dec.setInput(Decoder416.PIN_D[0], (i & 1) > 0);
             dec.setInput(Decoder416.PIN_D[1], ((i >> 1) & 1) > 0);
@@ -30,7 +33,7 @@ public class Main {
             dec.setInput(Decoder416.PIN_D[3], ((i >> 3) & 1) > 0);
             System.out.println(i + " " + dec.fullTxt());
         }
-        dec.setInput(Decoder416.PIN_nEN, true); // active low
+        dec.setInput(Decoder416.PIN_nEN1, true); // active low
         for(int i=0; i<16; i++) {
             dec.setInput(Decoder416.PIN_D[0], (i & 1) > 0);
             dec.setInput(Decoder416.PIN_D[1], ((i >> 1) & 1) > 0);
@@ -43,7 +46,8 @@ public class Main {
 
         Counter16 counter = new Counter16("CNT1");
 
-        System.out.println(LocalDateTime.now());
+        LocalDateTime startTimestamp = LocalDateTime.now();
+        System.out.println(startTimestamp);
         int max = 1000000;
         int print = 2;
         for(int i = 0; i < max; i++) {
@@ -53,7 +57,11 @@ public class Main {
                 System.out.println(i + " " + counter.fullTxt() + " " + LocalDateTime.now());
             }
         }
-        System.out.println(LocalDateTime.now());
+        LocalDateTime endTimestamp = LocalDateTime.now();
+        System.out.println(endTimestamp);
+        long millis = startTimestamp.until(endTimestamp, ChronoUnit.MILLIS);
+        System.out.println("elapsed: " + millis+" ms");
+
 
         System.out.println("END");
     }
