@@ -96,6 +96,13 @@ public class ComponentTest {
         testComponent(flip, new TestReference("SignFlipper16.txt", 16, 16));
     }
 
+    @Test
+    @DisplayName(("Truth table for 8-bit line driver (74245)"))
+    void testLineDriver8() {
+        LineDriver8 driver = new LineDriver8("LD8");
+        testComponent(driver, new TestReference("LineDriver8.txt", 9, 8));
+    }
+
     private void testComponent(Component comp, TestReference reference) {
         //reference.print();
         for (int i = 0; i < reference.size(); i++) {
