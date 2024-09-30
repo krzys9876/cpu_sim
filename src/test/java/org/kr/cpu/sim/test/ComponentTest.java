@@ -65,7 +65,7 @@ public class ComponentTest {
     @DisplayName(("Truth table for 16-bit incrementer"))
     void testIncrementer16() {
         Incrementer16 inc = new Incrementer16("INC16");
-        testComponent(inc, new TestReference("Incrementer16.txt", 16, 16));
+        testComponent(inc, new TestReference("Incrementer16.txt", 16, 17));
     }
 
     private void testComponent(Component comp, TestReference reference) {

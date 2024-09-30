@@ -3,11 +3,12 @@ package org.kr.cpu.sim;
 public class Incrementer16 extends Component {
     static final InputPin[] PIN_A = initInputPins("A", 0, 16);
     static final OutputPin[] PIN_Y = initOutputPins("Y", 0, 16);
+    static final OutputPin PIN_C = new OutputPin("C", 16);
 
     private final Adder16 adder = new Adder16("ADD");
 
     public Incrementer16(String id) {
-        super(id, new boolean[16], new boolean[16]);
+        super(id, new boolean[16], new boolean[17]);
         // set C0 to 0 and B to 1 (add 1)
         adder.setInput(Adder16.PIN_C0.order, false);
         adder.setInput(Adder16.PIN_B[0].order, true);
@@ -20,7 +21,8 @@ public class Incrementer16 extends Component {
 
         input[pinNo] = value;
         adder.setInput(Adder16.PIN_A[pinNo].order, value);
-        for (int i = 0; i < 16; i++) output[i] = adder.getOutput(i);
+        for (int i = 0; i < 16; i++) output[PIN_Y[i].order] = adder.getOutput(Adder16.PIN_S[i].order);
+        output[PIN_C.order] = adder.getOutput(Adder16.PIN_C16.order); // carry
         return this;
     }
 }
