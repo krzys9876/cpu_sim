@@ -48,6 +48,20 @@ public class ComponentTest {
     }
 
     @Test
+    @DisplayName(("Truth table for 1-bit inverter"))
+    void testGateNot() {
+        GateNot not1 = new GateNot("NOT1");
+        testComponent(not1, new TestReference("GateNot.txt", 1, 1));
+    }
+
+    @Test
+    @DisplayName(("Truth table for 1-bit AND gate"))
+    void testGateAnd() {
+        GateAnd and1 = new GateAnd("AND1");
+        testComponent(and1, new TestReference("GateAnd.txt", 2, 1));
+    }
+
+    @Test
     @DisplayName(("Truth table for 6-bit inverter (7404)"))
     void testGateNot6() {
         GateNot6 not6 = new GateNot6("NOT6");
