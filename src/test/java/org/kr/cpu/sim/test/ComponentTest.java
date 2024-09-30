@@ -68,6 +68,13 @@ public class ComponentTest {
         testComponent(inc, new TestReference("Incrementer16.txt", 16, 17));
     }
 
+    @Test
+    @DisplayName(("Truth table for 16-bit sign flipper"))
+    void testSignFlipper16() {
+        SignFlipper16 flip = new SignFlipper16("FLIP16");
+        testComponent(flip, new TestReference("SignFlipper16.txt", 16, 16));
+    }
+
     private void testComponent(Component comp, TestReference reference) {
         //reference.print();
         for (int i = 0; i < reference.size(); i++) {
