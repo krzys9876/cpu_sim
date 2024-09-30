@@ -54,6 +54,13 @@ public class ComponentTest {
         testComponent(not6, new TestReference("GateNot6.txt", 6, 6));
     }
 
+    @Test
+    @DisplayName(("Truth table for 18-bit inverter (3 x 7404)"))
+    void testInverter18() {
+        Inverter18 inv = new Inverter18("NOT18");
+        testComponent(inv, new TestReference("Inverter18.txt", 18, 18));
+    }
+
     private void testComponent(Component comp, TestReference reference) {
         //reference.print();
         for (int i = 0; i < reference.size(); i++) {
