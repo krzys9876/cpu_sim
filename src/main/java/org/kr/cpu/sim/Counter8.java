@@ -2,14 +2,8 @@ package org.kr.cpu.sim;
 
 public class Counter8 extends Component {
     static final InputPin PIN_CLK = new InputPin("CLK", 0);
-    static final OutputPin[] PIN_Q = initQ();
+    static final OutputPin[] PIN_Q = initOutputPins("Q", 0, 8);
     static final OutputPin PIN_C = new OutputPin("C", 8);
-
-    private static OutputPin[] initQ() {
-        OutputPin[] arr = new OutputPin[8];
-        for(int i = 0; i < arr.length; i++) arr[i] = new OutputPin("Q"+i, i);
-        return arr;
-    }
 
     Counter8(String id) {
         super(id, new boolean[1], new boolean[9]);

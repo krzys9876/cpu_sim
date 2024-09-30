@@ -36,4 +36,17 @@ public abstract class Component {
     }
 
     public int decode1(InputPin pin) { return input[pin.order] ? 1 : 0;}
+
+    public static InputPin[] initInputPins(String prefix, int startPin, int count) {
+        InputPin[] arr = new InputPin[count];
+        for(int i = 0; i < arr.length; i++) arr[i] = new InputPin(prefix + i, startPin + i);
+        return arr;
+    }
+
+    public static OutputPin[] initOutputPins(String prefix, int startPin, int count) {
+        OutputPin[] arr = new OutputPin[count];
+        for(int i = 0; i < arr.length; i++) arr[i] = new OutputPin(prefix + i, startPin + i);
+        return arr;
+    }
+
 }

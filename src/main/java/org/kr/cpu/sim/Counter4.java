@@ -2,10 +2,7 @@ package org.kr.cpu.sim;
 
 public class Counter4 extends Component {
     static final InputPin PIN_CLK = new InputPin("CLK", 0);
-    static final OutputPin[] PIN_Q = new OutputPin[] {
-            new OutputPin("Q", 0), new OutputPin("Q", 1),
-            new OutputPin("Q", 2), new OutputPin("Q", 3)};
-
+    static final OutputPin[] PIN_Q = initOutputPins("Q", 0,4);
     static final OutputPin PIN_C = new OutputPin("C", 4);
 
     public Counter4(String id) { super(id, new boolean[1], new boolean[5]); }

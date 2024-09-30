@@ -2,14 +2,8 @@ package org.kr.cpu.sim;
 
 public class Counter16 extends Component {
     static final InputPin PIN_CLK = new InputPin("CLK", 0);
-    static final OutputPin[] PIN_Q = initQ();
+    static final OutputPin[] PIN_Q = initOutputPins("Q", 0, 16);
     static final OutputPin PIN_C = new OutputPin("C", 16);
-
-    private static OutputPin[] initQ() {
-        OutputPin[] arr = new OutputPin[16];
-        for(int i = 0; i < arr.length; i++) arr[i] = new OutputPin("Q"+i, i);
-        return arr;
-    }
 
     Counter16(String id) {
         super(id, new boolean[1], new boolean[17]);
