@@ -15,7 +15,7 @@ public class LineSelector2 extends Component {
         input[pinNo] = value;
         boolean selected = input[PIN_S.order];
         if(pinNo == PIN_S.order) {
-            for(int i=0; i<16; i++) output[PIN_Y[i].order] = input[selected ? PIN_B[i].order : PIN_A[i].order];;
+            for(int i=0; i<16; i++) output[PIN_Y[i].order] = input[selected ? PIN_B[i].order : PIN_A[i].order];
         } else if(pinNo<=PIN_A[15].order) {
             if(!selected) output[PIN_Y[pinNo-1].order] = input[PIN_A[pinNo-1].order];
         } else {
