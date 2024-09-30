@@ -103,6 +103,13 @@ public class ComponentTest {
         testComponent(driver, new TestReference("LineDriver8.txt", 9, 8));
     }
 
+    @Test
+    @DisplayName(("Truth table for 1 of 2 16-bit line selector (4 x 74245)"))
+    void testLineSelector2() {
+        LineSelector2 sel = new LineSelector2("SEL2");
+        testComponent(sel, new TestReference("LineSelector2.txt", 1+2*16, 16));
+    }
+
     private void testComponent(Component comp, TestReference reference) {
         //reference.print();
         for (int i = 0; i < reference.size(); i++) {
