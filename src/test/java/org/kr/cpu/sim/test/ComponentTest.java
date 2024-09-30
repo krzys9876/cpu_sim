@@ -40,11 +40,18 @@ public class ComponentTest {
         testComponent(adder, new TestReference("Adder8.txt", 17, 9));
     }
 
+    @Test
+    @DisplayName(("Truth table for 16-bit adder (2 x 2 x 7483)"))
+    void testAdder16() {
+        Adder16 adder = new Adder16("ADD16");
+        testComponent(adder, new TestReference("Adder16.txt", 2*16+1, 16+1));
+    }
+
     private void testComponent(Component comp, TestReference reference) {
         //reference.print();
         for (int i = 0; i < reference.size(); i++) {
             TestReferenceRow row = reference.getRow(i);
-            row.print();
+            //row.print();
             for (int j = 0; j < row.getInputSize(); j++) comp.setInput(j, row.getInput(j));
             for (int j = 0; j < row.getOutputSize(); j++) assert (comp.getOutput(j) == row.getOutput(j));
         }

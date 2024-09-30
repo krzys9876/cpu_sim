@@ -21,25 +21,25 @@ public class Adder8 extends Component {
     public Adder8(String id) { super(id, new boolean[17], new boolean[9]); }
 
     // Always update internal carry between ADD1 and ADD2
-    private void setInternalCarry() { state[1].setInput(0, state[0].getOutput(4)); }
+    private void setInternalCarry() { state[1].setInput(Adder4.PIN_C0.order, state[0].getOutput(Adder4.PIN_C4.order)); }
 
     private void updateOutput() {
         for(int i = 0; i < 4; i++) {
-            output[PIN_S[i].order] = state[0].output[Adder4.PIN_S[i].order];
-            output[PIN_S[i+4].order] = state[1].output[Adder4.PIN_S[i].order];
+            output[PIN_S[i].order] = state[0].output[Adder4.PIN_S[i].order]; // ADD1 S
+            output[PIN_S[i+4].order] = state[1].output[Adder4.PIN_S[i].order]; // ADD2 S
         }
-        output[PIN_C8.order] = state[1].output[Adder4.PIN_C4.order];
+        output[PIN_C8.order] = state[1].output[Adder4.PIN_C4.order]; // ADD2 C4
     }
 
     @Override
     public Component setInput(int pinNo, boolean value) {
         assert pinNo>=0 && pinNo<=16;
 
-        if (pinNo == 0) { state[0].setInput(0, value); setInternalCarry(); }
-        else if (pinNo <=4) { state[0].setInput(pinNo, value); setInternalCarry(); }
-        else if (pinNo <=8) { state[1].setInput(pinNo-4, value); }
-        else if (pinNo <=12) { state[0].setInput(pinNo-4, value); setInternalCarry(); }
-        else  { state[1].setInput(pinNo-8, value); }
+        if (pinNo == 0) { state[0].setInput(0, value); setInternalCarry(); } // ADD1 C0
+        else if (pinNo <=4) { state[0].setInput(pinNo, value); setInternalCarry(); } // ADD1 A
+        else if (pinNo <=8) { state[1].setInput(pinNo-4, value); } // ADD2 A
+        else if (pinNo <=12) { state[0].setInput(pinNo-4, value); setInternalCarry(); } // ADD1 B
+        else  { state[1].setInput(pinNo-8, value); } // ADD2 B
 
         updateOutput();
         return this;
