@@ -12,4 +12,14 @@ public class TestReferenceRow {
     public boolean getOutput(int i) { return output.get(i); }
     public int getInputSize() { return input.size(); }
     public int getOutputSize() { return output.size(); }
+
+    public void print() {
+        System.out.println("input");
+        for (int j=0; j<getInputSize(); j++) { System.out.print(getInput(j) + " "); }
+        System.out.println();
+        System.out.println("output");
+        for(int j=0; j<getOutputSize(); j++) { System.out.print(getOutput(j) + " "); }
+        System.out.println();
+    }
+
 }

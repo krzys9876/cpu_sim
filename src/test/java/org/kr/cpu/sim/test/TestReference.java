@@ -41,13 +41,7 @@ public class TestReference {
 
     public void print() {
         for(int i=0; i< size(); i++) {
-            TestReferenceRow row = getRow(i);
-            System.out.println("input");
-            for(int j=0; j<row.getInputSize(); j++) { System.out.print(row.getInput(j) + " "); }
-            System.out.println();
-            System.out.println("output");
-            for(int j=0; j<row.getOutputSize(); j++) { System.out.print(row.getOutput(j) + " "); }
-            System.out.println();
+            getRow(i).print();
         }
     }
 }
