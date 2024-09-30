@@ -2,10 +2,7 @@ package org.kr.cpu.sim.test;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.kr.cpu.sim.Counter4;
-import org.kr.cpu.sim.DFlipFlop;
-import org.kr.cpu.sim.Component;
-import org.kr.cpu.sim.Decoder416;
+import org.kr.cpu.sim.*;
 
 public class ComponentTest {
     @Test
@@ -27,6 +24,13 @@ public class ComponentTest {
     void testDecoder4To16() {
         Decoder416 dec = new Decoder416("DEC");
         testComponent(dec, new TestReference("Decoder4To16.txt", 6, 16));
+    }
+
+    @Test
+    @DisplayName(("Truth table for 4-bit adder (7483)"))
+    void testAdder4() {
+        Adder4 adder = new Adder4("ADD4");
+        testComponent(adder, new TestReference("Adder4.txt", 9, 5));
     }
 
     private void testComponent(Component comp, TestReference reference) {

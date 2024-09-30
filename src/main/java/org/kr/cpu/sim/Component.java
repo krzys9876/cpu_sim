@@ -27,4 +27,13 @@ public abstract class Component {
 
     public Component setInput(InputPin pin, boolean value) { return setInput(pin.order, value); }
     public abstract Component setInput(int pinNo, boolean value);
+
+    public int decode4(InputPin[] pins) {
+        return (input[pins[0].order] ? 1 : 0) +
+                (input[pins[1].order] ? 2 : 0) +
+                (input[pins[2].order] ? 4 : 0) +
+                (input[pins[3].order] ? 8 : 0);
+    }
+
+    public int decode1(InputPin pin) { return input[pin.order] ? 1 : 0;}
 }
