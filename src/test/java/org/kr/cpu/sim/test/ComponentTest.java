@@ -104,6 +104,13 @@ public class ComponentTest {
     }
 
     @Test
+    @DisplayName(("Truth table for 16-bit line driver (2 x 74245)"))
+    void testLineDriver16() {
+        LineDriver16 driver = new LineDriver16("LD16");
+        testComponent(driver, new TestReference("LineDriver16.txt", 17, 16));
+    }
+
+    @Test
     @DisplayName(("Truth table for 1 of 2 16-bit line selector (4 x 74245)"))
     void testLineSelector2() {
         LineSelector2 sel = new LineSelector2("SEL2");
@@ -121,7 +128,7 @@ public class ComponentTest {
         //reference.print();
         for (int i = 0; i < reference.size(); i++) {
             TestReferenceRow row = reference.getRow(i);
-            //row.print();
+            row.print();
             for (int j = 0; j < row.getInputSize(); j++) comp.setInput(j, row.getInput(j));
             for (int j = 0; j < row.getOutputSize(); j++) assert (comp.getOutput(j) == row.getOutput(j));
         }
