@@ -6,12 +6,21 @@ public class Alu extends Component {
     static final InputPin[] PIN_B = initInputPins("B", 4+16, 16);
     static final OutputPin[] PIN_Y = initOutputPins("Y", 0, 16);
 
-    public Alu(String id)  { super(id, new boolean[4+2*16], new boolean[16]); }
-
     private Decoder416 decoder = new Decoder416("OPD");
     private SignFlipper16 signFlipper = new SignFlipper16("SF");
-    private LineSelector2 lineSelector = new LineSelector2("LS");
+    private LineSelector2 addSubSelector = new LineSelector2("SELAS");
+    private LineSelector2 incDecSelector = new LineSelector2("SELID");
     private Adder16 adder = new Adder16("AD");
+
+    public Alu(String id)  {
+        super(id, new boolean[4+2*16], new boolean[16]);
+        // set inc/dec inputs to 1 / -1 respectively
+        for(int i=0; i<16; i++) {
+            incDecSelector.setInput(LineSelector2.PIN_A[i].order, false); // 1
+            incDecSelector.setInput(LineSelector2.PIN_B[i].order, true); // -1
+        }
+        incDecSelector.setInput(LineSelector2.PIN_A[0].order, true);
+    }
 
     private void updateOutput() {
         // update operation decoder
@@ -22,16 +31,16 @@ public class Alu extends Component {
         for(int i=0; i<16; i++) signFlipper.setInput(SignFlipper16.PIN_A[i].order, input[PIN_B[i].order]);
         // update line selector
         // 1000 - ADD, 1001 - SUB
-        lineSelector.setInput(LineSelector2.PIN_S.order, decoder.getOutput(Decoder416.PIN_Q[8].order)); // ADD operation selects input B, otherwise B with sign flipped
+        addSubSelector.setInput(LineSelector2.PIN_S.order, decoder.getOutput(Decoder416.PIN_Q[8].order)); // ADD operation selects input B, otherwise B with sign flipped
         for(int i=0; i<16; i++) {
-            lineSelector.setInput(LineSelector2.PIN_A[i].order, input[PIN_B[i].order]);
-            lineSelector.setInput(LineSelector2.PIN_B[i].order, signFlipper.getOutput(SignFlipper16.PIN_Y[i].order));
+            addSubSelector.setInput(LineSelector2.PIN_A[i].order, input[PIN_B[i].order]);
+            addSubSelector.setInput(LineSelector2.PIN_B[i].order, signFlipper.getOutput(SignFlipper16.PIN_Y[i].order));
         }
         // update adder
         adder.setInput(Adder16.PIN_C0, false);
         for(int i=0; i<16; i++) {
             adder.setInput(Adder16.PIN_A[i].order, input[PIN_A[i].order]);
-            adder.setInput(Adder16.PIN_B[i].order, lineSelector.getOutput(LineSelector2.PIN_Y[i].order));
+            adder.setInput(Adder16.PIN_B[i].order, addSubSelector.getOutput(LineSelector2.PIN_Y[i].order));
         }
         // update output
         for(int i=0; i<16; i++) output[PIN_Y[i].order] = adder.getOutput(Adder16.PIN_S[i].order);
