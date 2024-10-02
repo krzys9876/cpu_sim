@@ -25,8 +25,8 @@ public class Alu extends Component {
 
     private void updateOutput() {
         // update operation decoder
-        decoder.setInput(Decoder416.PIN_nEN1.order, false); // active low
-        decoder.setInput(Decoder416.PIN_nEN2.order, false); // active low
+        decoder.setInput(Decoder416.PIN_EN1.order, false); // active low
+        decoder.setInput(Decoder416.PIN_EN2.order, false); // active low
         for(int i=0; i<4; i++) decoder.setInput(Decoder416.PIN_D[i].order, getInput(PIN_O[i].order));
         // update sign flipper (flip sign of B input)
         for(int i=0; i<16; i++) signFlipper.setInput(SignFlipper16.PIN_A[i].order, getInput(PIN_B[i].order));

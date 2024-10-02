@@ -8,8 +8,8 @@ public class LineSelector2 extends Component {
 
     public LineSelector2(String id) { super(id, new boolean[1+2*16], new boolean[16]); }
 
-    private GateNot select = new GateNot("NOT");
-    private LineDriver8 lines[] = new LineDriver8[] {
+    private final GateNot select = new GateNot("NOT");
+    private final LineDriver8[] lines = new LineDriver8[] {
             new LineDriver8("LA1"), new LineDriver8("LA2"),new LineDriver8("LB1"), new LineDriver8("LB2"),
     };
 
