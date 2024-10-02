@@ -8,13 +8,13 @@ public class Decoder416 extends Component {
     static final OutputPin[] PIN_Q = initOutputPins("Q", 0, 16);
 
     private void updateOutput() {
-        int decoded = (input[PIN_D[0].order] ? 1 : 0) +
-                (input[PIN_D[1].order] ? 2 : 0) +
-                (input[PIN_D[2].order] ? 4 : 0) +
-                (input[PIN_D[3].order] ? 8 : 0);
+        int decoded = (getInput(PIN_D[0].order) ? 1 : 0) +
+                (getInput(PIN_D[1].order) ? 2 : 0) +
+                (getInput(PIN_D[2].order) ? 4 : 0) +
+                (getInput(PIN_D[3].order) ? 8 : 0);
         // NOTE: output active low
         for(int i = 0; i < PIN_Q.length; i++) {
-            output[PIN_Q[i].order] = i != decoded || input[PIN_nEN1.order] || input[PIN_nEN2.order];
+            setOutput(PIN_Q[i].order, i != decoded || getInput(PIN_nEN1.order) || getInput(PIN_nEN2.order));
         }
     }
 
@@ -24,7 +24,8 @@ public class Decoder416 extends Component {
 
     @Override
     public Component setInput(int pinNo, boolean value) {
-        input[pinNo] = value;
+        assert pinNo >= 0 && pinNo <= 5;
+        setInputDirect(pinNo, value);
         updateOutput();
         return this;
     }

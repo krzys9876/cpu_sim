@@ -11,9 +11,9 @@ public class LineDriver8 extends Component {
     public Component setInput(int pinNo, boolean value) {
         assert pinNo>=0 && pinNo<=9;
 
-        input[pinNo] = value;
-        if(!input[PIN_EN.order]) // EN active low
-            for (int i=0; i<8; i++) output[PIN_Y[i].order] = input[PIN_A[i].order];
+        setInputDirect(pinNo, value);
+        if(!getInput(PIN_EN.order)) // EN active low
+            for (int i=0; i<8; i++) setOutput(PIN_Y[i].order, getInput(PIN_A[i].order));
         return this;
     }
 }

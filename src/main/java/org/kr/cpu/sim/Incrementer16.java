@@ -19,10 +19,10 @@ public class Incrementer16 extends Component {
     public Component setInput(int pinNo, boolean value) {
         assert pinNo >= 0 && pinNo < 16;
 
-        input[pinNo] = value;
+        setInputDirect(pinNo, value);
         adder.setInput(Adder16.PIN_A[pinNo].order, value);
-        for (int i = 0; i < 16; i++) output[PIN_Y[i].order] = adder.getOutput(Adder16.PIN_S[i].order);
-        output[PIN_C.order] = adder.getOutput(Adder16.PIN_C16.order); // carry
+        for (int i = 0; i < 16; i++) setOutput(PIN_Y[i].order, adder.getOutput(Adder16.PIN_S[i].order));
+        setOutput(PIN_C.order, adder.getOutput(Adder16.PIN_C16.order)); // carry
         return this;
     }
 }

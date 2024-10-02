@@ -17,13 +17,13 @@ public class Inverter18 extends Component {
 
         if (pinNo<6) {
             state[0].setInput(GateNot6.PIN_A[pinNo].order, value);
-            output[PIN_Y[pinNo].order] = state[0].output[GateNot6.PIN_Y[pinNo].order];
+            setOutput(PIN_Y[pinNo].order, state[0].getOutput(GateNot6.PIN_Y[pinNo].order));
         } else if (pinNo<12) {
             state[1].setInput(GateNot6.PIN_A[pinNo-6].order, value);
-            output[PIN_Y[pinNo].order] = state[1].output[GateNot6.PIN_Y[pinNo-6].order];
+            setOutput(PIN_Y[pinNo].order, state[1].getOutput(GateNot6.PIN_Y[pinNo-6].order));
         } else {
             state[2].setInput(GateNot6.PIN_A[pinNo-12].order, value);
-            output[PIN_Y[pinNo].order] = state[2].output[GateNot6.PIN_Y[pinNo-12].order];
+            setOutput(PIN_Y[pinNo].order, state[2].getOutput(GateNot6.PIN_Y[pinNo-12].order));
         }
         return this;
     }

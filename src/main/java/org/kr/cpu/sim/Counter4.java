@@ -12,11 +12,11 @@ public class Counter4 extends Component {
     };
 
     private void updateOutput() {
-        output[PIN_Q[0].order] = state[0].output[DFlipFlop.PIN_Q.order];
-        output[PIN_Q[1].order] = state[1].output[DFlipFlop.PIN_Q.order];
-        output[PIN_Q[2].order] = state[2].output[DFlipFlop.PIN_Q.order];
-        output[PIN_Q[3].order] = state[3].output[DFlipFlop.PIN_Q.order];
-        output[PIN_C.order] = state[3].output[DFlipFlop.PIN_nQ.order];
+        setOutput(PIN_Q[0].order, state[0].getOutput(DFlipFlop.PIN_Q.order));
+        setOutput(PIN_Q[1].order, state[1].getOutput(DFlipFlop.PIN_Q.order));
+        setOutput(PIN_Q[2].order, state[2].getOutput(DFlipFlop.PIN_Q.order));
+        setOutput(PIN_Q[3].order, state[3].getOutput(DFlipFlop.PIN_Q.order));
+        setOutput(PIN_C.order, state[3].getOutput(DFlipFlop.PIN_nQ.order));
     }
 
     @Override
@@ -24,18 +24,18 @@ public class Counter4 extends Component {
         assert pinNo == PIN_CLK.order;
 
         state[0]
-                .setInput(DFlipFlop.PIN_D, state[0].output[DFlipFlop.PIN_nQ.order])
+                .setInput(DFlipFlop.PIN_D, state[0].getOutput(DFlipFlop.PIN_nQ.order))
                 .setInput(DFlipFlop.PIN_CLK, value);
         state[1]
-                .setInput(DFlipFlop.PIN_D, state[1].output[DFlipFlop.PIN_nQ.order])
-                .setInput(DFlipFlop.PIN_CLK, state[0].output[DFlipFlop.PIN_nQ.order]);
+                .setInput(DFlipFlop.PIN_D, state[1].getOutput(DFlipFlop.PIN_nQ.order))
+                .setInput(DFlipFlop.PIN_CLK, state[0].getOutput(DFlipFlop.PIN_nQ.order));
         state[2]
-                .setInput(DFlipFlop.PIN_D, state[2].output[DFlipFlop.PIN_nQ.order])
-                .setInput(DFlipFlop.PIN_CLK, state[1].output[DFlipFlop.PIN_nQ.order]);
+                .setInput(DFlipFlop.PIN_D, state[2].getOutput(DFlipFlop.PIN_nQ.order))
+                .setInput(DFlipFlop.PIN_CLK, state[1].getOutput(DFlipFlop.PIN_nQ.order));
         state[3]
-                .setInput(DFlipFlop.PIN_D, state[3].output[DFlipFlop.PIN_nQ.order])
-                .setInput(DFlipFlop.PIN_CLK, state[2].output[DFlipFlop.PIN_nQ.order]);
-        input[pinNo] = value;
+                .setInput(DFlipFlop.PIN_D, state[3].getOutput(DFlipFlop.PIN_nQ.order))
+                .setInput(DFlipFlop.PIN_CLK, state[2].getOutput(DFlipFlop.PIN_nQ.order));
+        setInputDirect(pinNo, value);
         updateOutput();
         return this;
     }

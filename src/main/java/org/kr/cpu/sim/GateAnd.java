@@ -11,8 +11,8 @@ public class GateAnd extends Component {
     public Component setInput(int pinNo, boolean value) {
         assert pinNo>=0 && pinNo<=2;
 
-        input[pinNo] = value;
-        output[PIN_Y.order] = input[PIN_A.order] && input[PIN_B.order];
+        setInputDirect(pinNo, value);
+        setOutput(PIN_Y.order, getInput(PIN_A.order) && getInput(PIN_B.order));
         return this;
     }
 }

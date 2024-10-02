@@ -17,7 +17,7 @@ public class LineSelector2 extends Component {
     public Component setInput(int pinNo, boolean value) {
         assert pinNo>=0 && pinNo<=1+2*16;
 
-        input[pinNo] = value;
+        setInputDirect(pinNo, value);
         if(pinNo == PIN_S.order) {
             select.setInput(GateNot.PIN_A, value);
             lines[0].setInput(LineDriver8.PIN_EN.order, value); // S = 0 -> A
@@ -30,10 +30,10 @@ public class LineSelector2 extends Component {
         else if(pinNo<=PIN_B[7].order) lines[2].setInput(LineDriver8.PIN_A[pinNo-16-1].order, value);
         else lines[3].setInput(LineDriver8.PIN_A[pinNo-16-8-1].order, value);
 
-        boolean selected = input[PIN_S.order]; // 1 -> B, 0 -> A
+        boolean selected = getInput(PIN_S.order); // 1 -> B, 0 -> A
         for(int i=0; i<8; i++) {
-            output[PIN_Y[i].order] = (selected ? lines[2] : lines[0]).getOutput(LineDriver8.PIN_Y[i].order);
-            output[PIN_Y[i+8].order] = (selected ? lines[3] : lines[1]).getOutput(LineDriver8.PIN_Y[i].order);
+            setOutput(PIN_Y[i].order, (selected ? lines[2] : lines[0]).getOutput(LineDriver8.PIN_Y[i].order));
+            setOutput(PIN_Y[i+8].order, (selected ? lines[3] : lines[1]).getOutput(LineDriver8.PIN_Y[i].order));
         }
         return this;
     }

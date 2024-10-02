@@ -11,15 +11,15 @@ public class DFlipFlop extends Component {
     private boolean state = true;
 
     private void updateOutput() {
-        output[PIN_Q.order] = state;
-        output[PIN_nQ.order] = !state;
+        setOutput(PIN_Q.order,  state);
+        setOutput(PIN_nQ.order, !state);
     }
 
     @Override
     public Component setInput(int pinNo, boolean value) {
-        boolean clkRisingEdge = pinNo == PIN_CLK.order && value && !input[PIN_CLK.order];
-        state = clkRisingEdge ? input[PIN_D.order] : state;
-        input[pinNo] = value;
+        boolean clkRisingEdge = pinNo == PIN_CLK.order && value && !getInput(PIN_CLK.order);
+        state = clkRisingEdge ? getInput(PIN_D.order) : state;
+        setInputDirect(pinNo, value);
         updateOutput();
         return this;
     }

@@ -12,8 +12,10 @@ public class GateNot6 extends Component {
 
     @Override
     public Component setInput(int pinNo, boolean value) {
-        input[pinNo] = value;
-        output[pinNo] = !value;
+        assert pinNo >= 0 && pinNo <= 5;
+
+        setInputDirect(pinNo, value);
+        setOutput(pinNo, !value);
         return this;
     }
 }

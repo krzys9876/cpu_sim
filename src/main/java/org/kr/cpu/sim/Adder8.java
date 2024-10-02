@@ -16,10 +16,10 @@ public class Adder8 extends Component {
 
     private void updateOutput() {
         for(int i = 0; i < 4; i++) {
-            output[PIN_S[i].order] = state[0].output[Adder4.PIN_S[i].order]; // ADD1 S
-            output[PIN_S[i+4].order] = state[1].output[Adder4.PIN_S[i].order]; // ADD2 S
+            setOutput(PIN_S[i].order, state[0].getOutput(Adder4.PIN_S[i].order)); // ADD1 S
+            setOutput(PIN_S[i+4].order, state[1].getOutput(Adder4.PIN_S[i].order)); // ADD2 S
         }
-        output[PIN_C8.order] = state[1].output[Adder4.PIN_C4.order]; // ADD2 C4
+        setOutput(PIN_C8.order, state[1].getOutput(Adder4.PIN_C4.order)); // ADD2 C4
     }
 
     @Override

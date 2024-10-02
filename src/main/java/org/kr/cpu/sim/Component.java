@@ -2,10 +2,11 @@ package org.kr.cpu.sim;
 
 public abstract class Component {
     final String id;
-    final boolean[] input;
-    final boolean[] output;
+    private final boolean[] input;
+    private final boolean[] output;
 
     public boolean getOutput(int index) { return output[index];}
+    public void setOutput(int index, boolean value) { output[index] = value;}
 
     Component(String id, boolean[] input, boolean[] output) {
         this.id = id;
@@ -27,6 +28,8 @@ public abstract class Component {
 
     public Component setInput(InputPin pin, boolean value) { return setInput(pin.order, value); }
     public abstract Component setInput(int pinNo, boolean value);
+    public void setInputDirect(int pinNo, boolean value) { input[pinNo] = value; }
+    public boolean getInput(int index) { return input[index]; }
 
     public int decode4(InputPin[] pins) {
         return (input[pins[0].order] ? 1 : 0) +

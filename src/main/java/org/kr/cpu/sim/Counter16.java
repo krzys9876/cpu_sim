@@ -15,10 +15,10 @@ public class Counter16 extends Component {
 
     private void updateOutput() {
         for(int i = 0; i < 8; i++) {
-            output[PIN_Q[i].order] = state[0].output[Counter8.PIN_Q[i].order];
-            output[PIN_Q[i+8].order] = state[1].output[Counter8.PIN_Q[i].order];
+            setOutput(PIN_Q[i].order, state[0].getOutput(Counter8.PIN_Q[i].order));
+            setOutput(PIN_Q[i+8].order, state[1].getOutput(Counter8.PIN_Q[i].order));
         }
-        output[PIN_C.order] = state[1].output[Counter8.PIN_C.order];
+        setOutput(PIN_C.order, state[1].getOutput(Counter8.PIN_C.order));
     }
 
     @Override
@@ -26,9 +26,9 @@ public class Counter16 extends Component {
         assert pinNo == PIN_CLK.order;
 
         state[0].setInput(pinNo, value);
-        state[1].setInput(Counter8.PIN_CLK, state[0].output[Counter8.PIN_C.order]);
+        state[1].setInput(Counter8.PIN_CLK, state[0].getOutput(Counter8.PIN_C.order));
 
-        input[pinNo] = value;
+        setInputDirect(pinNo, value);
         updateOutput();
         return this;
     }
