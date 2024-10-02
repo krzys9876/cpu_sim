@@ -7,7 +7,7 @@ public class LineDriver16 extends Component {
 
     public LineDriver16(String id) { super(id, new boolean[17], new boolean[16]); }
 
-    private final LineDriver8 lines[] = new LineDriver8[] {new LineDriver8("L1"), new LineDriver8("L2")};
+    private final LineDriver8[] lines = new LineDriver8[] {new LineDriver8("L1"), new LineDriver8("L2")};
 
     private void updateOutput() {
         for(int i=0; i<8; i++) {
