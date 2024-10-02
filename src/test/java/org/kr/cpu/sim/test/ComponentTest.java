@@ -128,7 +128,7 @@ public class ComponentTest {
         //reference.print();
         for (int i = 0; i < reference.size(); i++) {
             TestReferenceRow row = reference.getRow(i);
-            row.print();
+            //row.print();
             for (int j = 0; j < row.getInputSize(); j++) comp.setInput(j, row.getInput(j));
             for (int j = 0; j < row.getOutputSize(); j++) assert (comp.getOutput(j) == row.getOutput(j));
         }
