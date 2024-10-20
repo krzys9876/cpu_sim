@@ -55,10 +55,17 @@ public class ComponentTest {
     }
 
     @Test
-    @DisplayName(("Truth table for 1-bit AND gate"))
+    @DisplayName(("Truth table for AND gate"))
     void testGateAnd() {
         GateAnd and1 = new GateAnd("AND1");
         testComponent(and1, new TestReference("GateAnd.txt", 2, 1));
+    }
+
+    @Test
+    @DisplayName(("Truth table for OR gate"))
+    void testGateOr() {
+        GateOr or1 = new GateOr("OR1");
+        testComponent(or1, new TestReference("GateOr.txt", 2, 1));
     }
 
     @Test
@@ -72,7 +79,7 @@ public class ComponentTest {
     @DisplayName(("Truth table for quad AND gate (7408)"))
     void testGateAnd4() {
         GateAnd4 and4 = new GateAnd4("AND4");
-        testComponent(and4, new TestReference("GateAnd4.txt", 8, 4));
+        testComponent(and4, new TestReference("GateAnd4x2.txt", 8, 4));
     }
 
     @Test
