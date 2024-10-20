@@ -2,7 +2,6 @@ package org.kr.cpu.sim;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.Temporal;
 
 public class Main {
     public static void main(String[] args) {
@@ -24,8 +23,8 @@ public class Main {
         System.out.println("------------------");
 
         Decoder416 dec = new Decoder416("DEC1");
-        dec.setInput(Decoder416.PIN_nEN1, false); // active low
-        dec.setInput(Decoder416.PIN_nEN2, false); // active low
+        dec.setInput(Decoder416.PIN_EN1, false); // active low
+        dec.setInput(Decoder416.PIN_EN2, false); // active low
         for(int i=0; i<16; i++) {
             dec.setInput(Decoder416.PIN_D[0], (i & 1) > 0);
             dec.setInput(Decoder416.PIN_D[1], ((i >> 1) & 1) > 0);
@@ -33,7 +32,7 @@ public class Main {
             dec.setInput(Decoder416.PIN_D[3], ((i >> 3) & 1) > 0);
             System.out.println(i + " " + dec.fullTxt());
         }
-        dec.setInput(Decoder416.PIN_nEN1, true); // active low
+        dec.setInput(Decoder416.PIN_EN1, true); // active low
         for(int i=0; i<16; i++) {
             dec.setInput(Decoder416.PIN_D[0], (i & 1) > 0);
             dec.setInput(Decoder416.PIN_D[1], ((i >> 1) & 1) > 0);
