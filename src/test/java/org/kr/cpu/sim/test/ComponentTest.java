@@ -118,6 +118,13 @@ public class ComponentTest {
     }
 
     @Test
+    @DisplayName(("Truth table for ZeroChecker"))
+    void testZeroChecker() {
+        ZeroChecker zero = new ZeroChecker("ZCH");
+        testComponent(zero, new TestReference("ZeroChecker.txt", 16, 1));
+    }
+
+    @Test
     @DisplayName(("Truth table for ALU"))
     void testAlu() {
         Alu alu = new Alu("ALU");
