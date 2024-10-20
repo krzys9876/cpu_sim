@@ -9,9 +9,9 @@ public class ZeroChecker extends Component {
         for(int i=0; i<16; i++) setInput(i, false);
     }
 
-    private GateOr2x4[] gateOr = new GateOr2x4[] {new GateOr2x4("OR1"), new GateOr2x4("OR2")};
-    private GateOr2x4 gateOrResult = new GateOr2x4("ORR");
-    private GateNot gateNot = new GateNot("NOT");
+    private final GateOr2x4[] gateOr = new GateOr2x4[] {new GateOr2x4("OR1"), new GateOr2x4("OR2")};
+    private final GateOr2x4 gateOrResult = new GateOr2x4("ORR");
+    private final GateNot gateNot = new GateNot("NOT");
 
     @Override
     public Component setInput(int pinNo, boolean value) {
