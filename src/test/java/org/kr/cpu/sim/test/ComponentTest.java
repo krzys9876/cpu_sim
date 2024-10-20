@@ -90,6 +90,13 @@ public class ComponentTest {
     }
 
     @Test
+    @DisplayName(("Truth table for 2x4 input OR gate (74x4072)"))
+    void testGateOr2x4() {
+        GateOr2x4 or24 = new GateOr2x4("OR24");
+        testComponent(or24, new TestReference("GateOr2x4.txt", 8, 2));
+    }
+
+    @Test
     @DisplayName(("Truth table for 16-bit incrementer"))
     void testIncrementer16() {
         Incrementer16 inc = new Incrementer16("INC16");
