@@ -78,7 +78,7 @@ public class ComponentTest {
     @Test
     @DisplayName(("Truth table for quad AND gate (7408)"))
     void testGateAnd4() {
-        GateAnd4 and4 = new GateAnd4("AND4");
+        GateAnd4x2 and4 = new GateAnd4x2("AND4");
         testComponent(and4, new TestReference("GateAnd4x2.txt", 8, 4));
     }
 
