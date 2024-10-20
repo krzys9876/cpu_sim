@@ -5,6 +5,8 @@ public class Alu extends Component {
     static final InputPin[] PIN_A = initInputPins("A", 4, 16);
     static final InputPin[] PIN_B = initInputPins("B", 4+16, 16);
     static final OutputPin[] PIN_Y = initOutputPins("Y", 0, 16);
+    static final OutputPin PIN_Z = new OutputPin("Z", 16);
+    static final OutputPin PIN_C = new OutputPin("C", 17);
 
     private final Decoder416 decoder = new Decoder416("OPD");
     private final SignFlipper16 signFlipper = new SignFlipper16("SF");
@@ -13,9 +15,10 @@ public class Alu extends Component {
     private final LineDriver16 driverInc = new LineDriver16("DRINC"); // always 1
     private final LineDriver16 driverDec = new LineDriver16("DRINC"); // always -1
     private final Adder16 adder = new Adder16("AD");
+    private final ZeroChecker zero = new ZeroChecker("ZERO");
 
     public Alu(String id)  {
-        super(id, new boolean[4+2*16], new boolean[16]);
+        super(id, new boolean[4+2*16], new boolean[16+2]);
         for(int i=0; i<16; i++) {
             driverInc.setInput(LineDriver16.PIN_A[i].order, false);
             driverDec.setInput(LineDriver16.PIN_A[i].order, true);
@@ -48,6 +51,11 @@ public class Alu extends Component {
             adder.setInput(Adder16.PIN_A[i].order, getInput(PIN_A[i].order));
             adder.setInput(Adder16.PIN_B[i].order, driverB.getOutput(LineDriver16.PIN_Y[i].order));
         }
+        // check for zero
+        for(int i=0; i<16; i++) zero.setInput(ZeroChecker.PIN_A[i].order, adder.getOutput(Adder16.PIN_S[i].order));
+        setOutput(PIN_Z.order, zero.getOutput(ZeroChecker.PIN_Z.order));
+        // set carry
+        setOutput(PIN_C.order, adder.getOutput(Adder16.PIN_C16.order));
         // update output
         for(int i=0; i<16; i++) setOutput(PIN_Y[i].order, adder.getOutput(Adder16.PIN_S[i].order));
     }
