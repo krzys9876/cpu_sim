@@ -15,7 +15,7 @@ public class ZeroChecker extends Component {
         assert pinNo < 16;
 
         setInputDirect(pinNo, value);
-        setOutput(PIN_Z.order, !Arrays.stream(PIN_A).anyMatch(i -> getInput(i.order)));
+        setOutput(PIN_Z.order, Arrays.stream(PIN_A).noneMatch(i -> getInput(i.order)));
         return this;
     }
 }
