@@ -125,6 +125,13 @@ public class ComponentTest {
     }
 
     @Test
+    @DisplayName(("Truth table for 16-bit XOR (4x7486)"))
+    void testXor16() {
+        Xor16 xor16 = new Xor16("XOR16");
+        testComponent(xor16, new TestReference("Xor16.txt", 32, 16));
+    }
+
+    @Test
     @DisplayName(("Truth table for 16-bit incrementer"))
     void testIncrementer16() {
         Incrementer16 inc = new Incrementer16("INC16");
