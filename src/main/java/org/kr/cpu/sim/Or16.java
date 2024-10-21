@@ -20,9 +20,9 @@ public class Or16 extends Component {
         int andNum = segmentNo / 4;
         int gateNo = segmentNo % 4;
         boolean ab = pinNo < 16; // A true, B false
-        ors[andNum].setInput(ab ? GateAnd4x2.PIN_A[gateNo].order : GateAnd4x2.PIN_B[gateNo].order, value);
+        ors[andNum].setInput(ab ? GateOr4x2.PIN_A[gateNo].order : GateOr4x2.PIN_B[gateNo].order, value);
         // set only affected output
-        setOutput(PIN_Y[segmentNo].order, ors[andNum].getOutput(GateAnd4x2.PIN_Y[gateNo].order));
+        setOutput(PIN_Y[segmentNo].order, ors[andNum].getOutput(GateOr4x2.PIN_Y[gateNo].order));
 
         return this;
     }
