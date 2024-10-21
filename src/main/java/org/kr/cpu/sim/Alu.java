@@ -57,12 +57,10 @@ public class Alu extends Component {
             adder.setInput(Adder16.PIN_A[i].order, getInput(PIN_A[i].order));
             adder.setInput(Adder16.PIN_B[i].order, driverB.getOutput(LineDriver16.PIN_Y[i].order));
         }
-        // check for zero
-        for(int i=0; i<16; i++) zero.setInput(ZeroChecker.PIN_A[i].order, adder.getOutput(Adder16.PIN_S[i].order));
-        setOutput(PIN_Z.order, zero.getOutput(ZeroChecker.PIN_Z.order));
         // set carry
         setOutput(PIN_C.order, adder.getOutput(Adder16.PIN_C16.order));
         // get output from selected module
+        // line driver for adder
         adderSelector.setInput(GateAnd4x2.PIN_A[0].order, decoder.getOutput(Decoder416.PIN_Q[8].order));
         adderSelector.setInput(GateAnd4x2.PIN_B[0].order, decoder.getOutput(Decoder416.PIN_Q[9].order));
         adderSelector.setInput(GateAnd4x2.PIN_A[1].order, adderSelector.getOutput(GateAnd4x2.PIN_Y[0].order));
@@ -72,6 +70,7 @@ public class Alu extends Component {
         adderSelector.setInput(GateAnd4x2.PIN_A[3].order, adderSelector.getOutput(GateAnd4x2.PIN_Y[2].order));
         adderSelector.setInput(GateAnd4x2.PIN_B[3].order, decoder.getOutput(Decoder416.PIN_Q[12].order));
         adderDriver.setInput(LineDriver16.PIN_EN.order, adderSelector.getOutput(GateAnd4x2.PIN_Y[3].order));
+        // line drivers for other modules
         compareDriver.setInput(LineDriver16.PIN_EN.order, decoder.getOutput(Decoder416.PIN_Q[12].order));
         andDriver.setInput(LineDriver16.PIN_EN.order, decoder.getOutput(Decoder416.PIN_Q[13].order));
         orDriver.setInput(LineDriver16.PIN_EN.order, decoder.getOutput(Decoder416.PIN_Q[14].order));
@@ -86,6 +85,9 @@ public class Alu extends Component {
                 !orDriver.getInput(LineDriver16.PIN_EN.order) ? orDriver :
                 xorDriver;
         for(int i=0; i<16; i++) setOutput(PIN_Y[i].order, driverOut.getOutput(LineDriver16.PIN_Y[i].order));
+        // check for zero
+        for(int i=0; i<16; i++) zero.setInput(ZeroChecker.PIN_A[i].order, getOutput(PIN_Y[i].order));
+        setOutput(PIN_Z.order, zero.getOutput(ZeroChecker.PIN_Z.order));
     }
 
     @Override
