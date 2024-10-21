@@ -97,6 +97,13 @@ public class ComponentTest {
     }
 
     @Test
+    @DisplayName(("Truth table for 4x2 input OR gate (7432)"))
+    void testGateOr4x2() {
+        GateOr4x2 or42 = new GateOr4x2("OR42");
+        testComponent(or42, new TestReference("GateOr4x2.txt", 8, 4));
+    }
+
+    @Test
     @DisplayName(("Truth table for 2x4 input OR gate (74x4072)"))
     void testGateOr2x4() {
         GateOr2x4 or24 = new GateOr2x4("OR24");
