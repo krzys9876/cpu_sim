@@ -15,7 +15,7 @@ public class Alu extends Component {
     private final LineDriver16 driverInc = new LineDriver16("DRINC"); // always 1
     private final LineDriver16 driverDec = new LineDriver16("DRDEC"); // always -1
     private final Adder16 adder = new Adder16("AD");
-    private final GateAnd4x2 adderSelector = new GateAnd4x2("ADDSEL");
+    private final GateAnd4x2 adderSelector = new GateAnd4x2("ADDSEL"); // active-low convention
     private final ZeroChecker zero = new ZeroChecker("ZERO");
     private final LineDriver16 adderDriver = new LineDriver16("DRADDER");
     private final LineDriver16 compareDriver = new LineDriver16("DRCOMP");
