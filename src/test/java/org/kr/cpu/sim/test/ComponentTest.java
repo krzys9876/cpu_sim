@@ -118,6 +118,13 @@ public class ComponentTest {
     }
 
     @Test
+    @DisplayName(("Truth table for quad XOR gate (7486)"))
+    void testGateXor4() {
+        GateXor4x2 xor4 = new GateXor4x2("XOR4");
+        testComponent(xor4, new TestReference("GateXor4x2.txt", 8, 4));
+    }
+
+    @Test
     @DisplayName(("Truth table for 16-bit incrementer"))
     void testIncrementer16() {
         Incrementer16 inc = new Incrementer16("INC16");
