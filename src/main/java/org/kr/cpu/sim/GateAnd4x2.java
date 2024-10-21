@@ -1,5 +1,6 @@
 package org.kr.cpu.sim;
 
+// 7408
 public class GateAnd4x2 extends Component {
     static final InputPin[] PIN_A = initInputPins("A", 0, 4);
     static final InputPin[] PIN_B = initInputPins("B", 4, 4);
