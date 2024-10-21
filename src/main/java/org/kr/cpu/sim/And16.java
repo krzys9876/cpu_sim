@@ -7,7 +7,7 @@ public class And16 extends Component {
 
     public And16(String id) { super(id, new boolean[16*2], new boolean[16]);}
 
-    private GateAnd4x2[] ands = new GateAnd4x2[] {new GateAnd4x2("AND1"), new GateAnd4x2("AND2"),
+    private final GateAnd4x2[] ands = new GateAnd4x2[] {new GateAnd4x2("AND1"), new GateAnd4x2("AND2"),
             new GateAnd4x2("AND3"), new GateAnd4x2("AND4")};
 
     @Override
