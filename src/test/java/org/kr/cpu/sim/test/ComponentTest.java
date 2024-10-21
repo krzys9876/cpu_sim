@@ -83,6 +83,13 @@ public class ComponentTest {
     }
 
     @Test
+    @DisplayName(("Truth table for 16-bit AND (4x7408)"))
+    void testAnd16() {
+        And16 and16 = new And16("AND16");
+        testComponent(and16, new TestReference("And16.txt", 32, 16));
+    }
+
+    @Test
     @DisplayName(("Truth table for 18-bit inverter (3 x 7404)"))
     void testInverter18() {
         Inverter18 inv = new Inverter18("NOT18");
