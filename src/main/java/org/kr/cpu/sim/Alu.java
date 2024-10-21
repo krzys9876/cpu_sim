@@ -13,9 +13,15 @@ public class Alu extends Component {
     private final LineDriver16 driverAdd = new LineDriver16("DRADD");
     private final LineDriver16 driverSub = new LineDriver16("DRSUB");
     private final LineDriver16 driverInc = new LineDriver16("DRINC"); // always 1
-    private final LineDriver16 driverDec = new LineDriver16("DRINC"); // always -1
+    private final LineDriver16 driverDec = new LineDriver16("DRDEC"); // always -1
     private final Adder16 adder = new Adder16("AD");
+    private final GateAnd4x2 adderSelector = new GateAnd4x2("ADDSEL");
     private final ZeroChecker zero = new ZeroChecker("ZERO");
+    private final LineDriver16 adderDriver = new LineDriver16("DRADDER");
+    private final LineDriver16 compareDriver = new LineDriver16("DRCOMP");
+    private final LineDriver16 andDriver = new LineDriver16("DRAND");
+    private final LineDriver16 orDriver = new LineDriver16("DROR");
+    private final LineDriver16 xorDriver = new LineDriver16("DRXOR");
 
     public Alu(String id)  {
         super(id, new boolean[4+2*16], new boolean[16+2]);
@@ -33,7 +39,7 @@ public class Alu extends Component {
         for(int i=0; i<4; i++) decoder.setInput(Decoder416.PIN_D[i].order, getInput(PIN_O[i].order));
         // update sign flipper (flip sign of B input)
         for(int i=0; i<16; i++) signFlipper.setInput(SignFlipper16.PIN_A[i].order, getInput(PIN_B[i].order));
-        // update line drivers
+        // update line drivers for adder (operand B)
         driverAdd.setInput(LineDriver16.PIN_EN.order, decoder.getOutput(Decoder416.PIN_Q[8].order)); // ADD - 8
         for(int i=0; i<16; i++) driverAdd.setInput(LineDriver16.PIN_A[i].order, getInput(PIN_B[i].order));
         driverSub.setInput(LineDriver16.PIN_EN.order, decoder.getOutput(Decoder416.PIN_Q[9].order)); // SUB - 9
@@ -56,8 +62,30 @@ public class Alu extends Component {
         setOutput(PIN_Z.order, zero.getOutput(ZeroChecker.PIN_Z.order));
         // set carry
         setOutput(PIN_C.order, adder.getOutput(Adder16.PIN_C16.order));
-        // update output
-        for(int i=0; i<16; i++) setOutput(PIN_Y[i].order, adder.getOutput(Adder16.PIN_S[i].order));
+        // get output from selected module
+        adderSelector.setInput(GateAnd4x2.PIN_A[0].order, decoder.getOutput(Decoder416.PIN_Q[8].order));
+        adderSelector.setInput(GateAnd4x2.PIN_B[0].order, decoder.getOutput(Decoder416.PIN_Q[9].order));
+        adderSelector.setInput(GateAnd4x2.PIN_A[1].order, adderSelector.getOutput(GateAnd4x2.PIN_Y[0].order));
+        adderSelector.setInput(GateAnd4x2.PIN_B[1].order, decoder.getOutput(Decoder416.PIN_Q[10].order));
+        adderSelector.setInput(GateAnd4x2.PIN_A[2].order, adderSelector.getOutput(GateAnd4x2.PIN_Y[1].order));
+        adderSelector.setInput(GateAnd4x2.PIN_B[2].order, decoder.getOutput(Decoder416.PIN_Q[11].order));
+        adderSelector.setInput(GateAnd4x2.PIN_A[3].order, adderSelector.getOutput(GateAnd4x2.PIN_Y[2].order));
+        adderSelector.setInput(GateAnd4x2.PIN_B[3].order, decoder.getOutput(Decoder416.PIN_Q[12].order));
+        adderDriver.setInput(LineDriver16.PIN_EN.order, adderSelector.getOutput(GateAnd4x2.PIN_Y[3].order));
+        compareDriver.setInput(LineDriver16.PIN_EN.order, decoder.getOutput(Decoder416.PIN_Q[12].order));
+        andDriver.setInput(LineDriver16.PIN_EN.order, decoder.getOutput(Decoder416.PIN_Q[13].order));
+        orDriver.setInput(LineDriver16.PIN_EN.order, decoder.getOutput(Decoder416.PIN_Q[14].order));
+        xorDriver.setInput(LineDriver16.PIN_EN.order, decoder.getOutput(Decoder416.PIN_Q[15].order));
+        for(int i=0; i<16; i++) {
+            adderDriver.setInput(LineDriver16.PIN_A[i].order, adder.getOutput(Adder16.PIN_S[i].order));
+        }// update output
+        LineDriver16 driverOut =
+                !adderDriver.getInput(LineDriver16.PIN_EN.order) ? adderDriver :
+                !compareDriver.getInput(LineDriver16.PIN_EN.order) ? compareDriver :
+                !andDriver.getInput(LineDriver16.PIN_EN.order) ? andDriver :
+                !orDriver.getInput(LineDriver16.PIN_EN.order) ? orDriver :
+                xorDriver;
+        for(int i=0; i<16; i++) setOutput(PIN_Y[i].order, driverOut.getOutput(LineDriver16.PIN_Y[i].order));
     }
 
     @Override
