@@ -25,6 +25,7 @@ public class Alu extends Component {
     private final And16 and16 = new And16("AND");
     private final Or16 or16 = new Or16("OR");
     private final Xor16 xor16 = new Xor16("XOR");
+    private final GateAnd2x4 carryAnd = new GateAnd2x4("ANDC");
 
     public Alu(String id)  {
         super(id, new boolean[4+2*16], new boolean[16+2]);

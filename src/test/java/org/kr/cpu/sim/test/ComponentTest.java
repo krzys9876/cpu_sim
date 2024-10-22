@@ -83,6 +83,13 @@ public class ComponentTest {
     }
 
     @Test
+    @DisplayName(("Truth table for 2x4 input AND gate (7421)"))
+    void testGateAnd2() {
+        GateAnd2x4 and2 = new GateAnd2x4("AND2");
+        testComponent(and2, new TestReference("GateAnd2x4.txt", 8, 2));
+    }
+
+    @Test
     @DisplayName(("Truth table for 16-bit AND (4x7408)"))
     void testAnd16() {
         And16 and16 = new And16("AND16");
