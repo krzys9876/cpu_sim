@@ -29,6 +29,7 @@ public class Alu extends Component {
     private final Or16 or16 = new Or16("OR");
     private final Xor16 xor16 = new Xor16("XOR");
     private final GateAnd2x4 carryAnd = new GateAnd2x4("ANDC");
+    private final GateOr2x4 carryOr = new GateOr2x4("ORC");
 
     public Alu(String id)  {
         super(id, new boolean[4+2*16], new boolean[16+2]);
@@ -74,15 +75,19 @@ public class Alu extends Component {
             xor16.setInput(Xor16.PIN_B[i].order, getInput(PIN_B[i].order));
         }
         // set carry (0 for bitwise, adder otherwise)
-        carryAnd.setInput(GateOr2x4.PIN_A[0].order, adder.getOutput(Adder16.PIN_C16.order));
-        carryAnd.setInput(GateOr2x4.PIN_B[0].order, decoder.getOutput(Decoder416.PIN_Q[13].order));
-        carryAnd.setInput(GateOr2x4.PIN_C[0].order, decoder.getOutput(Decoder416.PIN_Q[14].order));
-        carryAnd.setInput(GateOr2x4.PIN_D[0].order, decoder.getOutput(Decoder416.PIN_Q[15].order));
-        carryAnd.setInput(GateOr2x4.PIN_A[1].order, carryAnd.getOutput(GateAnd2x4.PIN_Y[0].order));
-        carryAnd.setInput(GateOr2x4.PIN_B[1].order, decoder.getOutput(Decoder416.PIN_Q[4].order)); //SHL needs OR for carry
-        carryAnd.setInput(GateOr2x4.PIN_C[1].order, decoder.getOutput(Decoder416.PIN_Q[5].order)); //SHR needs OR for carry
-        carryAnd.setInput(GateOr2x4.PIN_D[1].order, decoder.getOutput(Decoder416.PIN_Q[6].order));
-        setOutput(PIN_C.order, carryAnd.getOutput(GateOr2x4.PIN_Y[1].order));
+        carryAnd.setInput(GateAnd2x4.PIN_A[0].order, adder.getOutput(Adder16.PIN_C16.order));
+        carryAnd.setInput(GateAnd2x4.PIN_B[0].order, decoder.getOutput(Decoder416.PIN_Q[13].order));
+        carryAnd.setInput(GateAnd2x4.PIN_C[0].order, decoder.getOutput(Decoder416.PIN_Q[14].order));
+        carryAnd.setInput(GateAnd2x4.PIN_D[0].order, decoder.getOutput(Decoder416.PIN_Q[15].order));
+        carryAnd.setInput(GateAnd2x4.PIN_A[1].order, carryAnd.getOutput(GateAnd2x4.PIN_Y[0].order));
+        carryAnd.setInput(GateAnd2x4.PIN_B[1].order, decoder.getOutput(Decoder416.PIN_Q[4].order)); //SHL needs OR for carry
+        carryAnd.setInput(GateAnd2x4.PIN_C[1].order, decoder.getOutput(Decoder416.PIN_Q[5].order)); //SHR needs OR for carry
+        carryAnd.setInput(GateAnd2x4.PIN_D[1].order, decoder.getOutput(Decoder416.PIN_Q[6].order));
+        carryOr.setInput(GateOr2x4.PIN_A[0].order, carryAnd.getOutput(GateOr2x4.PIN_Y[1].order));
+        carryOr.setInput(GateOr2x4.PIN_B[0].order, getInput(PIN_A[15].order) && !decoder.getOutput(Decoder416.PIN_Q[4].order)); // carry for SHL (leftmost bit)
+        carryOr.setInput(GateOr2x4.PIN_C[0].order, getInput(PIN_A[0].order) && !decoder.getOutput(Decoder416.PIN_Q[5].order)); // carry for SHR (rightmost bit)
+        carryOr.setInput(GateOr2x4.PIN_D[0].order, false);
+        setOutput(PIN_C.order, carryOr.getOutput(GateOr2x4.PIN_Y[0].order));
         // get output from selected module
         // line driver for adder
         adderSelector.setInput(GateAnd2x4.PIN_A[0].order, decoder.getOutput(Decoder416.PIN_Q[8].order));
