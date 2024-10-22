@@ -19,6 +19,7 @@ public class Alu extends Component {
     private final ZeroChecker zero = new ZeroChecker("ZERO");
     private final LineDriver16 adderDriver = new LineDriver16("DRADDER");
     private final LineDriver16 compareDriver = new LineDriver16("DRCOMP");
+    private final LineDriver16 flipBytesDriver = new LineDriver16("DRFLB");
     private final LineDriver16 andDriver = new LineDriver16("DRAND");
     private final LineDriver16 orDriver = new LineDriver16("DROR");
     private final LineDriver16 xorDriver = new LineDriver16("DRXOR");
@@ -75,7 +76,11 @@ public class Alu extends Component {
         carryAnd.setInput(GateOr2x4.PIN_B[0].order, decoder.getOutput(Decoder416.PIN_Q[13].order));
         carryAnd.setInput(GateOr2x4.PIN_C[0].order, decoder.getOutput(Decoder416.PIN_Q[14].order));
         carryAnd.setInput(GateOr2x4.PIN_D[0].order, decoder.getOutput(Decoder416.PIN_Q[15].order));
-        setOutput(PIN_C.order, carryAnd.getOutput(GateOr2x4.PIN_Y[0].order));
+        carryAnd.setInput(GateOr2x4.PIN_A[1].order, carryAnd.getOutput(GateAnd2x4.PIN_Y[0].order));
+        carryAnd.setInput(GateOr2x4.PIN_B[1].order, decoder.getOutput(Decoder416.PIN_Q[6].order));
+        carryAnd.setInput(GateOr2x4.PIN_C[1].order, true);
+        carryAnd.setInput(GateOr2x4.PIN_D[1].order, true);
+        setOutput(PIN_C.order, carryAnd.getOutput(GateOr2x4.PIN_Y[1].order));
         // get output from selected module
         // line driver for adder
         adderSelector.setInput(GateAnd2x4.PIN_A[0].order, decoder.getOutput(Decoder416.PIN_Q[8].order));
@@ -85,12 +90,14 @@ public class Alu extends Component {
         adderDriver.setInput(LineDriver16.PIN_EN.order, adderSelector.getOutput(GateAnd2x4.PIN_Y[0].order));
         // line drivers for other modules
         compareDriver.setInput(LineDriver16.PIN_EN.order, decoder.getOutput(Decoder416.PIN_Q[12].order));
+        flipBytesDriver.setInput(LineDriver16.PIN_EN.order, decoder.getOutput(Decoder416.PIN_Q[6].order));
         andDriver.setInput(LineDriver16.PIN_EN.order, decoder.getOutput(Decoder416.PIN_Q[13].order));
         orDriver.setInput(LineDriver16.PIN_EN.order, decoder.getOutput(Decoder416.PIN_Q[14].order));
         xorDriver.setInput(LineDriver16.PIN_EN.order, decoder.getOutput(Decoder416.PIN_Q[15].order));
         for(int i=0; i<16; i++) {
             adderDriver.setInput(LineDriver16.PIN_A[i].order, adder.getOutput(Adder16.PIN_S[i].order));
             compareDriver.setInput(LineDriver16.PIN_A[i].order, getInput(PIN_A[i].order)); // copy A input - compare does not change result
+            flipBytesDriver.setInput(LineDriver16.PIN_A[i].order, getInput(PIN_A[(i+8) % 16].order)); // flip bytes in A input
             andDriver.setInput(LineDriver16.PIN_A[i].order, and16.getOutput(And16.PIN_Y[i].order));
             orDriver.setInput(LineDriver16.PIN_A[i].order, or16.getOutput(Or16.PIN_Y[i].order));
             xorDriver.setInput(LineDriver16.PIN_A[i].order, xor16.getOutput(Xor16.PIN_Y[i].order));
@@ -99,6 +106,7 @@ public class Alu extends Component {
         LineDriver16 driverOut =
                 !adderDriver.getInput(LineDriver16.PIN_EN.order) ? adderDriver :
                 !compareDriver.getInput(LineDriver16.PIN_EN.order) ? compareDriver :
+                !flipBytesDriver.getInput(LineDriver16.PIN_EN.order) ? flipBytesDriver :
                 !andDriver.getInput(LineDriver16.PIN_EN.order) ? andDriver :
                 !orDriver.getInput(LineDriver16.PIN_EN.order) ? orDriver :
                 xorDriver;
