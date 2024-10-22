@@ -97,11 +97,15 @@ public class Alu extends Component {
         for(int i=0; i<16; i++) {
             adderDriver.setInput(LineDriver16.PIN_A[i].order, adder.getOutput(Adder16.PIN_S[i].order));
             compareDriver.setInput(LineDriver16.PIN_A[i].order, getInput(PIN_A[i].order)); // copy A input - compare does not change result
-            flipBytesDriver.setInput(LineDriver16.PIN_A[i].order, getInput(PIN_A[(i+8) % 16].order)); // flip bytes in A input
             andDriver.setInput(LineDriver16.PIN_A[i].order, and16.getOutput(And16.PIN_Y[i].order));
             orDriver.setInput(LineDriver16.PIN_A[i].order, or16.getOutput(Or16.PIN_Y[i].order));
             xorDriver.setInput(LineDriver16.PIN_A[i].order, xor16.getOutput(Xor16.PIN_Y[i].order));
         }
+        for(int i=0; i<8; i++) {
+            flipBytesDriver.setInput(LineDriver16.PIN_A[i].order, getInput(PIN_A[i+8].order)); // flip bytes in A input
+            flipBytesDriver.setInput(LineDriver16.PIN_A[i+8].order, getInput(PIN_A[i].order)); // might use single line with (i+8) % 16, but this is more verbose
+        }
+
         // update output
         LineDriver16 driverOut =
                 !adderDriver.getInput(LineDriver16.PIN_EN.order) ? adderDriver :
