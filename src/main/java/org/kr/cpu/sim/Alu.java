@@ -70,9 +70,12 @@ public class Alu extends Component {
             xor16.setInput(Xor16.PIN_A[i].order, getInput(PIN_A[i].order));
             xor16.setInput(Xor16.PIN_B[i].order, getInput(PIN_B[i].order));
         }
-        // set carry
-        setOutput(PIN_C.order, adder.getOutput(Adder16.PIN_C16.order)  && decoder.getOutput(Decoder416.PIN_Q[13].order) &&
-                decoder.getOutput(Decoder416.PIN_Q[14].order) && decoder.getOutput(Decoder416.PIN_Q[15].order));
+        // set carry (0 for bitwise, adder otherwise)
+        carryAnd.setInput(GateOr2x4.PIN_A[0].order, adder.getOutput(Adder16.PIN_C16.order));
+        carryAnd.setInput(GateOr2x4.PIN_B[0].order, decoder.getOutput(Decoder416.PIN_Q[13].order));
+        carryAnd.setInput(GateOr2x4.PIN_C[0].order, decoder.getOutput(Decoder416.PIN_Q[14].order));
+        carryAnd.setInput(GateOr2x4.PIN_D[0].order, decoder.getOutput(Decoder416.PIN_Q[15].order));
+        setOutput(PIN_C.order, carryAnd.getOutput(GateOr2x4.PIN_Y[0].order));
         // get output from selected module
         // line driver for adder
         adderSelector.setInput(GateAnd4x2.PIN_A[0].order, decoder.getOutput(Decoder416.PIN_Q[8].order));
