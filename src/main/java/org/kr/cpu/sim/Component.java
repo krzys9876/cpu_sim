@@ -34,7 +34,7 @@ public abstract class Component {
         assert pinNo >= 0 && pinNo < inputSize;
         setInputDirect(pinNo, value);
     }
-    public void setInputDirect(int pinNo, boolean value) { input[pinNo] = value; }
+    private void setInputDirect(int pinNo, boolean value) { input[pinNo] = value; }
     public boolean getInput(int index) { return input[index]; }
 
     public int decode4(InputPin[] pins) {
