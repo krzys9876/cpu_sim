@@ -14,7 +14,13 @@ public class LineSelector2 extends Component {
     };
 
     @Override
-    protected void updateOutput() {}
+    protected void updateOutput() {
+        boolean selected = getInput(PIN_S.order); // 1 -> B, 0 -> A
+        for(int i=0; i<8; i++) {
+            setOutput(PIN_Y[i].order, (selected ? lines[2] : lines[0]).getOutput(LineDriver8.PIN_Y[i].order));
+            setOutput(PIN_Y[i+8].order, (selected ? lines[3] : lines[1]).getOutput(LineDriver8.PIN_Y[i].order));
+        }
+    }
 
     @Override
     public Component setInput(int pinNo, boolean value) {
@@ -33,11 +39,7 @@ public class LineSelector2 extends Component {
         else if(pinNo<=PIN_B[7].order) lines[2].setInput(LineDriver8.PIN_A[pinNo-16-1].order, value);
         else lines[3].setInput(LineDriver8.PIN_A[pinNo-16-8-1].order, value);
 
-        boolean selected = getInput(PIN_S.order); // 1 -> B, 0 -> A
-        for(int i=0; i<8; i++) {
-            setOutput(PIN_Y[i].order, (selected ? lines[2] : lines[0]).getOutput(LineDriver8.PIN_Y[i].order));
-            setOutput(PIN_Y[i+8].order, (selected ? lines[3] : lines[1]).getOutput(LineDriver8.PIN_Y[i].order));
-        }
+        updateOutput();
         return this;
     }
 }

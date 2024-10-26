@@ -8,14 +8,16 @@ public class GateOr extends Component {
     public GateOr(String id) { super(id, new boolean[2], new boolean[1]);}
 
     @Override
-    protected void updateOutput() {}
+    protected void updateOutput() {
+        setOutput(PIN_Y.order, getInput(PIN_A.order) || getInput(PIN_B.order));
+    }
 
     @Override
     public Component setInput(int pinNo, boolean value) {
         assert pinNo>=0 && pinNo<=2;
 
         setInputDirect(pinNo, value);
-        setOutput(PIN_Y.order, getInput(PIN_A.order) || getInput(PIN_B.order));
+        updateOutput();
         return this;
     }
 }

@@ -26,8 +26,6 @@ public class And16 extends Component {
         ands[andNum].setInput(ab ? GateAnd4x2.PIN_A[gateNo].order : GateAnd4x2.PIN_B[gateNo].order, value);
         // set only affected output
         setOutput(PIN_Y[segmentNo].order, ands[andNum].getOutput(GateAnd4x2.PIN_Y[gateNo].order));
-
-        //for(int i=0; i<16; i++) setOutput(PIN_Y[i].order, getInput(PIN_A[i].order) && getInput(PIN_B[i].order));
         return this;
     }
 }

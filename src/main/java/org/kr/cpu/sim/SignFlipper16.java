@@ -10,7 +10,10 @@ public class SignFlipper16 extends Component {
     public SignFlipper16(String id) { super(id, new boolean[16], new boolean[16]);}
 
     @Override
-    protected void updateOutput() {}
+    protected void updateOutput() {
+        for (int i = 0; i < 16; i++) incrementer.setInput(Incrementer16.PIN_A[i].order, inverter.getOutput(Incrementer16.PIN_Y[i].order));
+        for (int i = 0; i < 16; i++) setOutput(i, incrementer.getOutput(Incrementer16.PIN_Y[i].order));
+    }
 
     @Override
     public Component setInput(int pinNo, boolean value) {
@@ -18,8 +21,7 @@ public class SignFlipper16 extends Component {
 
         setInputDirect(pinNo, value);
         inverter.setInput(pinNo, value);
-        for (int i = 0; i < 16; i++) incrementer.setInput(Incrementer16.PIN_A[i].order, inverter.getOutput(Incrementer16.PIN_Y[i].order));
-        for (int i = 0; i < 16; i++) setOutput(i, incrementer.getOutput(Incrementer16.PIN_Y[i].order));
+        updateOutput();
         return this;
     }
 }
