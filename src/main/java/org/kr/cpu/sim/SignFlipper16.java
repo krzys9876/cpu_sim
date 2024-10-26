@@ -20,7 +20,7 @@ public class SignFlipper16 extends Component {
         assert pinNo>=0 && pinNo<=16;
 
         setInputDirect(pinNo, value);
-        inverter.setInput(pinNo, value);
+        inverter.setInput(Inverter18.PIN_A[pinNo].order, value);
         updateOutput();
     }
 }
