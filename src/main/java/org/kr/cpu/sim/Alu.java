@@ -9,6 +9,7 @@ public class Alu extends Component {
     static final OutputPin PIN_C = new OutputPin("C", 17);
 
     private final Decoder416 decoder = new Decoder416("OPD");
+    private final GateNot6 decoderNeg = new GateNot6("OPDNEG");
     private final SignFlipper16 signFlipper = new SignFlipper16("SF");
     private final LineDriver16 driverAdd = new LineDriver16("DRADD");
     private final LineDriver16 driverSub = new LineDriver16("DRSUB"); // SUB, CMP
@@ -16,6 +17,7 @@ public class Alu extends Component {
     private final LineDriver16 driverDec = new LineDriver16("DRDEC"); // always -1
     private final Adder16 adder = new Adder16("AD");
     private final GateAnd2x4 adderSelector = new GateAnd2x4("ADDSEL"); // active-low convention
+    private final GateAnd subSelector = new GateAnd("SUBSEL");
     private final ZeroChecker zero = new ZeroChecker("ZERO");
     private final LineDriver16 adderDriver = new LineDriver16("DRADDER");
     private final LineDriver16 compareDriver = new LineDriver16("DRCOMP");
@@ -30,6 +32,7 @@ public class Alu extends Component {
     private final Xor16 xor16 = new Xor16("XOR");
     private final GateAnd2x4 carryAnd = new GateAnd2x4("ANDC");
     private final GateOr2x4 carryOr = new GateOr2x4("ORC");
+    private final GateAnd4x2 carryShSelector = new GateAnd4x2("CSHSEL");
 
     public Alu(String id)  {
         super(id, new boolean[4+2*16], new boolean[16+2]);
@@ -50,7 +53,10 @@ public class Alu extends Component {
         // update line drivers for adder (operand B)
         driverAdd.setInput(LineDriver16.PIN_EN.order, decoder.getOutput(Decoder416.PIN_Q[8].order)); // ADD - 8
         for(int i=0; i<16; i++) driverAdd.setInput(LineDriver16.PIN_A[i].order, getInput(PIN_B[i].order));
-        driverSub.setInput(LineDriver16.PIN_EN.order, decoder.getOutput(Decoder416.PIN_Q[9].order) && decoder.getOutput(Decoder416.PIN_Q[12].order)); // SUB - 9
+        // SUB 9 or 12 (active low)
+        subSelector.setInput(GateAnd.PIN_A.order, decoder.getOutput(Decoder416.PIN_Q[9].order));
+        subSelector.setInput(GateAnd.PIN_B.order, decoder.getOutput(Decoder416.PIN_Q[12].order));
+        driverSub.setInput(LineDriver16.PIN_EN.order, subSelector.getOutput(GateAnd.PIN_Y.order));
         for(int i=0; i<16; i++) driverSub.setInput(LineDriver16.PIN_A[i].order, signFlipper.getOutput(SignFlipper16.PIN_Y[i].order));
         driverInc.setInput(LineDriver16.PIN_EN.order, decoder.getOutput(Decoder416.PIN_Q[10].order)); // INC - 10
         driverDec.setInput(LineDriver16.PIN_EN.order, decoder.getOutput(Decoder416.PIN_Q[11].order)); // DEC - 11
@@ -84,9 +90,16 @@ public class Alu extends Component {
         carryAnd.setInput(GateAnd2x4.PIN_C[1].order, decoder.getOutput(Decoder416.PIN_Q[5].order)); //SHR needs OR for carry
         carryAnd.setInput(GateAnd2x4.PIN_D[1].order, decoder.getOutput(Decoder416.PIN_Q[6].order));
         carryOr.setInput(GateOr2x4.PIN_A[0].order, carryAnd.getOutput(GateOr2x4.PIN_Y[1].order));
-        carryOr.setInput(GateOr2x4.PIN_B[0].order, getInput(PIN_A[15].order) && !decoder.getOutput(Decoder416.PIN_Q[4].order)); // carry for SHL (leftmost bit)
-        carryOr.setInput(GateOr2x4.PIN_C[0].order, getInput(PIN_A[0].order) && !decoder.getOutput(Decoder416.PIN_Q[5].order)); // carry for SHR (rightmost bit)
-        carryOr.setInput(GateOr2x4.PIN_D[0].order, false);
+        // set carry for SHL and SHR
+        decoderNeg.setInput(GateNot6.PIN_A[0].order, decoder.getOutput(Decoder416.PIN_Q[4].order));
+        carryShSelector.setInput(GateAnd4x2.PIN_A[0].order, getInput(PIN_A[15].order));
+        carryShSelector.setInput(GateAnd4x2.PIN_B[0].order, decoderNeg.getOutput(GateNot6.PIN_Y[0].order));
+        carryOr.setInput(GateOr2x4.PIN_B[0].order, carryShSelector.getOutput(GateAnd4x2.PIN_Y[0].order)); // carry for SHL (leftmost bit)
+        decoderNeg.setInput(GateNot6.PIN_A[1].order, decoder.getOutput(Decoder416.PIN_Q[5].order));
+        carryShSelector.setInput(GateAnd4x2.PIN_A[1].order, getInput(PIN_A[0].order));
+        carryShSelector.setInput(GateAnd4x2.PIN_B[1].order, decoderNeg.getOutput(GateNot6.PIN_Y[1].order));
+        carryOr.setInput(GateOr2x4.PIN_C[0].order, carryShSelector.getOutput(GateAnd4x2.PIN_Y[1].order)); // carry for SHR (rightmost bit)
+        carryOr.setInput(GateOr2x4.PIN_D[0].order, false); // last input is not used
         setOutput(PIN_C.order, carryOr.getOutput(GateOr2x4.PIN_Y[0].order));
         // get output from selected module
         // line driver for adder
