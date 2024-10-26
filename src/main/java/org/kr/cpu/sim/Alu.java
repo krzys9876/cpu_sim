@@ -150,9 +150,8 @@ public class Alu extends Component {
     }
 
     @Override
-    public void setInput(int pinNo, boolean value) {
+    public void setInput(int[] pinNo, boolean[] value) {
         super.setInput(pinNo, value);
-
         updateOutput();
     }
 }

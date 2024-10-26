@@ -34,6 +34,10 @@ public abstract class Component {
         assert pinNo >= 0 && pinNo < inputSize;
         setInputDirect(pinNo, value);
     }
+    public void setInput(int[] pinNo, boolean[] value) {
+        assert(pinNo.length == value.length);
+        for (int i = 0; i < pinNo.length; i++) setInput(pinNo[i], value[i]);
+    }
     private void setInputDirect(int pinNo, boolean value) { input[pinNo] = value; }
     public boolean getInput(int index) { return input[index]; }
 

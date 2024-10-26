@@ -24,5 +24,4 @@ public class GateXor4x2 extends Component {
         int gateNo = pinNo % 4;
         updateGate(gateNo);
     }
-
 }

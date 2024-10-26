@@ -21,4 +21,12 @@ public class SignFlipper16 extends Component {
         inverter.setInput(Inverter18.PIN_A[pinNo].order, value);
         updateOutput();
     }
+
+    @Override
+    public void setInput(int[] pinNo, boolean[] value) {
+        super.setInput(pinNo, value);
+        for(int i = 0; i < pinNo.length; i++)
+            inverter.setInput(Inverter18.PIN_A[pinNo[i]].order, value[i]);
+        updateOutput();
+    }
 }

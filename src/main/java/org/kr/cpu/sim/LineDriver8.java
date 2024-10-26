@@ -18,4 +18,10 @@ public class LineDriver8 extends Component {
         super.setInput(pinNo, value);
         updateOutput();
     }
+
+    @Override
+    public void setInput(int[] pinNo, boolean[] value) {
+        super.setInput(pinNo, value);
+        updateOutput();
+    }
 }

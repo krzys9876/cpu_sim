@@ -192,7 +192,13 @@ public class ComponentTest {
         for (int i = 0; i < reference.size(); i++) {
             TestReferenceRow row = reference.getRow(i);
             //row.print();
-            for (int j = 0; j < row.getInputSize(); j++) comp.setInput(j, row.getInput(j));
+            int[] pins = new int[row.getInputSize()];
+            boolean[] values = new boolean[row.getInputSize()];
+            for (int j = 0; j < row.getInputSize(); j++) {
+                pins[j] = j;
+                values[j] = row.getInput(j);
+            }
+            comp.setInput(pins, values);
             for (int j = 0; j < row.getOutputSize(); j++) assert (comp.getOutput(j) == row.getOutput(j));
         }
     }

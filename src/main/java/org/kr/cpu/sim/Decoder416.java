@@ -28,4 +28,10 @@ public class Decoder416 extends Component {
         super.setInput(pinNo, value);
         updateOutput();
     }
+
+    @Override
+    public void setInput(int[] pinNo, boolean[] value) {
+        super.setInput(pinNo, value);
+        updateOutput();
+    }
 }
