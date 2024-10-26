@@ -13,11 +13,10 @@ public class GateOr extends Component {
     }
 
     @Override
-    public Component setInput(int pinNo, boolean value) {
+    public void setInput(int pinNo, boolean value) {
         assert pinNo>=0 && pinNo<=2;
 
         setInputDirect(pinNo, value);
         updateOutput();
-        return this;
     }
 }

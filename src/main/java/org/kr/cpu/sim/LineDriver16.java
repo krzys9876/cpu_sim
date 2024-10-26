@@ -22,7 +22,7 @@ public class LineDriver16 extends Component {
     }
 
     @Override
-    public Component setInput(int pinNo, boolean value) {
+    public void setInput(int pinNo, boolean value) {
         assert pinNo>=0 && pinNo<=17;
 
         setInputDirect(pinNo, value);
@@ -30,6 +30,5 @@ public class LineDriver16 extends Component {
         lines[1].setInput(LineDriver8.PIN_EN.order, getInput(PIN_EN.order));
         if(!getInput(PIN_EN.order)) // EN active low
             updateOutput();
-        return this;
     }
 }

@@ -27,8 +27,7 @@ public abstract class Component {
     }
 
     protected abstract void updateOutput();
-    public Component setInput(InputPin pin, boolean value) { return setInput(pin.order, value); }
-    public abstract Component setInput(int pinNo, boolean value);
+    public abstract void setInput(int pinNo, boolean value);
     public void setInputDirect(int pinNo, boolean value) { input[pinNo] = value; }
     public boolean getInput(int index) { return input[index]; }
 

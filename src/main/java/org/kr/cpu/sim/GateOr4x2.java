@@ -19,11 +19,10 @@ public class GateOr4x2 extends Component {
     protected void updateOutput() {}
 
     @Override
-    public Component setInput(int pinNo, boolean value) {
+    public void setInput(int pinNo, boolean value) {
         assert pinNo>=0 && pinNo<8;
         setInputDirect(pinNo, value);
         int gateNo = pinNo % 4;
         updateGate(gateNo);
-        return this;
     }
 }

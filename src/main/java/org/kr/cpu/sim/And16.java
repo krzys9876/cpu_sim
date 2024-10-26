@@ -14,7 +14,7 @@ public class And16 extends Component {
     protected void updateOutput() {}
 
     @Override
-    public Component setInput(int pinNo, boolean value) {
+    public void setInput(int pinNo, boolean value) {
         assert pinNo>=0 && pinNo<=31;
 
         setInputDirect(pinNo, value);
@@ -26,6 +26,5 @@ public class And16 extends Component {
         ands[andNum].setInput(ab ? GateAnd4x2.PIN_A[gateNo].order : GateAnd4x2.PIN_B[gateNo].order, value);
         // set only affected output
         setOutput(PIN_Y[segmentNo].order, ands[andNum].getOutput(GateAnd4x2.PIN_Y[gateNo].order));
-        return this;
     }
 }

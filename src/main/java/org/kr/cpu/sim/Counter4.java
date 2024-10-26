@@ -21,23 +21,18 @@ public class Counter4 extends Component {
     }
 
     @Override
-    public Component setInput(int pinNo, boolean value) {
+    public void setInput(int pinNo, boolean value) {
         assert pinNo == PIN_CLK.order;
 
-        state[0]
-                .setInput(DFlipFlop.PIN_D, state[0].getOutput(DFlipFlop.PIN_nQ.order))
-                .setInput(DFlipFlop.PIN_CLK, value);
-        state[1]
-                .setInput(DFlipFlop.PIN_D, state[1].getOutput(DFlipFlop.PIN_nQ.order))
-                .setInput(DFlipFlop.PIN_CLK, state[0].getOutput(DFlipFlop.PIN_nQ.order));
-        state[2]
-                .setInput(DFlipFlop.PIN_D, state[2].getOutput(DFlipFlop.PIN_nQ.order))
-                .setInput(DFlipFlop.PIN_CLK, state[1].getOutput(DFlipFlop.PIN_nQ.order));
-        state[3]
-                .setInput(DFlipFlop.PIN_D, state[3].getOutput(DFlipFlop.PIN_nQ.order))
-                .setInput(DFlipFlop.PIN_CLK, state[2].getOutput(DFlipFlop.PIN_nQ.order));
+        state[0].setInput(DFlipFlop.PIN_D.order, state[0].getOutput(DFlipFlop.PIN_nQ.order));
+        state[0].setInput(DFlipFlop.PIN_CLK.order, value);
+        state[1].setInput(DFlipFlop.PIN_D.order, state[1].getOutput(DFlipFlop.PIN_nQ.order));
+        state[1].setInput(DFlipFlop.PIN_CLK.order, state[0].getOutput(DFlipFlop.PIN_nQ.order));
+        state[2].setInput(DFlipFlop.PIN_D.order, state[2].getOutput(DFlipFlop.PIN_nQ.order));
+        state[2].setInput(DFlipFlop.PIN_CLK.order, state[1].getOutput(DFlipFlop.PIN_nQ.order));
+        state[3].setInput(DFlipFlop.PIN_D.order, state[3].getOutput(DFlipFlop.PIN_nQ.order));
+        state[3].setInput(DFlipFlop.PIN_CLK.order, state[2].getOutput(DFlipFlop.PIN_nQ.order));
         setInputDirect(pinNo, value);
         updateOutput();
-        return this;
     }
 }

@@ -25,7 +25,7 @@ public class Adder16 extends Component {
     }
 
     @Override
-    public Component setInput(int pinNo, boolean value) {
+    public void setInput(int pinNo, boolean value) {
         assert pinNo>=0 && pinNo<=33;
 
         if (pinNo == 0) { state[0].setInput(Adder8.PIN_C0.order, value); setInternalCarry(); } // ADD1 C0
@@ -35,7 +35,6 @@ public class Adder16 extends Component {
         else  { state[1].setInput(Adder8.PIN_B[pinNo-25].order, value); } // ADD2 B
 
         updateOutput();
-        return this;
     }
 }
 

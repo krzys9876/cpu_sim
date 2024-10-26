@@ -15,7 +15,7 @@ public class Inverter18 extends Component {
     protected void updateOutput() {}
 
     @Override
-    public Component setInput(int pinNo, boolean value) {
+    public void setInput(int pinNo, boolean value) {
         assert pinNo>=0 && pinNo<=18;
 
         if (pinNo<6) {
@@ -28,6 +28,5 @@ public class Inverter18 extends Component {
             state[2].setInput(GateNot6.PIN_A[pinNo-12].order, value);
             setOutput(PIN_Y[pinNo].order, state[2].getOutput(GateNot6.PIN_Y[pinNo-12].order));
         }
-        return this;
     }
 }

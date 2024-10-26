@@ -23,12 +23,12 @@ public class LineSelector2 extends Component {
     }
 
     @Override
-    public Component setInput(int pinNo, boolean value) {
+    public void setInput(int pinNo, boolean value) {
         assert pinNo>=0 && pinNo<=1+2*16;
 
         setInputDirect(pinNo, value);
         if(pinNo == PIN_S.order) {
-            select.setInput(GateNot.PIN_A, value);
+            select.setInput(GateNot.PIN_A.order, value);
             lines[0].setInput(LineDriver8.PIN_EN.order, value); // S = 0 -> A
             lines[1].setInput(LineDriver8.PIN_EN.order, value);
             lines[2].setInput(LineDriver8.PIN_EN.order, select.getOutput(GateNot.PIN_Y.order)); // S=1 -> B
@@ -40,6 +40,5 @@ public class LineSelector2 extends Component {
         else lines[3].setInput(LineDriver8.PIN_A[pinNo-16-8-1].order, value);
 
         updateOutput();
-        return this;
     }
 }

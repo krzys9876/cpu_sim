@@ -62,7 +62,7 @@ public class Alu extends Component {
         driverInc.setInput(LineDriver16.PIN_EN.order, decoder.getOutput(Decoder416.PIN_Q[10].order)); // INC - 10
         driverDec.setInput(LineDriver16.PIN_EN.order, decoder.getOutput(Decoder416.PIN_Q[11].order)); // DEC - 11
         // update adder
-        adder.setInput(Adder16.PIN_C0, false);
+        adder.setInput(Adder16.PIN_C0.order, false);
         // select proper driver for B operand
         LineDriver16 driverB =
                 !driverAdd.getInput(LineDriver16.PIN_EN.order) ? driverAdd :
@@ -150,10 +150,9 @@ public class Alu extends Component {
     }
 
     @Override
-    public Component setInput(int pinNo, boolean value) {
+    public void setInput(int pinNo, boolean value) {
         assert pinNo >= 0 && pinNo < 4+2*16;
         setInputDirect(pinNo, value);
         updateOutput();
-        return this;
     }
 }

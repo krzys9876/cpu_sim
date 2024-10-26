@@ -16,12 +16,11 @@ public class SignFlipper16 extends Component {
     }
 
     @Override
-    public Component setInput(int pinNo, boolean value) {
+    public void setInput(int pinNo, boolean value) {
         assert pinNo>=0 && pinNo<=16;
 
         setInputDirect(pinNo, value);
         inverter.setInput(pinNo, value);
         updateOutput();
-        return this;
     }
 }

@@ -17,7 +17,7 @@ public class ZeroChecker extends Component {
     protected void updateOutput() {}
 
     @Override
-    public Component setInput(int pinNo, boolean value) {
+    public void setInput(int pinNo, boolean value) {
         assert pinNo < 16;
 
         setInputDirect(pinNo, value);
@@ -31,7 +31,5 @@ public class ZeroChecker extends Component {
         gateOrResult.setInput(GateOr2x4.PIN_D[0].order, gateOr[1].getOutput(GateOr2x4.PIN_Y[1].order));
         gateNot.setInput(0, gateOrResult.getOutput(GateOr2x4.PIN_Y[0].order));
         setOutput(PIN_Z.order, gateNot.getOutput(0));
-
-        return this;
     }
 }

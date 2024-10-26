@@ -22,9 +22,8 @@ public class Adder4 extends Component {
     }
 
     @Override
-    public Component setInput(int pinNo, boolean value) {
+    public void setInput(int pinNo, boolean value) {
         setInputDirect(pinNo, value);
         updateOutput();
-        return this;
     }
 }

@@ -24,16 +24,15 @@ public class Adder8 extends Component {
     }
 
     @Override
-    public Component setInput(int pinNo, boolean value) {
+    public void setInput(int pinNo, boolean value) {
         assert pinNo>=0 && pinNo<=16;
 
         if (pinNo == 0) { state[0].setInput(Adder4.PIN_C0.order, value); setInternalCarry(); } // ADD1 C0
         else if (pinNo <=4) { state[0].setInput(Adder4.PIN_A[pinNo-1].order, value); setInternalCarry(); } // ADD1 A
         else if (pinNo <=8) { state[1].setInput(Adder4.PIN_A[pinNo-5].order, value); } // ADD2 A
         else if (pinNo <=12) { state[0].setInput(Adder4.PIN_B[pinNo-9].order, value); setInternalCarry(); } // ADD1 B
-        else  { state[1].setInput(Adder4.PIN_B[pinNo-13], value); } // ADD2 B
+        else  { state[1].setInput(Adder4.PIN_B[pinNo-13].order, value); } // ADD2 B
 
         updateOutput();
-        return this;
     }
 }
