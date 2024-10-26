@@ -11,7 +11,8 @@ public class Counter8 extends Component {
 
     private final Counter4[] state = new Counter4[] { new Counter4("CNT1"), new Counter4("CNT2") };
 
-    private void updateOutput() {
+    @Override
+    protected void updateOutput() {
         for(int i = 0; i < 4; i++) {
             setOutput(PIN_Q[i].order, state[0].getOutput(Counter4.PIN_Q[i].order));
             setOutput(PIN_Q[i+4].order, state[1].getOutput(Counter4.PIN_Q[i].order));

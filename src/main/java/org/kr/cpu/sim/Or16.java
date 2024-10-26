@@ -11,6 +11,9 @@ public class Or16 extends Component {
             new GateOr4x2("OR3"), new GateOr4x2("OR4")};
 
     @Override
+    protected void updateOutput() {}
+
+    @Override
     public Component setInput(int pinNo, boolean value) {
         assert pinNo>=0 && pinNo<=31;
 

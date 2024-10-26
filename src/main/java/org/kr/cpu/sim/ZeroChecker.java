@@ -14,6 +14,9 @@ public class ZeroChecker extends Component {
     private final GateNot gateNot = new GateNot("NOT");
 
     @Override
+    protected void updateOutput() {}
+
+    @Override
     public Component setInput(int pinNo, boolean value) {
         assert pinNo < 16;
 

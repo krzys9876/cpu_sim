@@ -12,6 +12,9 @@ public class Inverter18 extends Component {
     private final GateNot6[] state = new GateNot6[] {new GateNot6("NOT1"), new GateNot6("NOT2"), new GateNot6("NOT3")};
 
     @Override
+    protected void updateOutput() {}
+
+    @Override
     public Component setInput(int pinNo, boolean value) {
         assert pinNo>=0 && pinNo<=18;
 

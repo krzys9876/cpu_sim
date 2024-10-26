@@ -11,6 +11,9 @@ public class GateNot6 extends Component {
     }
 
     @Override
+    protected void updateOutput() {}
+
+    @Override
     public Component setInput(int pinNo, boolean value) {
         assert pinNo >= 0 && pinNo <= 5;
 

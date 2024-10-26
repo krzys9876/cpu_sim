@@ -10,6 +10,9 @@ public class SignFlipper16 extends Component {
     public SignFlipper16(String id) { super(id, new boolean[16], new boolean[16]);}
 
     @Override
+    protected void updateOutput() {}
+
+    @Override
     public Component setInput(int pinNo, boolean value) {
         assert pinNo>=0 && pinNo<=16;
 

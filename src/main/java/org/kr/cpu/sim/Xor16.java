@@ -11,6 +11,9 @@ public class Xor16 extends Component {
             new GateXor4x2("XOR3"), new GateXor4x2("XOR4")};
 
     @Override
+    protected void updateOutput() {}
+
+    @Override
     public Component setInput(int pinNo, boolean value) {
         assert pinNo>=0 && pinNo<=31;
 

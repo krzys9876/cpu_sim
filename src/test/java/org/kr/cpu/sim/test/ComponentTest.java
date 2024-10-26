@@ -184,7 +184,7 @@ public class ComponentTest {
     @DisplayName(("Truth table for ALU"))
     void testAlu() {
         Alu alu = new Alu("ALU");
-        testComponent(alu, new TestReference("Alu.txt", 4+2*16, 16+2));
+        for(int i=0; i<1; i++) testComponent(alu, new TestReference("Alu.txt", 4+2*16, 16+2));
     }
 
     private void testComponent(Component comp, TestReference reference) {

@@ -10,7 +10,8 @@ public class Adder4 extends Component {
 
     public Adder4(String id) { super(id, new boolean[9], new boolean[5]); }
 
-    private void updateOutput() {
+    @Override
+    protected void updateOutput() {
         int decodedA = decode4(PIN_A);
         int decodedB = decode4(PIN_B);
         int sum = decodedA + decodedB + decode1(PIN_C0);

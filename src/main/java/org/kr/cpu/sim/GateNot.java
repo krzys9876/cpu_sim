@@ -10,6 +10,9 @@ public class GateNot extends Component {
     }
 
     @Override
+    protected void updateOutput() {}
+
+    @Override
     public Component setInput(int pinNo, boolean value) {
         assert pinNo == 0;
         setInputDirect(0, value);

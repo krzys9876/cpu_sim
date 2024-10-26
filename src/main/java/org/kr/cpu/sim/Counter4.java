@@ -11,7 +11,8 @@ public class Counter4 extends Component {
             new DFlipFlop("FF1"), new DFlipFlop("FF2"), new DFlipFlop("FF3"), new DFlipFlop("FF4")
     };
 
-    private void updateOutput() {
+    @Override
+    protected void updateOutput() {
         setOutput(PIN_Q[0].order, state[0].getOutput(DFlipFlop.PIN_Q.order));
         setOutput(PIN_Q[1].order, state[1].getOutput(DFlipFlop.PIN_Q.order));
         setOutput(PIN_Q[2].order, state[2].getOutput(DFlipFlop.PIN_Q.order));

@@ -7,7 +7,8 @@ public class Decoder416 extends Component {
     static final InputPin PIN_EN2 = new InputPin("EN2", 5); // ~EN2 - active low
     static final OutputPin[] PIN_Q = initOutputPins("Q", 0, 16);
 
-    private void updateOutput() {
+    @Override
+    protected void updateOutput() {
         int decoded = (getInput(PIN_D[0].order) ? 1 : 0) +
                 (getInput(PIN_D[1].order) ? 2 : 0) +
                 (getInput(PIN_D[2].order) ? 4 : 0) +

@@ -8,6 +8,9 @@ public class GateOr extends Component {
     public GateOr(String id) { super(id, new boolean[2], new boolean[1]);}
 
     @Override
+    protected void updateOutput() {}
+
+    @Override
     public Component setInput(int pinNo, boolean value) {
         assert pinNo>=0 && pinNo<=2;
 

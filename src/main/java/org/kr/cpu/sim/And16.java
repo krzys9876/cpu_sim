@@ -11,6 +11,9 @@ public class And16 extends Component {
             new GateAnd4x2("AND3"), new GateAnd4x2("AND4")};
 
     @Override
+    protected void updateOutput() {}
+
+    @Override
     public Component setInput(int pinNo, boolean value) {
         assert pinNo>=0 && pinNo<=31;
 

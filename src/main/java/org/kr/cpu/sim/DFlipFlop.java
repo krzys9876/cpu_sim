@@ -10,7 +10,8 @@ public class DFlipFlop extends Component {
 
     private boolean state = true;
 
-    private void updateOutput() {
+    @Override
+    protected void updateOutput() {
         setOutput(PIN_Q.order,  state);
         setOutput(PIN_nQ.order, !state);
     }

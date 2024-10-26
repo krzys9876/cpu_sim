@@ -8,6 +8,9 @@ public class LineDriver8 extends Component {
     public LineDriver8(String id) { super(id, new boolean[9], new boolean[8]); }
 
     @Override
+    protected void updateOutput() {}
+
+    @Override
     public Component setInput(int pinNo, boolean value) {
         assert pinNo>=0 && pinNo<=9;
 

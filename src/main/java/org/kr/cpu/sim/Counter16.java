@@ -13,7 +13,8 @@ public class Counter16 extends Component {
             new Counter8("CNT1"), new Counter8("CNT2")
     };
 
-    private void updateOutput() {
+    @Override
+    protected void updateOutput() {
         for(int i = 0; i < 8; i++) {
             setOutput(PIN_Q[i].order, state[0].getOutput(Counter8.PIN_Q[i].order));
             setOutput(PIN_Q[i+8].order, state[1].getOutput(Counter8.PIN_Q[i].order));

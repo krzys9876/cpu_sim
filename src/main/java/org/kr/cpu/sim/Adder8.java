@@ -14,7 +14,8 @@ public class Adder8 extends Component {
     // Always update internal carry between ADD1 and ADD2
     private void setInternalCarry() { state[1].setInput(Adder4.PIN_C0.order, state[0].getOutput(Adder4.PIN_C4.order)); }
 
-    private void updateOutput() {
+    @Override
+    protected void updateOutput() {
         for(int i = 0; i < 4; i++) {
             setOutput(PIN_S[i].order, state[0].getOutput(Adder4.PIN_S[i].order)); // ADD1 S
             setOutput(PIN_S[i+4].order, state[1].getOutput(Adder4.PIN_S[i].order)); // ADD2 S

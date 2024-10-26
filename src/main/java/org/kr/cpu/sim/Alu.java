@@ -43,7 +43,8 @@ public class Alu extends Component {
         driverInc.setInput(LineDriver16.PIN_A[0].order, true); // do not forget to set 1
     }
 
-    private void updateOutput() {
+    @Override
+    protected void updateOutput() {
         // update operation decoder
         decoder.setInput(Decoder416.PIN_EN1.order, false); // active low
         decoder.setInput(Decoder416.PIN_EN2.order, false); // active low

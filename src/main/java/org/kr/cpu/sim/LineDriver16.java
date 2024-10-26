@@ -9,7 +9,8 @@ public class LineDriver16 extends Component {
 
     private final LineDriver8[] lines = new LineDriver8[] {new LineDriver8("L1"), new LineDriver8("L2")};
 
-    private void updateOutput() {
+    @Override
+    protected void updateOutput() {
         for(int i=0; i<8; i++) {
             lines[0].setInput(LineDriver8.PIN_A[i].order, getInput(PIN_A[i].order));
             lines[1].setInput(LineDriver8.PIN_A[i].order, getInput(PIN_A[i+8].order));

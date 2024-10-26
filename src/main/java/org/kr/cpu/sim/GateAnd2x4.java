@@ -11,6 +11,9 @@ public class GateAnd2x4 extends Component {
     public GateAnd2x4(String id) { super(id, new boolean[8], new boolean[2]);}
 
     @Override
+    protected void updateOutput() {}
+
+    @Override
     public Component setInput(int pinNo, boolean value) {
         assert pinNo>=0 && pinNo<=7;
 
