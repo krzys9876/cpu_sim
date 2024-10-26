@@ -15,9 +15,8 @@ public class Or16 extends Component {
 
     @Override
     public void setInput(int pinNo, boolean value) {
-        assert pinNo>=0 && pinNo<=31;
+        super.setInput(pinNo, value);
 
-        setInputDirect(pinNo, value);
         // identify which component should be affected
         int segmentNo = pinNo % 16;
         int andNum = segmentNo / 4;

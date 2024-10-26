@@ -14,9 +14,7 @@ public class GateAnd extends Component {
 
     @Override
     public void setInput(int pinNo, boolean value) {
-        assert pinNo>=0 && pinNo<=2;
-
-        setInputDirect(pinNo, value);
+        super.setInput(pinNo, value);
         updateOutput();
     }
 }

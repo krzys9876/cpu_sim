@@ -20,8 +20,7 @@ public class GateAnd4x2 extends Component {
 
     @Override
     public void setInput(int pinNo, boolean value) {
-        assert pinNo>=0 && pinNo<8;
-        setInputDirect(pinNo, value);
+        super.setInput(pinNo, value);
         int gateNo = pinNo % 4;
         updateGate(gateNo);
     }

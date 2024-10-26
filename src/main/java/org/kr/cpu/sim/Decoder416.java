@@ -25,8 +25,7 @@ public class Decoder416 extends Component {
 
     @Override
     public void setInput(int pinNo, boolean value) {
-        assert pinNo >= 0 && pinNo <= 5;
-        setInputDirect(pinNo, value);
+        super.setInput(pinNo, value);
         updateOutput();
     }
 }

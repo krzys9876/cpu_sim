@@ -18,9 +18,8 @@ public class ZeroChecker extends Component {
 
     @Override
     public void setInput(int pinNo, boolean value) {
-        assert pinNo < 16;
+        super.setInput(pinNo, value);
 
-        setInputDirect(pinNo, value);
         if(pinNo<8) gateOr[0].setInput(pinNo, value);
         else gateOr[1].setInput(pinNo-8, value);
 

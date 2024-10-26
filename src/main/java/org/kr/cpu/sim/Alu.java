@@ -151,8 +151,8 @@ public class Alu extends Component {
 
     @Override
     public void setInput(int pinNo, boolean value) {
-        assert pinNo >= 0 && pinNo < 4+2*16;
-        setInputDirect(pinNo, value);
+        super.setInput(pinNo, value);
+
         updateOutput();
     }
 }

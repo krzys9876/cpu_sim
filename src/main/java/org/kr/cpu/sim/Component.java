@@ -4,6 +4,7 @@ public abstract class Component {
     final String id;
     private final boolean[] input;
     private final boolean[] output;
+    protected final int inputSize;
 
     public boolean getOutput(int index) { return output[index];}
     public void setOutput(int index, boolean value) { output[index] = value;}
@@ -12,6 +13,7 @@ public abstract class Component {
         this.id = id;
         this.input = input;
         this.output = output;
+        this.inputSize = input.length;
     }
 
     public String inputTxt() { return arrTxt(input); }
@@ -27,7 +29,11 @@ public abstract class Component {
     }
 
     protected abstract void updateOutput();
-    public abstract void setInput(int pinNo, boolean value);
+    public void setInput(int pinNo, boolean value) {
+        // basic implementation
+        assert pinNo >= 0 && pinNo < inputSize;
+        setInputDirect(pinNo, value);
+    }
     public void setInputDirect(int pinNo, boolean value) { input[pinNo] = value; }
     public boolean getInput(int index) { return input[index]; }
 

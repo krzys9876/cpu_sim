@@ -23,9 +23,7 @@ public class Incrementer16 extends Component {
 
     @Override
     public void setInput(int pinNo, boolean value) {
-        assert pinNo >= 0 && pinNo < 16;
-
-        setInputDirect(pinNo, value);
+        super.setInput(pinNo, value);
         adder.setInput(Adder16.PIN_A[pinNo].order, value);
         updateOutput();
     }

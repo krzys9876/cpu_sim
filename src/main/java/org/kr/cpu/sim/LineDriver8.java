@@ -15,9 +15,7 @@ public class LineDriver8 extends Component {
 
     @Override
     public void setInput(int pinNo, boolean value) {
-        assert pinNo>=0 && pinNo<=9;
-
-        setInputDirect(pinNo, value);
+        super.setInput(pinNo, value);
         updateOutput();
     }
 }

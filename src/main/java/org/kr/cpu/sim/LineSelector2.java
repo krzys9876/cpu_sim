@@ -24,9 +24,8 @@ public class LineSelector2 extends Component {
 
     @Override
     public void setInput(int pinNo, boolean value) {
-        assert pinNo>=0 && pinNo<=1+2*16;
+        super.setInput(pinNo, value);
 
-        setInputDirect(pinNo, value);
         if(pinNo == PIN_S.order) {
             select.setInput(GateNot.PIN_A.order, value);
             lines[0].setInput(LineDriver8.PIN_EN.order, value); // S = 0 -> A
