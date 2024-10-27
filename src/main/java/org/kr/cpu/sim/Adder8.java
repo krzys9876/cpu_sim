@@ -11,11 +11,20 @@ public class Adder8 extends Component {
 
     public Adder8(String id) { super(id, new boolean[17], new boolean[9]); }
 
-    // Always update internal carry between ADD1 and ADD2
-    private void setInternalCarry() { state[1].setInput(Adder4.PIN_C0.order, state[0].getOutput(Adder4.PIN_C4.order)); }
-
     @Override
     protected void updateOutput() {
+        state[0].setInput(Adder4.PIN_C0.order, getInput(Adder8.PIN_C0.order), false);
+        for(int i=0; i<4; i++) {
+            state[0].setInput(Adder4.PIN_A[i].order, getInput(Adder8.PIN_A[i].order), false);
+            state[0].setInput(Adder4.PIN_B[i].order, getInput(Adder8.PIN_B[i].order), i==3);
+        }
+        // internal carry between ADD1 and ADD2
+        state[1].setInput(Adder4.PIN_C0.order, state[0].getOutput(Adder4.PIN_C4.order), false);
+        for(int i=0; i<4; i++) {
+            state[1].setInput(Adder4.PIN_A[i].order, getInput(Adder8.PIN_A[i+4].order), false);
+            state[1].setInput(Adder4.PIN_B[i].order, getInput(Adder8.PIN_B[i+4].order), i==3);
+        }
+
         for(int i = 0; i < 4; i++) {
             setOutput(PIN_S[i].order, state[0].getOutput(Adder4.PIN_S[i].order)); // ADD1 S
             setOutput(PIN_S[i+4].order, state[1].getOutput(Adder4.PIN_S[i].order)); // ADD2 S
@@ -26,13 +35,6 @@ public class Adder8 extends Component {
     @Override
     public void setInput(int pinNo, boolean value, boolean shouldRefresh) {
         super.setInput(pinNo, value, false);
-
-        if (pinNo == 0) { state[0].setInput(Adder4.PIN_C0.order, value); setInternalCarry(); } // ADD1 C0
-        else if (pinNo <=4) { state[0].setInput(Adder4.PIN_A[pinNo-1].order, value); setInternalCarry(); } // ADD1 A
-        else if (pinNo <=8) { state[1].setInput(Adder4.PIN_A[pinNo-5].order, value); } // ADD2 A
-        else if (pinNo <=12) { state[0].setInput(Adder4.PIN_B[pinNo-9].order, value); setInternalCarry(); } // ADD1 B
-        else  { state[1].setInput(Adder4.PIN_B[pinNo-13].order, value); } // ADD2 B
-
         if(shouldRefresh) updateOutput();
     }
 }
