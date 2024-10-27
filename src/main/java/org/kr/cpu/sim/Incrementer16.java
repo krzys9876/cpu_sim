@@ -10,9 +10,9 @@ public class Incrementer16 extends Component {
     public Incrementer16(String id) {
         super(id, new boolean[16], new boolean[17]);
         // set C0 to 0 and B to 1 (add 1)
-        adder.setInput(Adder16.PIN_C0.order, false);
-        adder.setInput(Adder16.PIN_B[0].order, true);
-        for (int i = Adder16.PIN_B[1].order; i <= Adder16.PIN_B[15].order; i++) adder.setInput(i, false);
+        adder.setInput(Adder16.PIN_C0.order, false, false);
+        adder.setInput(Adder16.PIN_B[0].order, true, false);
+        for (int i = Adder16.PIN_B[1].order; i <= Adder16.PIN_B[15].order; i++) adder.setInput(i, false, i == Adder16.PIN_B[15].order-1);
     }
 
     @Override
