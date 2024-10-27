@@ -11,7 +11,8 @@ public class SignFlipper16 extends Component {
 
     @Override
     protected void updateOutput() {
-        for (int i = 0; i < 16; i++) incrementer.setInput(Incrementer16.PIN_A[i].order, inverter.getOutput(Incrementer16.PIN_Y[i].order));
+        for (int i = 0; i < 16; i++)
+            incrementer.setInput(Incrementer16.PIN_A[i].order, inverter.getOutput(Incrementer16.PIN_Y[i].order), i==15);
         for (int i = 0; i < 16; i++) setOutput(i, incrementer.getOutput(Incrementer16.PIN_Y[i].order));
     }
 
