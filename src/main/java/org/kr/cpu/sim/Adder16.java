@@ -12,11 +12,20 @@ public class Adder16 extends Component {
 
     public Adder16(String id) { super(id, new boolean[2*16+1], new boolean[16+1]); }
 
-    // Always update internal carry between ADD1 and ADD2
-    private void setInternalCarry() { state[1].setInput(Adder8.PIN_C0.order, state[0].getOutput(Adder8.PIN_C8.order)); }
-
     @Override
     protected void updateOutput() {
+        state[0].setInput(Adder8.PIN_C0.order, getInput(Adder16.PIN_C0.order), false);
+        for(int i=0; i<8; i++) {
+            state[0].setInput(Adder8.PIN_A[i].order, getInput(Adder16.PIN_A[i].order), false);
+            state[0].setInput(Adder8.PIN_B[i].order, getInput(Adder16.PIN_B[i].order), i==7);
+        }
+        // internal carry between ADD1 and ADD2
+        state[1].setInput(Adder8.PIN_C0.order, state[0].getOutput(Adder8.PIN_C8.order), false);
+        for(int i=0; i<8; i++) {
+            state[1].setInput(Adder8.PIN_A[i].order, getInput(Adder16.PIN_A[i+8].order), false);
+            state[1].setInput(Adder8.PIN_B[i].order, getInput(Adder16.PIN_B[i+8].order), i==7);
+        }
+
         for(int i = 0; i < 8; i++) {
             setOutput(PIN_S[i].order, state[0].getOutput(Adder8.PIN_S[i].order));
             setOutput(PIN_S[i+8].order, state[1].getOutput(Adder8.PIN_S[i].order));
@@ -27,13 +36,6 @@ public class Adder16 extends Component {
     @Override
     public void setInput(int pinNo, boolean value, boolean shouldRefresh) {
         super.setInput(pinNo, value, false);
-
-        if (pinNo == 0) { state[0].setInput(Adder8.PIN_C0.order, value); setInternalCarry(); } // ADD1 C0
-        else if (pinNo <=8) { state[0].setInput(Adder8.PIN_A[pinNo-1].order, value); setInternalCarry(); } // ADD1 A
-        else if (pinNo <=16) { state[1].setInput(Adder8.PIN_A[pinNo-9].order, value); } // ADD2 A
-        else if (pinNo <=24) { state[0].setInput(Adder8.PIN_B[pinNo-17].order, value); setInternalCarry(); } // ADD1 B
-        else  { state[1].setInput(Adder8.PIN_B[pinNo-25].order, value); } // ADD2 B
-
         if(shouldRefresh) updateOutput();
     }
 }
