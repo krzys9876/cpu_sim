@@ -22,15 +22,8 @@ public class Adder4 extends Component {
     }
 
     @Override
-    public void setInput(int pin, boolean value) {
-        super.setInput(pin, value);
-        updateOutput();
-    }
-
-    @Override
-    public void setInput(int[] pinNo, boolean[] value) {
-        assert(pinNo.length == value.length);
-        for (int i = 0; i < pinNo.length; i++) super.setInput(pinNo[i], value[i]);
-        updateOutput();
+    public void setInput(int pin, boolean value, boolean shouldRefresh) {
+        super.setInput(pin, value, false);
+        if(shouldRefresh) updateOutput();
     }
 }

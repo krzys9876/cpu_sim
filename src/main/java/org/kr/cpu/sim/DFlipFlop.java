@@ -17,15 +17,15 @@ public class DFlipFlop extends Component {
     }
 
     @Override
-    public void setInput(int pinNo, boolean value) {
+    public void setInput(int pinNo, boolean value, boolean shouldRefresh) {
         boolean prevClk = getInput(PIN_CLK.order);
         boolean prevD = getInput(PIN_D.order);
-        super.setInput(pinNo, value);
+        super.setInput(pinNo, value, false);
 
         boolean clkRisingEdge = pinNo == PIN_CLK.order && value && !prevClk;
         state = clkRisingEdge ? prevD : state;
 
-        updateOutput();
+        if(shouldRefresh) updateOutput();
     }
 
     @Override

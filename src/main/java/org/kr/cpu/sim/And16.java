@@ -14,8 +14,8 @@ public class And16 extends Component {
     protected void updateOutput() {}
 
     @Override
-    public void setInput(int pinNo, boolean value) {
-        super.setInput(pinNo, value);
+    public void setInput(int pinNo, boolean value, boolean shouldRefresh) {
+        super.setInput(pinNo, value, false);
 
         // identify which component should be affected
         int segmentNo = pinNo % 16;
@@ -23,7 +23,7 @@ public class And16 extends Component {
         int gateNo = segmentNo % 4;
         boolean ab = pinNo < 16; // A true, B false
         ands[andNum].setInput(ab ? GateAnd4x2.PIN_A[gateNo].order : GateAnd4x2.PIN_B[gateNo].order, value);
-        // set only affected output
+        // set only affected output (always)
         setOutput(PIN_Y[segmentNo].order, ands[andNum].getOutput(GateAnd4x2.PIN_Y[gateNo].order));
     }
 }

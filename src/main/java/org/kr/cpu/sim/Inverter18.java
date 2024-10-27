@@ -15,9 +15,10 @@ public class Inverter18 extends Component {
     protected void updateOutput() {}
 
     @Override
-    public void setInput(int pinNo, boolean value) {
-        super.setInput(pinNo, value);
+    public void setInput(int pinNo, boolean value, boolean shouldRefresh) {
+        super.setInput(pinNo, value, false);
 
+        // always refresh
         if (pinNo<6) {
             state[0].setInput(GateNot6.PIN_A[pinNo].order, value);
             setOutput(PIN_Y[pinNo].order, state[0].getOutput(GateNot6.PIN_Y[pinNo].order));

@@ -25,23 +25,12 @@ public class ZeroChecker extends Component {
     }
 
     @Override
-    public void setInput(int pinNo, boolean value) {
-        super.setInput(pinNo, value);
+    public void setInput(int pinNo, boolean value, boolean shouldRefresh) {
+        super.setInput(pinNo, value, false);
 
         if(pinNo<8) gateOr[0].setInput(pinNo, value);
         else gateOr[1].setInput(pinNo-8, value);
 
-        updateOutput();
-    }
-
-    @Override
-    public void setInput(int[] pinNo, boolean[] value) {
-        super.setInput(pinNo, value);
-
-        for(int i=0; i<pinNo.length; i++) {
-            if (pinNo[i] < 8) gateOr[0].setInput(pinNo[i], value[i]);
-            else gateOr[1].setInput(pinNo[i] - 8, value[i]);
-        }
-        updateOutput();
+        if(shouldRefresh) updateOutput();
     }
 }

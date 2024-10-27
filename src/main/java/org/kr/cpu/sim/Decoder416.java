@@ -24,14 +24,8 @@ public class Decoder416 extends Component {
     }
 
     @Override
-    public void setInput(int pinNo, boolean value) {
-        super.setInput(pinNo, value);
-        updateOutput();
-    }
-
-    @Override
-    public void setInput(int[] pinNo, boolean[] value) {
-        super.setInput(pinNo, value);
-        updateOutput();
+    public void setInput(int pinNo, boolean value, boolean shouldRefresh) {
+        super.setInput(pinNo, value, false);
+        if(shouldRefresh) updateOutput();
     }
 }

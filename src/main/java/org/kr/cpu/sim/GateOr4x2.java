@@ -19,9 +19,10 @@ public class GateOr4x2 extends Component {
     protected void updateOutput() {}
 
     @Override
-    public void setInput(int pinNo, boolean value) {
-        super.setInput(pinNo, value);
+    public void setInput(int pinNo, boolean value, boolean shouldRefresh) {
+        super.setInput(pinNo, value, false);
         int gateNo = pinNo % 4;
+        // always refresh
         updateGate(gateNo);
     }
 }

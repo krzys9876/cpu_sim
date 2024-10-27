@@ -11,12 +11,12 @@ public class LineDriver16 extends Component {
 
     @Override
     protected void updateOutput() {
-        lines[0].setInput(LineDriver8.PIN_EN.order, getInput(PIN_EN.order));
-        lines[1].setInput(LineDriver8.PIN_EN.order, getInput(PIN_EN.order));
+        lines[0].setInput(LineDriver8.PIN_EN.order, getInput(PIN_EN.order), false);
+        lines[1].setInput(LineDriver8.PIN_EN.order, getInput(PIN_EN.order), false);
         if(!getInput(PIN_EN.order)) { // EN active low
             for (int i = 0; i < 8; i++) {
-                lines[0].setInput(LineDriver8.PIN_A[i].order, getInput(PIN_A[i].order));
-                lines[1].setInput(LineDriver8.PIN_A[i].order, getInput(PIN_A[i + 8].order));
+                lines[0].setInput(LineDriver8.PIN_A[i].order, getInput(PIN_A[i].order), i==7);
+                lines[1].setInput(LineDriver8.PIN_A[i].order, getInput(PIN_A[i + 8].order), i==7);
             }
             for (int i = 0; i < 8; i++) {
                 setOutput(PIN_Y[i].order, lines[0].getOutput(LineDriver8.PIN_Y[i].order));
@@ -26,14 +26,8 @@ public class LineDriver16 extends Component {
     }
 
     @Override
-    public void setInput(int pinNo, boolean value) {
-        super.setInput(pinNo, value);
-        updateOutput();
-    }
-
-    @Override
-    public void setInput(int[] pinNo, boolean[] value) {
-        super.setInput(pinNo, value);
-        updateOutput();
+    public void setInput(int pinNo, boolean value, boolean shouldRefresh) {
+        super.setInput(pinNo, value, false);
+        if(shouldRefresh) updateOutput();
     }
 }
