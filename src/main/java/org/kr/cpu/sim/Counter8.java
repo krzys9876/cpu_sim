@@ -21,11 +21,11 @@ public class Counter8 extends Component {
     }
 
     @Override
-    public void setInput(int pinNo, boolean value) {
-        super.setInput(pinNo, value);
+    public void setInput(int pinNo, boolean value, boolean shouldRefresh) {
+        super.setInput(pinNo, value, false);
 
-        state[0].setInput(pinNo, value);
-        state[1].setInput(Counter4.PIN_CLK.order, state[0].getOutput(Counter4.PIN_C.order));
+        state[0].setInput(pinNo, value, shouldRefresh);
+        state[1].setInput(Counter4.PIN_CLK.order, state[0].getOutput(Counter4.PIN_C.order), shouldRefresh);
 
         updateOutput();
     }

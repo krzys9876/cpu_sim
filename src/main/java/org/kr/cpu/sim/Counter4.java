@@ -24,14 +24,14 @@ public class Counter4 extends Component {
     public void setInput(int pinNo, boolean value, boolean shouldRefresh) {
         super.setInput(pinNo, value, false);
 
-        state[0].setInput(DFlipFlop.PIN_D.order, state[0].getOutput(DFlipFlop.PIN_nQ.order));
-        state[0].setInput(DFlipFlop.PIN_CLK.order, value);
-        state[1].setInput(DFlipFlop.PIN_D.order, state[1].getOutput(DFlipFlop.PIN_nQ.order));
-        state[1].setInput(DFlipFlop.PIN_CLK.order, state[0].getOutput(DFlipFlop.PIN_nQ.order));
-        state[2].setInput(DFlipFlop.PIN_D.order, state[2].getOutput(DFlipFlop.PIN_nQ.order));
-        state[2].setInput(DFlipFlop.PIN_CLK.order, state[1].getOutput(DFlipFlop.PIN_nQ.order));
-        state[3].setInput(DFlipFlop.PIN_D.order, state[3].getOutput(DFlipFlop.PIN_nQ.order));
-        state[3].setInput(DFlipFlop.PIN_CLK.order, state[2].getOutput(DFlipFlop.PIN_nQ.order));
+        state[0].setInput(DFlipFlop.PIN_D.order, state[0].getOutput(DFlipFlop.PIN_nQ.order), shouldRefresh);
+        state[0].setInput(DFlipFlop.PIN_CLK.order, value, shouldRefresh);
+        state[1].setInput(DFlipFlop.PIN_D.order, state[1].getOutput(DFlipFlop.PIN_nQ.order), shouldRefresh);
+        state[1].setInput(DFlipFlop.PIN_CLK.order, state[0].getOutput(DFlipFlop.PIN_nQ.order), shouldRefresh);
+        state[2].setInput(DFlipFlop.PIN_D.order, state[2].getOutput(DFlipFlop.PIN_nQ.order), shouldRefresh);
+        state[2].setInput(DFlipFlop.PIN_CLK.order, state[1].getOutput(DFlipFlop.PIN_nQ.order), shouldRefresh);
+        state[3].setInput(DFlipFlop.PIN_D.order, state[3].getOutput(DFlipFlop.PIN_nQ.order), shouldRefresh);
+        state[3].setInput(DFlipFlop.PIN_CLK.order, state[2].getOutput(DFlipFlop.PIN_nQ.order), shouldRefresh);
 
         if(shouldRefresh) updateOutput();
     }
