@@ -20,13 +20,13 @@ public class Inverter18 extends Component {
 
         // always refresh
         if (pinNo<6) {
-            state[0].setInput(GateNot6.PIN_A[pinNo].order, value);
+            state[0].setInput(GateNot6.PIN_A[pinNo].order, value, shouldRefresh);
             setOutput(PIN_Y[pinNo].order, state[0].getOutput(GateNot6.PIN_Y[pinNo].order));
         } else if (pinNo<12) {
-            state[1].setInput(GateNot6.PIN_A[pinNo-6].order, value);
+            state[1].setInput(GateNot6.PIN_A[pinNo-6].order, value, shouldRefresh);
             setOutput(PIN_Y[pinNo].order, state[1].getOutput(GateNot6.PIN_Y[pinNo-6].order));
         } else {
-            state[2].setInput(GateNot6.PIN_A[pinNo-12].order, value);
+            state[2].setInput(GateNot6.PIN_A[pinNo-12].order, value, shouldRefresh);
             setOutput(PIN_Y[pinNo].order, state[2].getOutput(GateNot6.PIN_Y[pinNo-12].order));
         }
     }
