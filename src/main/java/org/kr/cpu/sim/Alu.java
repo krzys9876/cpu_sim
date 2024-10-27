@@ -46,21 +46,21 @@ public class Alu extends Component {
     @Override
     protected void updateOutput() {
         // update operation decoder
-        decoder.setInput(Decoder416.PIN_EN1.order, false); // active low
-        decoder.setInput(Decoder416.PIN_EN2.order, false); // active low
-        for(int i=0; i<4; i++) decoder.setInput(Decoder416.PIN_D[i].order, getInput(PIN_O[i].order));
+        decoder.setInput(Decoder416.PIN_EN1.order, false, false); // active low
+        decoder.setInput(Decoder416.PIN_EN2.order, false, false); // active low
+        for(int i=0; i<4; i++) decoder.setInput(Decoder416.PIN_D[i].order, getInput(PIN_O[i].order), i==3);
         // update sign flipper (flip sign of B input)
-        for(int i=0; i<16; i++) signFlipper.setInput(SignFlipper16.PIN_A[i].order, getInput(PIN_B[i].order));
+        for(int i=0; i<16; i++) signFlipper.setInput(SignFlipper16.PIN_A[i].order, getInput(PIN_B[i].order), i==15);
         // update line drivers for adder (operand B)
-        driverAdd.setInput(LineDriver16.PIN_EN.order, decoder.getOutput(Decoder416.PIN_Q[8].order)); // ADD - 8
-        for(int i=0; i<16; i++) driverAdd.setInput(LineDriver16.PIN_A[i].order, getInput(PIN_B[i].order));
+        driverAdd.setInput(LineDriver16.PIN_EN.order, decoder.getOutput(Decoder416.PIN_Q[8].order), false); // ADD - 8
+        for(int i=0; i<16; i++) driverAdd.setInput(LineDriver16.PIN_A[i].order, getInput(PIN_B[i].order), i==15);
         // SUB 9 or 12 (active low)
-        subSelector.setInput(GateAnd.PIN_A.order, decoder.getOutput(Decoder416.PIN_Q[9].order));
-        subSelector.setInput(GateAnd.PIN_B.order, decoder.getOutput(Decoder416.PIN_Q[12].order));
-        driverSub.setInput(LineDriver16.PIN_EN.order, subSelector.getOutput(GateAnd.PIN_Y.order));
-        for(int i=0; i<16; i++) driverSub.setInput(LineDriver16.PIN_A[i].order, signFlipper.getOutput(SignFlipper16.PIN_Y[i].order));
-        driverInc.setInput(LineDriver16.PIN_EN.order, decoder.getOutput(Decoder416.PIN_Q[10].order)); // INC - 10
-        driverDec.setInput(LineDriver16.PIN_EN.order, decoder.getOutput(Decoder416.PIN_Q[11].order)); // DEC - 11
+        subSelector.setInput(GateAnd.PIN_A.order, decoder.getOutput(Decoder416.PIN_Q[9].order), true);
+        subSelector.setInput(GateAnd.PIN_B.order, decoder.getOutput(Decoder416.PIN_Q[12].order), true);
+        driverSub.setInput(LineDriver16.PIN_EN.order, subSelector.getOutput(GateAnd.PIN_Y.order), false);
+        for(int i=0; i<16; i++) driverSub.setInput(LineDriver16.PIN_A[i].order, signFlipper.getOutput(SignFlipper16.PIN_Y[i].order), i==15);
+        driverInc.setInput(LineDriver16.PIN_EN.order, decoder.getOutput(Decoder416.PIN_Q[10].order), true); // INC - 10
+        driverDec.setInput(LineDriver16.PIN_EN.order, decoder.getOutput(Decoder416.PIN_Q[11].order), true); // DEC - 11
         // update adder
         adder.setInput(Adder16.PIN_C0.order, false);
         // select proper driver for B operand
@@ -69,69 +69,69 @@ public class Alu extends Component {
                 !driverSub.getInput(LineDriver16.PIN_EN.order) ? driverSub :
                 !driverInc.getInput(LineDriver16.PIN_EN.order) ? driverInc : driverDec;
         for(int i=0; i<16; i++) {
-            adder.setInput(Adder16.PIN_A[i].order, getInput(PIN_A[i].order));
-            adder.setInput(Adder16.PIN_B[i].order, driverB.getOutput(LineDriver16.PIN_Y[i].order));
+            adder.setInput(Adder16.PIN_A[i].order, getInput(PIN_A[i].order), false);
+            adder.setInput(Adder16.PIN_B[i].order, driverB.getOutput(LineDriver16.PIN_Y[i].order), i==15);
         }
         // update inputs for bitwise operations
         for(int i=0; i<16; i++) {
-            and16.setInput(And16.PIN_A[i].order, getInput(PIN_A[i].order));
-            and16.setInput(And16.PIN_B[i].order, getInput(PIN_B[i].order));
-            or16.setInput(Or16.PIN_A[i].order, getInput(PIN_A[i].order));
-            or16.setInput(Or16.PIN_B[i].order, getInput(PIN_B[i].order));
-            xor16.setInput(Xor16.PIN_A[i].order, getInput(PIN_A[i].order));
-            xor16.setInput(Xor16.PIN_B[i].order, getInput(PIN_B[i].order));
+            and16.setInput(And16.PIN_A[i].order, getInput(PIN_A[i].order), false);
+            and16.setInput(And16.PIN_B[i].order, getInput(PIN_B[i].order),i==15);
+            or16.setInput(Or16.PIN_A[i].order, getInput(PIN_A[i].order), false);
+            or16.setInput(Or16.PIN_B[i].order, getInput(PIN_B[i].order), i==15);
+            xor16.setInput(Xor16.PIN_A[i].order, getInput(PIN_A[i].order), false);
+            xor16.setInput(Xor16.PIN_B[i].order, getInput(PIN_B[i].order), i==15);
         }
         // set carry (0 for bitwise, adder otherwise)
-        carryAnd.setInput(GateAnd2x4.PIN_A[0].order, adder.getOutput(Adder16.PIN_C16.order));
-        carryAnd.setInput(GateAnd2x4.PIN_B[0].order, decoder.getOutput(Decoder416.PIN_Q[13].order));
-        carryAnd.setInput(GateAnd2x4.PIN_C[0].order, decoder.getOutput(Decoder416.PIN_Q[14].order));
-        carryAnd.setInput(GateAnd2x4.PIN_D[0].order, decoder.getOutput(Decoder416.PIN_Q[15].order));
-        carryAnd.setInput(GateAnd2x4.PIN_A[1].order, carryAnd.getOutput(GateAnd2x4.PIN_Y[0].order));
-        carryAnd.setInput(GateAnd2x4.PIN_B[1].order, decoder.getOutput(Decoder416.PIN_Q[4].order)); //SHL needs OR for carry
-        carryAnd.setInput(GateAnd2x4.PIN_C[1].order, decoder.getOutput(Decoder416.PIN_Q[5].order)); //SHR needs OR for carry
-        carryAnd.setInput(GateAnd2x4.PIN_D[1].order, decoder.getOutput(Decoder416.PIN_Q[6].order));
-        carryOr.setInput(GateOr2x4.PIN_A[0].order, carryAnd.getOutput(GateOr2x4.PIN_Y[1].order));
+        carryAnd.setInput(GateAnd2x4.PIN_A[0].order, adder.getOutput(Adder16.PIN_C16.order), true);
+        carryAnd.setInput(GateAnd2x4.PIN_B[0].order, decoder.getOutput(Decoder416.PIN_Q[13].order), true);
+        carryAnd.setInput(GateAnd2x4.PIN_C[0].order, decoder.getOutput(Decoder416.PIN_Q[14].order), true);
+        carryAnd.setInput(GateAnd2x4.PIN_D[0].order, decoder.getOutput(Decoder416.PIN_Q[15].order), true);
+        carryAnd.setInput(GateAnd2x4.PIN_A[1].order, carryAnd.getOutput(GateAnd2x4.PIN_Y[0].order), true);
+        carryAnd.setInput(GateAnd2x4.PIN_B[1].order, decoder.getOutput(Decoder416.PIN_Q[4].order), true); //SHL needs OR for carry
+        carryAnd.setInput(GateAnd2x4.PIN_C[1].order, decoder.getOutput(Decoder416.PIN_Q[5].order), true); //SHR needs OR for carry
+        carryAnd.setInput(GateAnd2x4.PIN_D[1].order, decoder.getOutput(Decoder416.PIN_Q[6].order), true);
+        carryOr.setInput(GateOr2x4.PIN_A[0].order, carryAnd.getOutput(GateOr2x4.PIN_Y[1].order), true);
         // set carry for SHL and SHR
-        decoderNeg.setInput(GateNot6.PIN_A[0].order, decoder.getOutput(Decoder416.PIN_Q[4].order));
-        carryShSelector.setInput(GateAnd4x2.PIN_A[0].order, getInput(PIN_A[15].order));
-        carryShSelector.setInput(GateAnd4x2.PIN_B[0].order, decoderNeg.getOutput(GateNot6.PIN_Y[0].order));
-        carryOr.setInput(GateOr2x4.PIN_B[0].order, carryShSelector.getOutput(GateAnd4x2.PIN_Y[0].order)); // carry for SHL (leftmost bit)
-        decoderNeg.setInput(GateNot6.PIN_A[1].order, decoder.getOutput(Decoder416.PIN_Q[5].order));
-        carryShSelector.setInput(GateAnd4x2.PIN_A[1].order, getInput(PIN_A[0].order));
-        carryShSelector.setInput(GateAnd4x2.PIN_B[1].order, decoderNeg.getOutput(GateNot6.PIN_Y[1].order));
-        carryOr.setInput(GateOr2x4.PIN_C[0].order, carryShSelector.getOutput(GateAnd4x2.PIN_Y[1].order)); // carry for SHR (rightmost bit)
-        carryOr.setInput(GateOr2x4.PIN_D[0].order, false); // last input is not used
+        decoderNeg.setInput(GateNot6.PIN_A[0].order, decoder.getOutput(Decoder416.PIN_Q[4].order), true);
+        carryShSelector.setInput(GateAnd4x2.PIN_A[0].order, getInput(PIN_A[15].order), true);
+        carryShSelector.setInput(GateAnd4x2.PIN_B[0].order, decoderNeg.getOutput(GateNot6.PIN_Y[0].order), true);
+        carryOr.setInput(GateOr2x4.PIN_B[0].order, carryShSelector.getOutput(GateAnd4x2.PIN_Y[0].order), true); // carry for SHL (leftmost bit)
+        decoderNeg.setInput(GateNot6.PIN_A[1].order, decoder.getOutput(Decoder416.PIN_Q[5].order), true);
+        carryShSelector.setInput(GateAnd4x2.PIN_A[1].order, getInput(PIN_A[0].order), true);
+        carryShSelector.setInput(GateAnd4x2.PIN_B[1].order, decoderNeg.getOutput(GateNot6.PIN_Y[1].order), true);
+        carryOr.setInput(GateOr2x4.PIN_C[0].order, carryShSelector.getOutput(GateAnd4x2.PIN_Y[1].order), true); // carry for SHR (rightmost bit)
+        carryOr.setInput(GateOr2x4.PIN_D[0].order, false, true); // last input is not used
         setOutput(PIN_C.order, carryOr.getOutput(GateOr2x4.PIN_Y[0].order));
         // get output from selected module
         // line driver for adder
-        adderSelector.setInput(GateAnd2x4.PIN_A[0].order, decoder.getOutput(Decoder416.PIN_Q[8].order));
-        adderSelector.setInput(GateAnd2x4.PIN_B[0].order, decoder.getOutput(Decoder416.PIN_Q[9].order));
-        adderSelector.setInput(GateAnd2x4.PIN_C[0].order, decoder.getOutput(Decoder416.PIN_Q[10].order));
-        adderSelector.setInput(GateAnd2x4.PIN_D[0].order, decoder.getOutput(Decoder416.PIN_Q[11].order));
-        adderDriver.setInput(LineDriver16.PIN_EN.order, adderSelector.getOutput(GateAnd2x4.PIN_Y[0].order));
+        adderSelector.setInput(GateAnd2x4.PIN_A[0].order, decoder.getOutput(Decoder416.PIN_Q[8].order), true);
+        adderSelector.setInput(GateAnd2x4.PIN_B[0].order, decoder.getOutput(Decoder416.PIN_Q[9].order), true);
+        adderSelector.setInput(GateAnd2x4.PIN_C[0].order, decoder.getOutput(Decoder416.PIN_Q[10].order), true);
+        adderSelector.setInput(GateAnd2x4.PIN_D[0].order, decoder.getOutput(Decoder416.PIN_Q[11].order), true);
+        adderDriver.setInput(LineDriver16.PIN_EN.order, adderSelector.getOutput(GateAnd2x4.PIN_Y[0].order), true);
         // line drivers for other modules
-        compareDriver.setInput(LineDriver16.PIN_EN.order, decoder.getOutput(Decoder416.PIN_Q[12].order));
-        flipBytesDriver.setInput(LineDriver16.PIN_EN.order, decoder.getOutput(Decoder416.PIN_Q[6].order));
-        shLeftDriver.setInput(LineDriver16.PIN_EN.order, decoder.getOutput(Decoder416.PIN_Q[4].order));
-        shRightDriver.setInput(LineDriver16.PIN_EN.order, decoder.getOutput(Decoder416.PIN_Q[5].order));
-        andDriver.setInput(LineDriver16.PIN_EN.order, decoder.getOutput(Decoder416.PIN_Q[13].order));
-        orDriver.setInput(LineDriver16.PIN_EN.order, decoder.getOutput(Decoder416.PIN_Q[14].order));
-        xorDriver.setInput(LineDriver16.PIN_EN.order, decoder.getOutput(Decoder416.PIN_Q[15].order));
+        compareDriver.setInput(LineDriver16.PIN_EN.order, decoder.getOutput(Decoder416.PIN_Q[12].order), false);
+        flipBytesDriver.setInput(LineDriver16.PIN_EN.order, decoder.getOutput(Decoder416.PIN_Q[6].order), false);
+        shLeftDriver.setInput(LineDriver16.PIN_EN.order, decoder.getOutput(Decoder416.PIN_Q[4].order), false);
+        shRightDriver.setInput(LineDriver16.PIN_EN.order, decoder.getOutput(Decoder416.PIN_Q[5].order), false);
+        andDriver.setInput(LineDriver16.PIN_EN.order, decoder.getOutput(Decoder416.PIN_Q[13].order), false);
+        orDriver.setInput(LineDriver16.PIN_EN.order, decoder.getOutput(Decoder416.PIN_Q[14].order), false);
+        xorDriver.setInput(LineDriver16.PIN_EN.order, decoder.getOutput(Decoder416.PIN_Q[15].order), false);
         for(int i=0; i<16; i++) {
-            adderDriver.setInput(LineDriver16.PIN_A[i].order, adder.getOutput(Adder16.PIN_S[i].order));
-            compareDriver.setInput(LineDriver16.PIN_A[i].order, getInput(PIN_A[i].order)); // copy A input - compare does not change result
-            andDriver.setInput(LineDriver16.PIN_A[i].order, and16.getOutput(And16.PIN_Y[i].order));
-            orDriver.setInput(LineDriver16.PIN_A[i].order, or16.getOutput(Or16.PIN_Y[i].order));
-            xorDriver.setInput(LineDriver16.PIN_A[i].order, xor16.getOutput(Xor16.PIN_Y[i].order));
+            adderDriver.setInput(LineDriver16.PIN_A[i].order, adder.getOutput(Adder16.PIN_S[i].order), i==15);
+            compareDriver.setInput(LineDriver16.PIN_A[i].order, getInput(PIN_A[i].order), i==15); // copy A input - compare does not change result
+            andDriver.setInput(LineDriver16.PIN_A[i].order, and16.getOutput(And16.PIN_Y[i].order), i==15);
+            orDriver.setInput(LineDriver16.PIN_A[i].order, or16.getOutput(Or16.PIN_Y[i].order), i==15);
+            xorDriver.setInput(LineDriver16.PIN_A[i].order, xor16.getOutput(Xor16.PIN_Y[i].order), i==15);
         }
         for(int i=0; i<8; i++) {
-            flipBytesDriver.setInput(LineDriver16.PIN_A[i].order, getInput(PIN_A[i+8].order)); // flip bytes in A input
-            flipBytesDriver.setInput(LineDriver16.PIN_A[i+8].order, getInput(PIN_A[i].order)); // might use single line with (i+8) % 16, but this is more verbose
+            flipBytesDriver.setInput(LineDriver16.PIN_A[i].order, getInput(PIN_A[i+8].order), false); // flip bytes in A input
+            flipBytesDriver.setInput(LineDriver16.PIN_A[i+8].order, getInput(PIN_A[i].order), i==7); // might use single line with (i+8) % 16, but this is more verbose
         }
-        for(int i=0; i<15; i++) shLeftDriver.setInput(LineDriver16.PIN_A[i+1].order, getInput(PIN_A[i].order)); // shift A input left
-        shLeftDriver.setInput(LineDriver16.PIN_A[0].order, false);
-        for(int i=0; i<15; i++) shRightDriver.setInput(LineDriver16.PIN_A[i].order, getInput(PIN_A[i+1].order)); // shift A input right
-        shRightDriver.setInput(LineDriver16.PIN_A[15].order, false);
+        for(int i=0; i<15; i++) shLeftDriver.setInput(LineDriver16.PIN_A[i+1].order, getInput(PIN_A[i].order), false); // shift A input left
+        shLeftDriver.setInput(LineDriver16.PIN_A[0].order, false, true);
+        for(int i=0; i<15; i++) shRightDriver.setInput(LineDriver16.PIN_A[i].order, getInput(PIN_A[i+1].order), false); // shift A input right
+        shRightDriver.setInput(LineDriver16.PIN_A[15].order, false, true);
 
         // update output
         LineDriver16 driverOut =
