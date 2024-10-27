@@ -41,6 +41,13 @@ public class ComponentTest {
     }
 
     @Test
+    @DisplayName(("Truth table for 2-to-4 decoder (half 74139)"))
+    void testDecoder2To4() {
+        Decoder24 dec = new Decoder24("DEC");
+        testComponent(dec, new TestReference("Decoder2To4.txt", 3, 4));
+    }
+
+    @Test
     @DisplayName(("Truth table for 4-bit adder (7483)"))
     void testAdder4() {
         Adder4 adder = new Adder4("ADD4");
