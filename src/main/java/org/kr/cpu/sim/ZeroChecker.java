@@ -16,11 +16,11 @@ public class ZeroChecker extends Component {
     @Override
     protected void updateOutput() {
         //NOTE: the testability of below connections highly depends on input data. To actually fully test it we would need full truth table
-        gateOrResult.setInput(GateOr2x4.PIN_A[0].order, gateOr[0].getOutput(GateOr2x4.PIN_Y[0].order));
-        gateOrResult.setInput(GateOr2x4.PIN_B[0].order, gateOr[0].getOutput(GateOr2x4.PIN_Y[1].order));
-        gateOrResult.setInput(GateOr2x4.PIN_C[0].order, gateOr[1].getOutput(GateOr2x4.PIN_Y[0].order));
-        gateOrResult.setInput(GateOr2x4.PIN_D[0].order, gateOr[1].getOutput(GateOr2x4.PIN_Y[1].order));
-        gateNot.setInput(0, gateOrResult.getOutput(GateOr2x4.PIN_Y[0].order));
+        gateOrResult.setInput(GateOr2x4.PIN_A[0].order, gateOr[0].getOutput(GateOr2x4.PIN_Y[0].order), true);
+        gateOrResult.setInput(GateOr2x4.PIN_B[0].order, gateOr[0].getOutput(GateOr2x4.PIN_Y[1].order),true);
+        gateOrResult.setInput(GateOr2x4.PIN_C[0].order, gateOr[1].getOutput(GateOr2x4.PIN_Y[0].order),true);
+        gateOrResult.setInput(GateOr2x4.PIN_D[0].order, gateOr[1].getOutput(GateOr2x4.PIN_Y[1].order),true);
+        gateNot.setInput(0, gateOrResult.getOutput(GateOr2x4.PIN_Y[0].order),true);
         setOutput(PIN_Z.order, gateNot.getOutput(0));
     }
 
