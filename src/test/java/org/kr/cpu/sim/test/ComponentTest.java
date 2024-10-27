@@ -194,7 +194,6 @@ public class ComponentTest {
             //row.print();
             for (int j = 0; j < row.getInputSize(); j++)
                 comp.setInput(j, row.getInput(j), j == row.getInputSize()-1);
-            //comp.setInput(pins, values);
             for (int j = 0; j < row.getOutputSize(); j++)
                 assert (comp.getOutput(j) == row.getOutput(j));
         }
