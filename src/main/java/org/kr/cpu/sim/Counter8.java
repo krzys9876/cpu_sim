@@ -5,7 +5,7 @@ public class Counter8 extends Component {
     static final OutputPin[] PIN_Q = initOutputPins("Q", 0, 8);
     static final OutputPin PIN_C = new OutputPin("C", 8);
 
-    Counter8(String id) {
+    public Counter8(String id) {
         super(id, new boolean[1], new boolean[9]);
     }
 
