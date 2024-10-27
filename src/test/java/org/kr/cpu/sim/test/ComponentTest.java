@@ -27,6 +27,13 @@ public class ComponentTest {
     }
 
     @Test
+    @DisplayName("Truth table for Counter16")
+    void testCounter16() {
+        Counter16 cnt = new Counter16("CNT16");
+        testComponent(cnt, new TestReference("Counter16.txt", 1, 5));
+    }
+
+    @Test
     @DisplayName(("Truth table for 4-to-16 decoder (74154)"))
     void testDecoder4To16() {
         Decoder416 dec = new Decoder416("DEC");

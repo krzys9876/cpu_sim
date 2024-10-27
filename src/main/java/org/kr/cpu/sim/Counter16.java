@@ -5,7 +5,7 @@ public class Counter16 extends Component {
     static final OutputPin[] PIN_Q = initOutputPins("Q", 0, 16);
     static final OutputPin PIN_C = new OutputPin("C", 16);
 
-    Counter16(String id) {
+    public Counter16(String id) {
         super(id, new boolean[1], new boolean[17]);
     }
 
