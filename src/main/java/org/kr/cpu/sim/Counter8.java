@@ -13,20 +13,13 @@ public class Counter8 extends Component {
 
     @Override
     protected void updateOutput() {
+        state[0].setInput(Counter4.PIN_CLK.order, getInput(PIN_CLK.order), true);
+        state[1].setInput(Counter4.PIN_CLK.order, state[0].getOutput(Counter4.PIN_C.order), true);
+
         for(int i = 0; i < 4; i++) {
             setOutput(PIN_Q[i].order, state[0].getOutput(Counter4.PIN_Q[i].order));
             setOutput(PIN_Q[i+4].order, state[1].getOutput(Counter4.PIN_Q[i].order));
         }
         setOutput(PIN_C.order, state[1].getOutput(Counter4.PIN_C.order));
-    }
-
-    @Override
-    public void setInput(int pinNo, boolean value, boolean shouldRefresh) {
-        super.setInput(pinNo, value, false);
-
-        state[0].setInput(pinNo, value, shouldRefresh);
-        state[1].setInput(Counter4.PIN_CLK.order, state[0].getOutput(Counter4.PIN_C.order), shouldRefresh);
-
-        updateOutput();
     }
 }
