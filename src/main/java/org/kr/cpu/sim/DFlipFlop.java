@@ -9,22 +9,23 @@ public class DFlipFlop extends Component {
     public DFlipFlop(String id) { super(id, new boolean[2], new boolean[] {true, false}); }
 
     private boolean state = true;
+    private boolean prevClk = false;
 
     @Override
     protected void updateOutput() {
-        setOutput(PIN_Q.order,  state);
-        setOutput(PIN_nQ.order, !state);
+        boolean currClk = getInput(PIN_CLK.order);
+        boolean clkRisingEdge = currClk && !prevClk;
+        prevClk = currClk;
+        if(clkRisingEdge) {
+            state = getInput(PIN_D.order);
+            setOutput(PIN_Q.order,  state);
+            setOutput(PIN_nQ.order, !state);
+        }
     }
 
     @Override
     public void setInput(int pinNo, boolean value, boolean shouldRefresh) {
-        boolean prevClk = getInput(PIN_CLK.order);
-        boolean prevD = getInput(PIN_D.order);
         super.setInput(pinNo, value, false);
-
-        boolean clkRisingEdge = pinNo == PIN_CLK.order && value && !prevClk;
-        state = clkRisingEdge ? prevD : state;
-
         if(shouldRefresh) updateOutput();
     }
 
