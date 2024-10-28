@@ -11,19 +11,20 @@ public class And16 extends Component {
             new GateAnd4x2("AND3"), new GateAnd4x2("AND4")};
 
     @Override
-    protected void updateOutput() {}
+    protected void updateOutput() {
+        // identify which component should be affected
+        for(int i=0; i<ands.length; i++) {
+            for(int j=0; j<GateAnd4x2.PIN_A.length; j++) {
+                ands[i].setInput(GateAnd4x2.PIN_A[j].order, getInput(PIN_A[i*4+j].order), false);
+                ands[i].setInput(GateAnd4x2.PIN_B[j].order, getInput(PIN_B[i*4+j].order), true);
+                setOutput(PIN_Y[i*4+j].order, ands[i].getOutput(GateAnd4x2.PIN_Y[j].order));
+            }
+        }
+    }
 
     @Override
     public void setInput(int pinNo, boolean value, boolean shouldRefresh) {
         super.setInput(pinNo, value, false);
-
-        // identify which component should be affected
-        int segmentNo = pinNo % 16;
-        int andNum = segmentNo / 4;
-        int gateNo = segmentNo % 4;
-        boolean ab = pinNo < 16; // A true, B false
-        ands[andNum].setInput(ab ? GateAnd4x2.PIN_A[gateNo].order : GateAnd4x2.PIN_B[gateNo].order, value);
-        // set only affected output (always)
-        setOutput(PIN_Y[segmentNo].order, ands[andNum].getOutput(GateAnd4x2.PIN_Y[gateNo].order));
+        if(shouldRefresh) updateOutput();
     }
 }
