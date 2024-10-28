@@ -6,10 +6,17 @@ import org.kr.cpu.sim.*;
 
 public class ComponentTest {
     @Test
-    @DisplayName("Sample sequence for D-FLipFlop")
+    @DisplayName("Sample sequence for D-FLipFlop (half 7474)")
     void testDFLipFlop() {
         DFlipFlop dff = new DFlipFlop("FF1");
         testComponent(dff, new TestReference("DFlipFlop.txt", 2,2));
+    }
+
+    @Test
+    @DisplayName("Sample sequence for 8-bit latch (74374)")
+    void testLatch8() {
+        Latch8 l8 = new Latch8("L8");
+        testComponent(l8, new TestReference("Latch8.txt", 10,8));
     }
 
     @Test
