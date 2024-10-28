@@ -1,9 +1,13 @@
-package org.kr.cpu.sim;
+package org.kr.cpu.sim.component;
+
+import org.kr.cpu.sim.Component;
+import org.kr.cpu.sim.InputPin;
+import org.kr.cpu.sim.OutputPin;
 
 public class Counter4 extends Component {
-    static final InputPin PIN_CLK = new InputPin("CLK", 0);
-    static final OutputPin[] PIN_Q = initOutputPins("Q", 0,4);
-    static final OutputPin PIN_C = new OutputPin("C", 4);
+    public static final InputPin PIN_CLK = new InputPin("CLK", 0);
+    public static final OutputPin[] PIN_Q = initOutputPins("Q", 0,4);
+    public static final OutputPin PIN_C = new OutputPin("C", 4);
 
     public Counter4(String id) { super(id, new boolean[1], new boolean[5]); }
 

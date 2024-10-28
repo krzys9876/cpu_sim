@@ -1,10 +1,14 @@
-package org.kr.cpu.sim;
+package org.kr.cpu.sim.component;
+
+import org.kr.cpu.sim.Component;
+import org.kr.cpu.sim.InputPin;
+import org.kr.cpu.sim.OutputPin;
 
 //7432
 public class GateOr4x2 extends Component {
-    static final InputPin[] PIN_A = initInputPins("A", 0, 4);
-    static final InputPin[] PIN_B = initInputPins("B", 4, 4);
-    static final OutputPin[] PIN_Y = initOutputPins("Y", 0, 4);
+    public static final InputPin[] PIN_A = initInputPins("A", 0, 4);
+    public static final InputPin[] PIN_B = initInputPins("B", 4, 4);
+    public static final OutputPin[] PIN_Y = initOutputPins("Y", 0, 4);
 
     public GateOr4x2(String id) {
         super(id, new boolean[8], new boolean[4]);

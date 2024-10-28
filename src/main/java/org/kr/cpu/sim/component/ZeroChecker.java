@@ -1,8 +1,12 @@
-package org.kr.cpu.sim;
+package org.kr.cpu.sim.component;
+
+import org.kr.cpu.sim.Component;
+import org.kr.cpu.sim.InputPin;
+import org.kr.cpu.sim.OutputPin;
 
 public class ZeroChecker extends Component {
-    static final InputPin[] PIN_A = initInputPins("A", 0, 16);
-    static final OutputPin PIN_Z = new OutputPin("Z", 0);
+    public static final InputPin[] PIN_A = initInputPins("A", 0, 16);
+    public static final OutputPin PIN_Z = new OutputPin("Z", 0);
 
     public ZeroChecker(String id) {
         super(id, new boolean[16], new boolean[1]);

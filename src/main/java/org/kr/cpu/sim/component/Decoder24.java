@@ -1,10 +1,14 @@
-package org.kr.cpu.sim;
+package org.kr.cpu.sim.component;
 
-// 74154
+import org.kr.cpu.sim.Component;
+import org.kr.cpu.sim.InputPin;
+import org.kr.cpu.sim.OutputPin;
+
+// 74139
 public class Decoder24 extends Component {
-    static final InputPin[] PIN_D = initInputPins("D", 0, 2);
-    static final InputPin PIN_EN = new InputPin("EN", 2); // ~EN - active low
-    static final OutputPin[] PIN_Q = initOutputPins("Q", 0, 4);
+    public static final InputPin[] PIN_D = initInputPins("D", 0, 2);
+    public static final InputPin PIN_EN = new InputPin("EN", 2); // ~EN - active low
+    public static final OutputPin[] PIN_Q = initOutputPins("Q", 0, 4);
 
     @Override
     public void updateOutput() {

@@ -9,7 +9,7 @@ public abstract class Component {
     public boolean getOutput(int index) { return output[index];}
     public void setOutput(int index, boolean value) { output[index] = value;}
 
-    Component(String id, boolean[] input, boolean[] output) {
+    public Component(String id, boolean[] input, boolean[] output) {
         this.id = id;
         this.input = input;
         this.output = output;

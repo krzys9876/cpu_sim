@@ -1,8 +1,12 @@
-package org.kr.cpu.sim;
+package org.kr.cpu.sim.component;
+
+import org.kr.cpu.sim.Component;
+import org.kr.cpu.sim.InputPin;
+import org.kr.cpu.sim.OutputPin;
 
 public class SignFlipper16 extends Component {
-    static final InputPin[] PIN_A = initInputPins("A", 0, 16);
-    static final OutputPin[] PIN_Y = initOutputPins("Y", 0, 16);
+    public static final InputPin[] PIN_A = initInputPins("A", 0, 16);
+    public static final OutputPin[] PIN_Y = initOutputPins("Y", 0, 16);
 
     private final Inverter18 inverter = new Inverter18("INV");
     private final Incrementer16 incrementer = new Incrementer16("INC");

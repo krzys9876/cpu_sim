@@ -1,10 +1,14 @@
-package org.kr.cpu.sim;
+package org.kr.cpu.sim.component;
+
+import org.kr.cpu.sim.Component;
+import org.kr.cpu.sim.InputPin;
+import org.kr.cpu.sim.OutputPin;
 
 public class LineSelector2 extends Component {
-    static final InputPin PIN_S = new InputPin("S", 0); // 0 - Y=a, 1 - Y=B
-    static final InputPin[] PIN_A = initInputPins("A", 1, 16);
-    static final InputPin[] PIN_B = initInputPins("B", 17, 16);
-    static final OutputPin[] PIN_Y = initOutputPins("Y", 0, 16);
+    public static final InputPin PIN_S = new InputPin("S", 0); // 0 - Y=a, 1 - Y=B
+    public static final InputPin[] PIN_A = initInputPins("A", 1, 16);
+    public static final InputPin[] PIN_B = initInputPins("B", 17, 16);
+    public static final OutputPin[] PIN_Y = initOutputPins("Y", 0, 16);
 
     public LineSelector2(String id) { super(id, new boolean[1+2*16], new boolean[16]); }
 

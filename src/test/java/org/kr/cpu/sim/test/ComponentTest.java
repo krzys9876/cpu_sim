@@ -3,6 +3,7 @@ package org.kr.cpu.sim.test;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.kr.cpu.sim.*;
+import org.kr.cpu.sim.component.*;
 
 public class ComponentTest {
     @Test

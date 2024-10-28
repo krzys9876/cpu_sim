@@ -1,9 +1,13 @@
-package org.kr.cpu.sim;
+package org.kr.cpu.sim.component;
+
+import org.kr.cpu.sim.Component;
+import org.kr.cpu.sim.InputPin;
+import org.kr.cpu.sim.OutputPin;
 
 public class LineDriver16 extends Component {
-    static final InputPin PIN_EN = new InputPin("EN", 0);
-    static final InputPin[] PIN_A = initInputPins("A", 1, 16);
-    static final OutputPin[] PIN_Y = initOutputPins("Y", 0, 16);
+    public static final InputPin PIN_EN = new InputPin("EN", 0);
+    public static final InputPin[] PIN_A = initInputPins("A", 1, 16);
+    public static final OutputPin[] PIN_Y = initOutputPins("Y", 0, 16);
 
     public LineDriver16(String id) { super(id, new boolean[17], new boolean[16]); }
 

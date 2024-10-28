@@ -1,5 +1,9 @@
 package org.kr.cpu.sim;
 
+import org.kr.cpu.sim.component.Counter16;
+import org.kr.cpu.sim.component.DFlipFlop;
+import org.kr.cpu.sim.component.Decoder416;
+
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 

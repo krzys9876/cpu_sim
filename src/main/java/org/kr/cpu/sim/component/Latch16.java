@@ -1,11 +1,15 @@
-package org.kr.cpu.sim;
+package org.kr.cpu.sim.component;
+
+import org.kr.cpu.sim.Component;
+import org.kr.cpu.sim.InputPin;
+import org.kr.cpu.sim.OutputPin;
 
 public class Latch16 extends Component {
     // OE pin should be checked by components using latch (just like line driver)
-    static final InputPin PIN_OE = new InputPin("OE", 0);
-    static final InputPin[] PIN_D = initInputPins("D", 1, 16);
-    static final InputPin PIN_CLK = new InputPin("CLK", 17);
-    static final OutputPin[] PIN_Q = initOutputPins("Q", 0, 16);
+    public static final InputPin PIN_OE = new InputPin("OE", 0);
+    public static final InputPin[] PIN_D = initInputPins("D", 1, 16);
+    public static final InputPin PIN_CLK = new InputPin("CLK", 17);
+    public static final OutputPin[] PIN_Q = initOutputPins("Q", 0, 16);
 
     public Latch16(String id) { super(id, new boolean[18], new boolean[16]); }
 

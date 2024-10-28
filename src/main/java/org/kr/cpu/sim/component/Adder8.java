@@ -1,11 +1,15 @@
-package org.kr.cpu.sim;
+package org.kr.cpu.sim.component;
+
+import org.kr.cpu.sim.Component;
+import org.kr.cpu.sim.InputPin;
+import org.kr.cpu.sim.OutputPin;
 
 public class Adder8 extends Component {
-    static final InputPin PIN_C0 = new InputPin("C0", 0);
-    static final InputPin[] PIN_A = initInputPins("A", 1, 8);
-    static final InputPin[] PIN_B = initInputPins("B", 9, 8);
-    static final OutputPin[] PIN_S = initOutputPins("S", 0, 8);
-    static final OutputPin PIN_C8 = new OutputPin("C8", 8);
+    public static final InputPin PIN_C0 = new InputPin("C0", 0);
+    public static final InputPin[] PIN_A = initInputPins("A", 1, 8);
+    public static final InputPin[] PIN_B = initInputPins("B", 9, 8);
+    public static final OutputPin[] PIN_S = initOutputPins("S", 0, 8);
+    public static final OutputPin PIN_C8 = new OutputPin("C8", 8);
 
     private final Adder4[] state = new Adder4[] {new Adder4("ADD1"), new Adder4("ADD2")};
 

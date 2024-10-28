@@ -1,4 +1,8 @@
-package org.kr.cpu.sim;
+package org.kr.cpu.sim.component;
+
+import org.kr.cpu.sim.Component;
+import org.kr.cpu.sim.InputPin;
+import org.kr.cpu.sim.OutputPin;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -6,10 +10,10 @@ import java.util.stream.IntStream;
 
 public class Latch8 extends Component {
     // OE pin should be checked by components using latch (just like line driver)
-    static final InputPin PIN_OE = new InputPin("OE", 0);
-    static final InputPin[] PIN_D = initInputPins("D", 1, 8);
-    static final InputPin PIN_CLK = new InputPin("CLK", 9);
-    static final OutputPin[] PIN_Q = initOutputPins("Q", 0, 8);
+    public static final InputPin PIN_OE = new InputPin("OE", 0);
+    public static final InputPin[] PIN_D = initInputPins("D", 1, 8);
+    public static final InputPin PIN_CLK = new InputPin("CLK", 9);
+    public static final OutputPin[] PIN_Q = initOutputPins("Q", 0, 8);
 
     public Latch8(String id) {
         super(id, new boolean[10], new boolean[8]);

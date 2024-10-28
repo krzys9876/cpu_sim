@@ -1,9 +1,13 @@
-package org.kr.cpu.sim;
+package org.kr.cpu.sim.component;
+
+import org.kr.cpu.sim.Component;
+import org.kr.cpu.sim.InputPin;
+import org.kr.cpu.sim.OutputPin;
 
 public class Or16 extends Component {
-    static final InputPin[] PIN_A = initInputPins("A", 0, 16);
-    static final InputPin[] PIN_B = initInputPins("B", 16, 16);
-    static final OutputPin[] PIN_Y = initOutputPins("Y", 0, 16);
+    public static final InputPin[] PIN_A = initInputPins("A", 0, 16);
+    public static final InputPin[] PIN_B = initInputPins("B", 16, 16);
+    public static final OutputPin[] PIN_Y = initOutputPins("Y", 0, 16);
 
     public Or16(String id) { super(id, new boolean[16*2], new boolean[16]);}
 

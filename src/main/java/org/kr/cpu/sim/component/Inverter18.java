@@ -1,8 +1,12 @@
-package org.kr.cpu.sim;
+package org.kr.cpu.sim.component;
+
+import org.kr.cpu.sim.Component;
+import org.kr.cpu.sim.InputPin;
+import org.kr.cpu.sim.OutputPin;
 
 public class Inverter18 extends Component {
-    static final InputPin[] PIN_A = initInputPins("A", 0, 18);
-    static final OutputPin[] PIN_Y = initOutputPins("Y", 0, 18);
+    public static final InputPin[] PIN_A = initInputPins("A", 0, 18);
+    public static final OutputPin[] PIN_Y = initOutputPins("Y", 0, 18);
 
     public Inverter18(String id) {
         super(id, new boolean[18], new boolean[18]);

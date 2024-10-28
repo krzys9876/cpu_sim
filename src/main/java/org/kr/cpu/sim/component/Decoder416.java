@@ -1,11 +1,15 @@
-package org.kr.cpu.sim;
+package org.kr.cpu.sim.component;
+
+import org.kr.cpu.sim.Component;
+import org.kr.cpu.sim.InputPin;
+import org.kr.cpu.sim.OutputPin;
 
 // 74154
 public class Decoder416 extends Component {
-    static final InputPin[] PIN_D = initInputPins("D", 0, 4);
-    static final InputPin PIN_EN1 = new InputPin("EN1", 4); // ~EN1 - active low
-    static final InputPin PIN_EN2 = new InputPin("EN2", 5); // ~EN2 - active low
-    static final OutputPin[] PIN_Q = initOutputPins("Q", 0, 16);
+    public static final InputPin[] PIN_D = initInputPins("D", 0, 4);
+    public static final InputPin PIN_EN1 = new InputPin("EN1", 4); // ~EN1 - active low
+    public static final InputPin PIN_EN2 = new InputPin("EN2", 5); // ~EN2 - active low
+    public static final OutputPin[] PIN_Q = initOutputPins("Q", 0, 16);
 
     public Decoder416(String id) {
         super(id, new boolean[6], new boolean[16]);
