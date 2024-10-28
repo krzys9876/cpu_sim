@@ -11,19 +11,19 @@ public class Or16 extends Component {
             new GateOr4x2("OR3"), new GateOr4x2("OR4")};
 
     @Override
-    protected void updateOutput() {}
+    protected void updateOutput() {
+        for(int i=0; i<ors.length; i++) {
+            for(int j=0; j<GateAnd4x2.PIN_A.length; j++) {
+                ors[i].setInput(GateAnd4x2.PIN_A[j].order, getInput(PIN_A[i*4+j].order), false);
+                ors[i].setInput(GateAnd4x2.PIN_B[j].order, getInput(PIN_B[i*4+j].order), true);
+                setOutput(PIN_Y[i*4+j].order, ors[i].getOutput(GateAnd4x2.PIN_Y[j].order));
+            }
+        }
+    }
 
     @Override
     public void setInput(int pinNo, boolean value, boolean shouldRefresh) {
         super.setInput(pinNo, value, false);
-
-        // identify which component should be affected
-        int segmentNo = pinNo % 16;
-        int andNum = segmentNo / 4;
-        int gateNo = segmentNo % 4;
-        boolean ab = pinNo < 16; // A true, B false
-        ors[andNum].setInput(ab ? GateOr4x2.PIN_A[gateNo].order : GateOr4x2.PIN_B[gateNo].order, value);
-        // set only affected output (always)
-        setOutput(PIN_Y[segmentNo].order, ors[andNum].getOutput(GateOr4x2.PIN_Y[gateNo].order));
+        if(shouldRefresh) updateOutput();
     }
 }
