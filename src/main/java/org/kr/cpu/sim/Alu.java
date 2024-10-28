@@ -37,10 +37,10 @@ public class Alu extends Component {
     public Alu(String id)  {
         super(id, new boolean[4+2*16], new boolean[16+2]);
         for(int i=0; i<16; i++) {
-            driverInc.setInput(LineDriver16.PIN_A[i].order, false);
-            driverDec.setInput(LineDriver16.PIN_A[i].order, true);
+            driverInc.setInput(LineDriver16.PIN_A[i].order, false, false);
+            driverDec.setInput(LineDriver16.PIN_A[i].order, true, i==15);
         }
-        driverInc.setInput(LineDriver16.PIN_A[0].order, true); // do not forget to set 1
+        driverInc.setInput(LineDriver16.PIN_A[0].order, true, true); // do not forget to set 1
     }
 
     @Override
@@ -62,7 +62,7 @@ public class Alu extends Component {
         driverInc.setInput(LineDriver16.PIN_EN.order, decoder.getOutput(Decoder416.PIN_Q[10].order), true); // INC - 10
         driverDec.setInput(LineDriver16.PIN_EN.order, decoder.getOutput(Decoder416.PIN_Q[11].order), true); // DEC - 11
         // update adder
-        adder.setInput(Adder16.PIN_C0.order, false);
+        adder.setInput(Adder16.PIN_C0.order, false, true);
         // select proper driver for B operand
         LineDriver16 driverB =
                 !driverAdd.getInput(LineDriver16.PIN_EN.order) ? driverAdd :
@@ -145,7 +145,7 @@ public class Alu extends Component {
                 xorDriver;
         for(int i=0; i<16; i++) setOutput(PIN_Y[i].order, driverOut.getOutput(LineDriver16.PIN_Y[i].order));
         // check for zero
-        for(int i=0; i<16; i++) zero.setInput(ZeroChecker.PIN_A[i].order, getOutput(PIN_Y[i].order));
+        for(int i=0; i<16; i++) zero.setInput(ZeroChecker.PIN_A[i].order, getOutput(PIN_Y[i].order), i==15);
         setOutput(PIN_Z.order, zero.getOutput(ZeroChecker.PIN_Z.order));
     }
 }

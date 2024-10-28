@@ -7,7 +7,7 @@ public class GateNot6 extends Component {
 
     public GateNot6(String id) {
         super(id, new boolean[6], new boolean[6]);
-        for(int i=0; i<6; i++) setInput(i, false);
+        for(int i=0; i<6; i++) setInput(i, false, i==5);
     }
 
     @Override

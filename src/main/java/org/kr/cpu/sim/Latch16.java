@@ -17,8 +17,8 @@ public class Latch16 extends Component {
         state[1].setInput(Latch8.PIN_OE.order, getInput(PIN_OE.order), false);
 
         for(int i=0; i<Latch8.PIN_D.length; i++) {
-            state[0].setInput(Latch8.PIN_D[i].order, getInput(PIN_D[i].order));
-            state[1].setInput(Latch8.PIN_D[i].order, getInput(PIN_D[i+8].order));
+            state[0].setInput(Latch8.PIN_D[i].order, getInput(PIN_D[i].order), false);
+            state[1].setInput(Latch8.PIN_D[i].order, getInput(PIN_D[i+8].order), false);
         }
         state[0].setInput(Latch8.PIN_CLK.order, getInput(PIN_CLK.order), true);
         state[1].setInput(Latch8.PIN_CLK.order, getInput(PIN_CLK.order), true);

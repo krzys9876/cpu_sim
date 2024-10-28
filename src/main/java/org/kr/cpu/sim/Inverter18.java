@@ -6,7 +6,7 @@ public class Inverter18 extends Component {
 
     public Inverter18(String id) {
         super(id, new boolean[18], new boolean[18]);
-        for(int i=0; i<18; i++) setInput(i, false);
+        for(int i=0; i<18; i++) setInput(i, false, i==17);
     }
 
     private final GateNot6[] state = new GateNot6[] {new GateNot6("NOT1"), new GateNot6("NOT2"), new GateNot6("NOT3")};

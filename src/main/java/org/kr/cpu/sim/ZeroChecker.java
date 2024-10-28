@@ -6,7 +6,7 @@ public class ZeroChecker extends Component {
 
     public ZeroChecker(String id) {
         super(id, new boolean[16], new boolean[1]);
-        for(int i=0; i<16; i++) setInput(i, false);
+        for(int i=0; i<16; i++) setInput(i, false, i==15);
     }
 
     private final GateOr2x4[] gateOr = new GateOr2x4[] {new GateOr2x4("OR1"), new GateOr2x4("OR2")};

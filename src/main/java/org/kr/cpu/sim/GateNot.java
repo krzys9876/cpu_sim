@@ -6,7 +6,7 @@ public class GateNot extends Component {
 
     public GateNot(String id) {
         super(id, new boolean[1], new boolean[1]);
-        setInput(0,false);
+        setInput(0,false, true);
     }
 
     @Override

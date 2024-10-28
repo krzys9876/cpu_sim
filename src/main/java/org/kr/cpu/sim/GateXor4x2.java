@@ -8,7 +8,7 @@ public class GateXor4x2 extends Component {
 
     public GateXor4x2(String id) {
         super(id, new boolean[8], new boolean[4]);
-        for(int i=0; i<8; i++) setInput(i, false);
+        for(int i=0; i<8; i++) setInput(i, false, i == 7);
     }
 
     @Override

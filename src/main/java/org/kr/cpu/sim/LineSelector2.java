@@ -16,10 +16,10 @@ public class LineSelector2 extends Component {
     @Override
     protected void updateOutput() {
         select.setInput(GateNot.PIN_A.order, getInput(PIN_S.order), true);
-        lines[0].setInput(LineDriver8.PIN_EN.order, getInput(PIN_S.order)); // S = 0 -> A
-        lines[1].setInput(LineDriver8.PIN_EN.order, getInput(PIN_S.order));
-        lines[2].setInput(LineDriver8.PIN_EN.order, select.getOutput(GateNot.PIN_Y.order)); // S=1 -> B
-        lines[3].setInput(LineDriver8.PIN_EN.order, select.getOutput(GateNot.PIN_Y.order));
+        lines[0].setInput(LineDriver8.PIN_EN.order, getInput(PIN_S.order), true); // S = 0 -> A
+        lines[1].setInput(LineDriver8.PIN_EN.order, getInput(PIN_S.order), true);
+        lines[2].setInput(LineDriver8.PIN_EN.order, select.getOutput(GateNot.PIN_Y.order), true); // S=1 -> B
+        lines[3].setInput(LineDriver8.PIN_EN.order, select.getOutput(GateNot.PIN_Y.order), true);
 
         for(int i=0; i<LineDriver8.PIN_A.length; i++) {
             lines[0].setInput(LineDriver8.PIN_A[i].order, getInput(PIN_A[i].order), i == LineDriver8.PIN_A.length-1);

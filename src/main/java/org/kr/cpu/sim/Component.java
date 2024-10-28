@@ -29,7 +29,6 @@ public abstract class Component {
     }
 
     protected abstract void updateOutput();
-    public void setInput(int pinNo, boolean value) { setInput(pinNo, value, true);}
     public void setInput(int pinNo, boolean value, boolean shouldRefresh) {
         // basic implementation
         assert pinNo >= 0 && pinNo < inputSize;
