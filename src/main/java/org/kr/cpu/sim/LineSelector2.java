@@ -15,6 +15,19 @@ public class LineSelector2 extends Component {
 
     @Override
     protected void updateOutput() {
+        select.setInput(GateNot.PIN_A.order, getInput(PIN_S.order), true);
+        lines[0].setInput(LineDriver8.PIN_EN.order, getInput(PIN_S.order)); // S = 0 -> A
+        lines[1].setInput(LineDriver8.PIN_EN.order, getInput(PIN_S.order));
+        lines[2].setInput(LineDriver8.PIN_EN.order, select.getOutput(GateNot.PIN_Y.order)); // S=1 -> B
+        lines[3].setInput(LineDriver8.PIN_EN.order, select.getOutput(GateNot.PIN_Y.order));
+
+        for(int i=0; i<LineDriver8.PIN_A.length; i++) {
+            lines[0].setInput(LineDriver8.PIN_A[i].order, getInput(PIN_A[i].order), i == LineDriver8.PIN_A.length-1);
+            lines[1].setInput(LineDriver8.PIN_A[i].order, getInput(PIN_A[i+8].order), i == LineDriver8.PIN_A.length-1);
+            lines[2].setInput(LineDriver8.PIN_A[i].order, getInput(PIN_B[i].order), i == LineDriver8.PIN_A.length-1);
+            lines[3].setInput(LineDriver8.PIN_A[i].order, getInput(PIN_B[i+8].order), i == LineDriver8.PIN_A.length-1);
+        }
+
         boolean selected = getInput(PIN_S.order); // 1 -> B, 0 -> A
         for(int i=0; i<8; i++) {
             setOutput(PIN_Y[i].order, (selected ? lines[2] : lines[0]).getOutput(LineDriver8.PIN_Y[i].order));
@@ -25,19 +38,6 @@ public class LineSelector2 extends Component {
     @Override
     public void setInput(int pinNo, boolean value, boolean shouldRefresh) {
         super.setInput(pinNo, value, false);
-
-        if(pinNo == PIN_S.order) {
-            select.setInput(GateNot.PIN_A.order, value);
-            lines[0].setInput(LineDriver8.PIN_EN.order, value); // S = 0 -> A
-            lines[1].setInput(LineDriver8.PIN_EN.order, value);
-            lines[2].setInput(LineDriver8.PIN_EN.order, select.getOutput(GateNot.PIN_Y.order)); // S=1 -> B
-            lines[3].setInput(LineDriver8.PIN_EN.order, select.getOutput(GateNot.PIN_Y.order));
-        }
-        else if(pinNo<=PIN_A[7].order) lines[0].setInput(LineDriver8.PIN_A[pinNo-1].order, value);
-        else if(pinNo<=PIN_A[15].order) lines[1].setInput(LineDriver8.PIN_A[pinNo-8-1].order, value);
-        else if(pinNo<=PIN_B[7].order) lines[2].setInput(LineDriver8.PIN_A[pinNo-16-1].order, value);
-        else lines[3].setInput(LineDriver8.PIN_A[pinNo-16-8-1].order, value);
-
         if(shouldRefresh) updateOutput();
     }
 }
