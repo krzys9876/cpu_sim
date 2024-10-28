@@ -21,13 +21,12 @@ public class Adder4 extends Component {
                 (getInput(pins[3].order) ? 8 : 0);
     }
 
-    private int decode1(InputPin pin) { return getInput(pin.order) ? 1 : 0;}
-
     @Override
     public void updateOutput() {
         int decodedA = decode4(PIN_A);
         int decodedB = decode4(PIN_B);
-        int sum = decodedA + decodedB + decode1(PIN_C0);
+        int decodedC = getInput(PIN_C0.order) ? 1 : 0;
+        int sum = decodedA + decodedB + decodedC;
         setOutput(PIN_C4.order, sum>15);
         for(int i = 0; i < PIN_S.length; i++) {
             setOutput(PIN_S[i].order, (sum & (1 << i)) > 0);
