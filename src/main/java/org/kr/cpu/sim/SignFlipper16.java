@@ -11,15 +11,10 @@ public class SignFlipper16 extends Component {
 
     @Override
     protected void updateOutput() {
-        for (int i = 0; i < 16; i++)
-            incrementer.setInput(Incrementer16.PIN_A[i].order, inverter.getOutput(Incrementer16.PIN_Y[i].order), i==15);
+        for(int i = 0; i<PIN_A.length; i++)
+            inverter.setInput(Inverter18.PIN_A[i].order, getInput(PIN_A[i].order), i == PIN_A.length - 1);
+        for (int i = 0; i < PIN_A.length; i++)
+            incrementer.setInput(Incrementer16.PIN_A[i].order, inverter.getOutput(Incrementer16.PIN_Y[i].order), i==PIN_A.length-1);
         for (int i = 0; i < 16; i++) setOutput(i, incrementer.getOutput(Incrementer16.PIN_Y[i].order));
-    }
-
-    @Override
-    public void setInput(int pinNo, boolean value, boolean shouldRefresh) {
-        super.setInput(pinNo, value, false);
-        inverter.setInput(Inverter18.PIN_A[pinNo].order, value, shouldRefresh);
-        if(shouldRefresh) updateOutput();
     }
 }

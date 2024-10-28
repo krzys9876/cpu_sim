@@ -18,10 +18,4 @@ public class Decoder24 extends Component {
     public Decoder24(String id) {
         super(id, new boolean[3], new boolean[4]);
     }
-
-    @Override
-    public void setInput(int pinNo, boolean value, boolean shouldRefresh) {
-        super.setInput(pinNo, value, false);
-        if(shouldRefresh) updateOutput();
-    }
 }

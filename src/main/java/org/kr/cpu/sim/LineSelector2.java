@@ -34,10 +34,4 @@ public class LineSelector2 extends Component {
             setOutput(PIN_Y[i+8].order, (selected ? lines[3] : lines[1]).getOutput(LineDriver8.PIN_Y[i].order));
         }
     }
-
-    @Override
-    public void setInput(int pinNo, boolean value, boolean shouldRefresh) {
-        super.setInput(pinNo, value, false);
-        if(shouldRefresh) updateOutput();
-    }
 }

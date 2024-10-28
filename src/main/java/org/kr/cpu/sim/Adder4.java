@@ -20,10 +20,4 @@ public class Adder4 extends Component {
             setOutput(PIN_S[i].order, (sum & (1 << i)) > 0);
         }
     }
-
-    @Override
-    public void setInput(int pin, boolean value, boolean shouldRefresh) {
-        super.setInput(pin, value, false);
-        if(shouldRefresh) updateOutput();
-    }
 }

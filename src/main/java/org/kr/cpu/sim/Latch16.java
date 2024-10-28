@@ -28,10 +28,4 @@ public class Latch16 extends Component {
             setOutput(PIN_Q[i+8].order, state[1].getOutput(Latch8.PIN_Q[i].order));
         }
     }
-
-    @Override
-    public void setInput(int pinNo, boolean value, boolean shouldRefresh) {
-        super.setInput(pinNo, value, false);
-        if(shouldRefresh) updateOutput();
-    }
 }

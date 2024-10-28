@@ -38,12 +38,6 @@ public class Latch8 extends Component {
     }
 
     @Override
-    public void setInput(int pinNo, boolean value, boolean shouldRefresh) {
-        super.setInput(pinNo, value, false);
-        if(shouldRefresh) updateOutput();
-    }
-
-    @Override
     public String fullTxt() {
         List<String> l = IntStream.range(0, state.length).mapToObj(i -> state[i] ? "0" : "1").collect(Collectors.toList());
         return super.fullTxt() + " " + (String.join("", l));}

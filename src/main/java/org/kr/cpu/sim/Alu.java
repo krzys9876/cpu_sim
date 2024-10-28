@@ -148,10 +148,4 @@ public class Alu extends Component {
         for(int i=0; i<16; i++) zero.setInput(ZeroChecker.PIN_A[i].order, getOutput(PIN_Y[i].order));
         setOutput(PIN_Z.order, zero.getOutput(ZeroChecker.PIN_Z.order));
     }
-
-    @Override
-    public void setInput(int pinNo, boolean value, boolean shouldRefresh) {
-        super.setInput(pinNo, value, false);
-        if(shouldRefresh) updateOutput();
-    }
 }

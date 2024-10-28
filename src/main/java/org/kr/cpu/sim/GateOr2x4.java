@@ -15,10 +15,4 @@ public class GateOr2x4 extends Component {
         setOutput(PIN_Y[0].order, getInput(PIN_A[0].order) || getInput(PIN_B[0].order) || getInput(PIN_C[0].order) || getInput(PIN_D[0].order));
         setOutput(PIN_Y[1].order, getInput(PIN_A[1].order) || getInput(PIN_B[1].order) || getInput(PIN_C[1].order) || getInput(PIN_D[1].order));
     }
-
-    @Override
-    public void setInput(int pinNo, boolean value, boolean shouldRefresh) {
-        super.setInput(pinNo, value, false);
-        if(shouldRefresh) updateOutput();
-    }
 }

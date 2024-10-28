@@ -31,10 +31,4 @@ public class Adder8 extends Component {
         }
         setOutput(PIN_C8.order, state[1].getOutput(Adder4.PIN_C4.order)); // ADD2 C4
     }
-
-    @Override
-    public void setInput(int pinNo, boolean value, boolean shouldRefresh) {
-        super.setInput(pinNo, value, false);
-        if(shouldRefresh) updateOutput();
-    }
 }

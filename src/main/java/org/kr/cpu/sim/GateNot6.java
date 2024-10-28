@@ -14,11 +14,4 @@ public class GateNot6 extends Component {
     protected void updateOutput() {
         for(int i=0; i<PIN_A.length; i++) setOutput(PIN_Y[i].order, !getInput(PIN_A[i].order));
     }
-
-    @Override
-    public void setInput(int pinNo, boolean value, boolean shouldRefresh) {
-        super.setInput(pinNo, value, false);
-        if(shouldRefresh) updateOutput();
-
-    }
 }

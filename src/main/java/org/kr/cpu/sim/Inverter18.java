@@ -21,10 +21,4 @@ public class Inverter18 extends Component {
             for(int j=0; j<GateNot6.PIN_Y.length; j++)
                 setOutput(PIN_Y[i*6+j].order, state[i].getOutput(GateNot6.PIN_A[j].order));
     }
-
-    @Override
-    public void setInput(int pinNo, boolean value, boolean shouldRefresh) {
-        super.setInput(pinNo, value, false);
-        if(shouldRefresh) updateOutput();
-    }
 }

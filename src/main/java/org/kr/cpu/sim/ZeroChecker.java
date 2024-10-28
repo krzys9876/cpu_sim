@@ -29,10 +29,4 @@ public class ZeroChecker extends Component {
         gateNot.setInput(0, gateOrResult.getOutput(GateOr2x4.PIN_Y[0].order),true);
         setOutput(PIN_Z.order, gateNot.getOutput(0));
     }
-
-    @Override
-    public void setInput(int pinNo, boolean value, boolean shouldRefresh) {
-        super.setInput(pinNo, value, false);
-        if(shouldRefresh) updateOutput();
-    }
 }

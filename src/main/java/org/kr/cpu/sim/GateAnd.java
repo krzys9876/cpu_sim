@@ -11,10 +11,4 @@ public class GateAnd extends Component {
     protected void updateOutput() {
         setOutput(PIN_Y.order, getInput(PIN_A.order) && getInput(PIN_B.order));
     }
-
-    @Override
-    public void setInput(int pinNo, boolean value, boolean shouldRefresh) {
-        super.setInput(pinNo, value, false);
-        if(shouldRefresh) updateOutput();
-    }
 }

@@ -12,10 +12,4 @@ public class LineDriver8 extends Component {
         if(!getInput(PIN_EN.order)) // EN active low
             for (int i=0; i<8; i++) setOutput(PIN_Y[i].order, getInput(PIN_A[i].order));
     }
-
-    @Override
-    public void setInput(int pinNo, boolean value, boolean shouldRefresh) {
-        super.setInput(pinNo, value, false);
-        if(shouldRefresh) updateOutput();
-    }
 }
