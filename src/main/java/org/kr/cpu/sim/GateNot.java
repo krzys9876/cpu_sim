@@ -10,12 +10,13 @@ public class GateNot extends Component {
     }
 
     @Override
-    protected void updateOutput() {}
+    protected void updateOutput() {
+        setOutput(0, !getInput(0));
+    }
 
     @Override
     public void setInput(int pinNo, boolean value, boolean shouldRefresh) {
         super.setInput(pinNo, value, false);
-        // always refresh
-        setOutput(0, !value);
+        if(shouldRefresh) updateOutput();
     }
 }
