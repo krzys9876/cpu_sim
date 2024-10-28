@@ -11,18 +11,15 @@ public class GateAnd4x2 extends Component {
         for(int i=0; i<8; i++) setInput(i, false);
     }
 
-    private void updateGate(int gateNo) {
-        setOutput(PIN_Y[gateNo].order, getInput(PIN_A[gateNo].order) && getInput(PIN_B[gateNo].order));
-    }
-
     @Override
-    protected void updateOutput() {}
+    protected void updateOutput() {
+        for(int i=0; i<PIN_A.length; i++)
+            setOutput(PIN_Y[i].order, getInput(PIN_A[i].order) && getInput(PIN_B[i].order));
+    }
 
     @Override
     public void setInput(int pinNo, boolean value, boolean shouldRefresh) {
         super.setInput(pinNo, value, false);
-        int gateNo = pinNo % 4;
-        // always refresh
-        updateGate(gateNo);
+        if(shouldRefresh) updateOutput();
     }
 }
