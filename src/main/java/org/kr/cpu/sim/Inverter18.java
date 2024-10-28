@@ -12,22 +12,19 @@ public class Inverter18 extends Component {
     private final GateNot6[] state = new GateNot6[] {new GateNot6("NOT1"), new GateNot6("NOT2"), new GateNot6("NOT3")};
 
     @Override
-    protected void updateOutput() {}
+    protected void updateOutput() {
+        for(int i=0; i<state.length; i++)
+            for(int j=0; j<GateNot6.PIN_Y.length; j++)
+                state[i].setInput(GateNot6.PIN_A[j].order, getInput(PIN_A[i*6+j].order), j == GateNot6.PIN_A.length-1);
+
+        for(int i=0; i<state.length; i++)
+            for(int j=0; j<GateNot6.PIN_Y.length; j++)
+                setOutput(PIN_Y[i*6+j].order, state[i].getOutput(GateNot6.PIN_A[j].order));
+    }
 
     @Override
     public void setInput(int pinNo, boolean value, boolean shouldRefresh) {
         super.setInput(pinNo, value, false);
-
-        // always refresh
-        if (pinNo<6) {
-            state[0].setInput(GateNot6.PIN_A[pinNo].order, value, true);
-            setOutput(PIN_Y[pinNo].order, state[0].getOutput(GateNot6.PIN_Y[pinNo].order));
-        } else if (pinNo<12) {
-            state[1].setInput(GateNot6.PIN_A[pinNo-6].order, value, true);
-            setOutput(PIN_Y[pinNo].order, state[1].getOutput(GateNot6.PIN_Y[pinNo-6].order));
-        } else {
-            state[2].setInput(GateNot6.PIN_A[pinNo-12].order, value, true);
-            setOutput(PIN_Y[pinNo].order, state[2].getOutput(GateNot6.PIN_Y[pinNo-12].order));
-        }
+        if(shouldRefresh) updateOutput();
     }
 }
