@@ -20,6 +20,13 @@ public class ComponentTest {
     }
 
     @Test
+    @DisplayName("Sample sequence for 16-bit latch (2x74374)")
+    void testLatch16() {
+        Latch16 l16 = new Latch16("L16");
+        testComponent(l16, new TestReference("Latch16.txt", 18,16));
+    }
+
+    @Test
     @DisplayName("Truth table for Counter4")
     void testCounter4() {
         Counter4 cnt = new Counter4("CNT4");
