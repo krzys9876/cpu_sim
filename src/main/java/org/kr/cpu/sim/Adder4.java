@@ -10,6 +10,15 @@ public class Adder4 extends Component {
 
     public Adder4(String id) { super(id, new boolean[9], new boolean[5]); }
 
+    private int decode4(InputPin[] pins) {
+        return (getInput(pins[0].order) ? 1 : 0) +
+                (getInput(pins[1].order) ? 2 : 0) +
+                (getInput(pins[2].order) ? 4 : 0) +
+                (getInput(pins[3].order) ? 8 : 0);
+    }
+
+    private int decode1(InputPin pin) { return getInput(pin.order) ? 1 : 0;}
+
     @Override
     protected void updateOutput() {
         int decodedA = decode4(PIN_A);

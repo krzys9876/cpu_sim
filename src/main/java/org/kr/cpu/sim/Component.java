@@ -28,7 +28,7 @@ public abstract class Component {
         return txt.toString();
     }
 
-    protected abstract void updateOutput();
+    public abstract void updateOutput();
     public void setInput(int pinNo, boolean value, boolean shouldRefresh) {
         // basic implementation
         assert pinNo >= 0 && pinNo < inputSize;
@@ -37,15 +37,6 @@ public abstract class Component {
     }
     private void setInputDirect(int pinNo, boolean value) { input[pinNo] = value; }
     public boolean getInput(int index) { return input[index]; }
-
-    public int decode4(InputPin[] pins) {
-        return (input[pins[0].order] ? 1 : 0) +
-                (input[pins[1].order] ? 2 : 0) +
-                (input[pins[2].order] ? 4 : 0) +
-                (input[pins[3].order] ? 8 : 0);
-    }
-
-    public int decode1(InputPin pin) { return input[pin.order] ? 1 : 0;}
 
     public static InputPin[] initInputPins(String prefix, int startPin, int count) {
         InputPin[] arr = new InputPin[count];
@@ -58,5 +49,4 @@ public abstract class Component {
         for(int i = 0; i < arr.length; i++) arr[i] = new OutputPin(prefix + i, startPin + i);
         return arr;
     }
-
 }
