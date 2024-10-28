@@ -16,6 +16,12 @@ public class ZeroChecker extends Component {
     @Override
     protected void updateOutput() {
         //NOTE: the testability of below connections highly depends on input data. To actually fully test it we would need full truth table
+        //NOTE2: GateOr2x4 has pins A, B, C, D, and it makes iteration over PIN arrays difficult, this is more readable
+        for(int i=0; i<8; i++) {
+            gateOr[0].setInput(i, getInput(PIN_A[i].order), i == 7);
+            gateOr[1].setInput(i, getInput(PIN_A[i+8].order), i == 7);
+        }
+
         gateOrResult.setInput(GateOr2x4.PIN_A[0].order, gateOr[0].getOutput(GateOr2x4.PIN_Y[0].order), true);
         gateOrResult.setInput(GateOr2x4.PIN_B[0].order, gateOr[0].getOutput(GateOr2x4.PIN_Y[1].order),true);
         gateOrResult.setInput(GateOr2x4.PIN_C[0].order, gateOr[1].getOutput(GateOr2x4.PIN_Y[0].order),true);
@@ -27,10 +33,6 @@ public class ZeroChecker extends Component {
     @Override
     public void setInput(int pinNo, boolean value, boolean shouldRefresh) {
         super.setInput(pinNo, value, false);
-
-        if(pinNo<8) gateOr[0].setInput(pinNo, value);
-        else gateOr[1].setInput(pinNo-8, value);
-
         if(shouldRefresh) updateOutput();
     }
 }
