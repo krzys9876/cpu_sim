@@ -21,22 +21,25 @@ public class Latch8 extends Component {
 
     // start with all zeros
     private final boolean[] state = new boolean[8];
+    private boolean prevClk = false;
+
     @Override
     protected void updateOutput() {
-        for(int i=0; i<PIN_Q.length; i++) setOutput(PIN_Q[i].order,  state[i]);
+        // NOTE: clock should be updated AFTER all data lines, otherwise changes to data would not be reflected in output
+        boolean currClk = getInput(PIN_CLK.order);
+        boolean clkRisingEdge = currClk && !prevClk;
+        prevClk = currClk;
+        if(clkRisingEdge) {
+            for(int i=0; i<PIN_Q.length; i++) {
+                state[i] = getInput(PIN_D[i].order);
+                setOutput(PIN_Q[i].order,  state[i]);
+            }
+        }
     }
 
     @Override
     public void setInput(int pinNo, boolean value, boolean shouldRefresh) {
-        boolean prevClk = getInput(PIN_CLK.order);
-        boolean clkRisingEdge = pinNo == PIN_CLK.order && value && !prevClk;
-        if(clkRisingEdge) {
-            // store state due to rising clock edge
-            // NOTE: clock should be updated AFTER all data lines, otherwise changes to data would not be reflected in output
-            for(int i=0; i<8; i++) state[i] = getInput(PIN_D[i].order);
-        }
         super.setInput(pinNo, value, false);
-
         if(shouldRefresh) updateOutput();
     }
 
