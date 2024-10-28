@@ -12,7 +12,7 @@ public class Inverter18 extends Component {
     private final GateNot6[] state = new GateNot6[] {new GateNot6("NOT1"), new GateNot6("NOT2"), new GateNot6("NOT3")};
 
     @Override
-    protected void updateOutput() {
+    public void updateOutput() {
         for(int i=0; i<state.length; i++)
             for(int j=0; j<GateNot6.PIN_Y.length; j++)
                 state[i].setInput(GateNot6.PIN_A[j].order, getInput(PIN_A[i*6+j].order), j == GateNot6.PIN_A.length-1);

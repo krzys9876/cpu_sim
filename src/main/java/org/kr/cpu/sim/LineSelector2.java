@@ -14,7 +14,7 @@ public class LineSelector2 extends Component {
     };
 
     @Override
-    protected void updateOutput() {
+    public void updateOutput() {
         select.setInput(GateNot.PIN_A.order, getInput(PIN_S.order), true);
         lines[0].setInput(LineDriver8.PIN_EN.order, getInput(PIN_S.order), true); // S = 0 -> A
         lines[1].setInput(LineDriver8.PIN_EN.order, getInput(PIN_S.order), true);

@@ -12,7 +12,7 @@ public class Adder8 extends Component {
     public Adder8(String id) { super(id, new boolean[17], new boolean[9]); }
 
     @Override
-    protected void updateOutput() {
+    public void updateOutput() {
         state[0].setInput(Adder4.PIN_C0.order, getInput(Adder8.PIN_C0.order), false);
         for(int i=0; i<4; i++) {
             state[0].setInput(Adder4.PIN_A[i].order, getInput(Adder8.PIN_A[i].order), false);

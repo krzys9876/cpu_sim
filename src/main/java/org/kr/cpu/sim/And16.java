@@ -11,7 +11,7 @@ public class And16 extends Component {
             new GateAnd4x2("AND3"), new GateAnd4x2("AND4")};
 
     @Override
-    protected void updateOutput() {
+    public void updateOutput() {
         for(int i=0; i<ands.length; i++) {
             for(int j=0; j<GateAnd4x2.PIN_A.length; j++) {
                 ands[i].setInput(GateAnd4x2.PIN_A[j].order, getInput(PIN_A[i*4+j].order), false);

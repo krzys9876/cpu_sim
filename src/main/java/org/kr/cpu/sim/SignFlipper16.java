@@ -10,7 +10,7 @@ public class SignFlipper16 extends Component {
     public SignFlipper16(String id) { super(id, new boolean[16], new boolean[16]);}
 
     @Override
-    protected void updateOutput() {
+    public void updateOutput() {
         for(int i = 0; i<PIN_A.length; i++)
             inverter.setInput(Inverter18.PIN_A[i].order, getInput(PIN_A[i].order), i == PIN_A.length - 1);
         for (int i = 0; i < PIN_A.length; i++)

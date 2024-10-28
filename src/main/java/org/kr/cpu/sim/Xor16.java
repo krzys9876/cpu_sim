@@ -11,7 +11,7 @@ public class Xor16 extends Component {
             new GateXor4x2("XOR3"), new GateXor4x2("XOR4")};
 
     @Override
-    protected void updateOutput() {
+    public void updateOutput() {
         for(int i = 0; i< xors.length; i++) {
             for(int j=0; j<GateAnd4x2.PIN_A.length; j++) {
                 xors[i].setInput(GateAnd4x2.PIN_A[j].order, getInput(PIN_A[i*4+j].order), false);

@@ -16,7 +16,7 @@ public class Incrementer16 extends Component {
     }
 
     @Override
-    protected void updateOutput() {
+    public void updateOutput() {
         for (int i = 0; i < PIN_A.length; i++) adder.setInput(Adder16.PIN_A[i].order, getInput(PIN_A[i].order), i == PIN_A.length - 1);
         for (int i = 0; i < PIN_Y.length; i++) setOutput(PIN_Y[i].order, adder.getOutput(Adder16.PIN_S[i].order));
         setOutput(PIN_C.order, adder.getOutput(Adder16.PIN_C16.order)); // carry

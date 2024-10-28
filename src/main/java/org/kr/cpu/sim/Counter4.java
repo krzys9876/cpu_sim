@@ -12,7 +12,7 @@ public class Counter4 extends Component {
     };
 
     @Override
-    protected void updateOutput() {
+    public void updateOutput() {
         state[0].setInput(DFlipFlop.PIN_D.order, state[0].getOutput(DFlipFlop.PIN_nQ.order), false);
         state[0].setInput(DFlipFlop.PIN_CLK.order, getInput(PIN_CLK.order), true);
         state[1].setInput(DFlipFlop.PIN_D.order, state[1].getOutput(DFlipFlop.PIN_nQ.order), false);

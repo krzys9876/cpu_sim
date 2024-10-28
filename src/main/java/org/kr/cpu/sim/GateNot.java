@@ -10,7 +10,7 @@ public class GateNot extends Component {
     }
 
     @Override
-    protected void updateOutput() {
+    public void updateOutput() {
         setOutput(0, !getInput(0));
     }
 }

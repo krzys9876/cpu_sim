@@ -7,7 +7,7 @@ public class Decoder24 extends Component {
     static final OutputPin[] PIN_Q = initOutputPins("Q", 0, 4);
 
     @Override
-    protected void updateOutput() {
+    public void updateOutput() {
         int decoded = (getInput(PIN_D[0].order) ? 1 : 0) + (getInput(PIN_D[1].order) ? 2 : 0);
         // NOTE: output active low
         for(int i = 0; i < PIN_Q.length; i++) {

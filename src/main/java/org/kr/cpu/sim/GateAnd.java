@@ -8,7 +8,7 @@ public class GateAnd extends Component {
     public GateAnd(String id) { super(id, new boolean[2], new boolean[1]);}
 
     @Override
-    protected void updateOutput() {
+    public void updateOutput() {
         setOutput(PIN_Y.order, getInput(PIN_A.order) && getInput(PIN_B.order));
     }
 }

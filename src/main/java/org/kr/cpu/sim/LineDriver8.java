@@ -8,7 +8,7 @@ public class LineDriver8 extends Component {
     public LineDriver8(String id) { super(id, new boolean[9], new boolean[8]); }
 
     @Override
-    protected void updateOutput() {
+    public void updateOutput() {
         if(!getInput(PIN_EN.order)) // EN active low
             for (int i=0; i<8; i++) setOutput(PIN_Y[i].order, getInput(PIN_A[i].order));
     }

@@ -24,7 +24,7 @@ public class Latch8 extends Component {
     private boolean prevClk = false;
 
     @Override
-    protected void updateOutput() {
+    public void updateOutput() {
         // NOTE: clock should be updated AFTER all data lines, otherwise changes to data would not be reflected in output
         boolean currClk = getInput(PIN_CLK.order);
         boolean clkRisingEdge = currClk && !prevClk;

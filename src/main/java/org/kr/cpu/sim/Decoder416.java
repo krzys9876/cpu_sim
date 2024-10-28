@@ -12,7 +12,7 @@ public class Decoder416 extends Component {
     }
 
     @Override
-    protected void updateOutput() {
+    public void updateOutput() {
         int decoded = (getInput(PIN_D[0].order) ? 1 : 0) +
                 (getInput(PIN_D[1].order) ? 2 : 0) +
                 (getInput(PIN_D[2].order) ? 4 : 0) +

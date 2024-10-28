@@ -12,7 +12,7 @@ public class DFlipFlop extends Component {
     private boolean prevClk = false;
 
     @Override
-    protected void updateOutput() {
+    public void updateOutput() {
         boolean currClk = getInput(PIN_CLK.order);
         boolean clkRisingEdge = currClk && !prevClk;
         prevClk = currClk;

@@ -11,7 +11,7 @@ public class Or16 extends Component {
             new GateOr4x2("OR3"), new GateOr4x2("OR4")};
 
     @Override
-    protected void updateOutput() {
+    public void updateOutput() {
         for(int i=0; i<ors.length; i++) {
             for(int j=0; j<GateAnd4x2.PIN_A.length; j++) {
                 ors[i].setInput(GateAnd4x2.PIN_A[j].order, getInput(PIN_A[i*4+j].order), false);

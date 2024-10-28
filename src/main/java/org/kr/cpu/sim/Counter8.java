@@ -12,7 +12,7 @@ public class Counter8 extends Component {
     private final Counter4[] state = new Counter4[] { new Counter4("CNT1"), new Counter4("CNT2") };
 
     @Override
-    protected void updateOutput() {
+    public void updateOutput() {
         state[0].setInput(Counter4.PIN_CLK.order, getInput(PIN_CLK.order), true);
         state[1].setInput(Counter4.PIN_CLK.order, state[0].getOutput(Counter4.PIN_C.order), true);
 

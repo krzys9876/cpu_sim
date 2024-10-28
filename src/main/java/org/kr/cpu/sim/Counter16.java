@@ -14,7 +14,7 @@ public class Counter16 extends Component {
     };
 
     @Override
-    protected void updateOutput() {
+    public void updateOutput() {
         state[0].setInput(Counter8.PIN_CLK.order, getInput(PIN_CLK.order), true);
         state[1].setInput(Counter8.PIN_CLK.order, state[0].getOutput(Counter8.PIN_C.order), true);
 

@@ -20,7 +20,7 @@ public class Adder4 extends Component {
     private int decode1(InputPin pin) { return getInput(pin.order) ? 1 : 0;}
 
     @Override
-    protected void updateOutput() {
+    public void updateOutput() {
         int decodedA = decode4(PIN_A);
         int decodedB = decode4(PIN_B);
         int sum = decodedA + decodedB + decode1(PIN_C0);

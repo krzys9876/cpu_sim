@@ -44,7 +44,7 @@ public class Alu extends Component {
     }
 
     @Override
-    protected void updateOutput() {
+    public void updateOutput() {
         // update operation decoder
         decoder.setInput(Decoder416.PIN_EN1.order, false, false); // active low
         decoder.setInput(Decoder416.PIN_EN2.order, false, false); // active low

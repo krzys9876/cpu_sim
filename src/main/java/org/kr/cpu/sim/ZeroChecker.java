@@ -14,7 +14,7 @@ public class ZeroChecker extends Component {
     private final GateNot gateNot = new GateNot("NOT");
 
     @Override
-    protected void updateOutput() {
+    public void updateOutput() {
         //NOTE: the testability of below connections highly depends on input data. To actually fully test it we would need full truth table
         //NOTE2: GateOr2x4 has pins A, B, C, D, and it makes iteration over PIN arrays difficult, this is more readable
         for(int i=0; i<8; i++) {

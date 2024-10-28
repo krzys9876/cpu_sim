@@ -12,7 +12,7 @@ public class Latch16 extends Component {
     // start with all zeros
     private final Latch8[] state = new Latch8[] {new Latch8("L1"), new Latch8("L2")};
     @Override
-    protected void updateOutput() {
+    public void updateOutput() {
         state[0].setInput(Latch8.PIN_OE.order, getInput(PIN_OE.order), false);
         state[1].setInput(Latch8.PIN_OE.order, getInput(PIN_OE.order), false);
 

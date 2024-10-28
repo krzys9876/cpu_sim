@@ -10,7 +10,7 @@ public class LineDriver16 extends Component {
     private final LineDriver8[] lines = new LineDriver8[] {new LineDriver8("L1"), new LineDriver8("L2")};
 
     @Override
-    protected void updateOutput() {
+    public void updateOutput() {
         lines[0].setInput(LineDriver8.PIN_EN.order, getInput(PIN_EN.order), false);
         lines[1].setInput(LineDriver8.PIN_EN.order, getInput(PIN_EN.order), false);
         if(!getInput(PIN_EN.order)) { // EN active low
