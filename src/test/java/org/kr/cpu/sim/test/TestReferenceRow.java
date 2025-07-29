@@ -13,7 +13,8 @@ public class TestReferenceRow {
     public int getInputSize() { return input.size(); }
     public int getOutputSize() { return output.size(); }
 
-    public void print() {
+    public void print(int i) {
+        System.out.println("line "+i);
         System.out.println("input");
         for (int j=0; j<getInputSize(); j++) { System.out.print(getInput(j) + " "); }
         System.out.println();

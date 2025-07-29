@@ -224,18 +224,21 @@ public class ComponentTest {
         for(int i=0; i<1; i++) testComponent(alu, new TestReference("Alu.txt", 4+2*16, 16+2));
     }
 
-    //@Test
+    @Test
     @DisplayName(("Truth table for Register"))
     void testRegister() {
         Register reg = new Register("R0");
-        for(int i=0; i<1; i++) testComponent(reg, new TestReference("Register.txt", 16+4, 16));
+        testComponent(reg, new TestReference("Register.txt", 16+4, 16));
     }
 
-    private void testComponent(Component comp, TestReference reference) {
+    private void testComponent(Component comp, TestReference reference) { doTestComponent(comp, reference, false); }
+    private void testComponentDebug(Component comp, TestReference reference) { doTestComponent(comp, reference, true); }
+
+    private void doTestComponent(Component comp, TestReference reference, boolean debug) {
         //reference.print();
         for (int i = 0; i < reference.size(); i++) {
             TestReferenceRow row = reference.getRow(i);
-            //row.print();
+            if(debug) row.print(i);
             for (int j = 0; j < row.getInputSize(); j++)
                 comp.setInput(j, row.getInput(j), j == row.getInputSize()-1);
             for (int j = 0; j < row.getOutputSize(); j++)
